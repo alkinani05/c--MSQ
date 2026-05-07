@@ -421,7 +421,9 @@ function renderQuiz() {
     main.appendChild(tpl);
 
     const q = state.quiz;
-    $('.quiz-mode-badge').textContent = q.mode === 'practice' ? 'PRACTICE' : 'EXAM';
+    const shell = $('.quiz-shell');
+    if (shell) shell.classList.toggle('exam-mode', q.mode === 'exam');
+    $('.quiz-mode-badge').textContent = q.mode === 'practice' ? 'PRACTICE' : (q.mode === 'quick' ? 'QUICK DRILL' : 'EXAM');
     $('.quiz-chapter-title').textContent = q.title;
     $('.quiz-student').textContent = `Student: ${state.user.name}`;
 
