@@ -1,4 +1,10 @@
 tectonic
+
+# Student PII — never commit. Roster lives in website/students.json (id+name only is safe).
+*.xlsx
+*.xls
+*.csv
+
 __pycache__/
 *.pyc
 .DS_Store
