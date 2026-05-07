@@ -27,6 +27,8 @@ const state = {
     user: null,         // { name, email }
     quiz: null,         // active quiz state
     schemaWarning: null, // banner text when bad questions were dropped
+    bank: { version: '', builtAt: '' },
+    config: { submitUrl: '', examKey: '', examWindow: { open: '', close: '' } },
 };
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -38,11 +40,13 @@ async function boot() {
     initThemeToggle();
 
     try {
-        const [q, s] = await Promise.all([
+        const [q, s, c] = await Promise.all([
             fetch('questions.json').then(r => r.json()),
             fetch('students.json').then(r => r.json()),
+            fetch('config.json').then(r => r.ok ? r.json() : {}).catch(() => ({})),
         ]);
         state.chapters = q.chapters;
+        state.bank = { version: q.version || '', builtAt: q.builtAt || '' };
         const { ok, dropped } = validateQuestions(q.questions);
         state.questions = ok;
         if (dropped.length) {
@@ -50,6 +54,11 @@ async function boot() {
             console.warn('[mcq] dropped questions:', dropped);
         }
         state.students = s.students;
+        state.config = {
+            submitUrl: c?.submitUrl || '',
+            examKey: c?.examKey || '',
+            examWindow: c?.examWindow || { open: '', close: '' },
+        };
     } catch (err) {
         document.querySelector('main').innerHTML =
             '<div style="padding:40px;text-align:center;color:var(--error)">Failed to load data. Run <code>python3 build_questions.py</code> and <code>python3 build_students.py</code>, then serve the folder over HTTP (not file://).</div>';
@@ -179,22 +188,32 @@ function renderHome() {
     let mode = 'practice';
     const modeCards = $$('.mode-card');
     const updateChapterLockState = () => {
+        const windowOpen = isExamWindowOpen();
         $$('.chapter-card').forEach(card => {
             const ch = +card.dataset.chapter;
             const count = +card.dataset.count;
-            const locked = mode === 'exam' && hasAttemptedExam(makeQuizKey('chapter', ch, count));
+            const attempted = hasAttemptedExam(makeQuizKey('chapter', ch, count));
+            const locked = mode === 'exam' && (attempted || !windowOpen);
             card.classList.toggle('locked', locked);
             card.disabled = locked;
             const lockTag = card.querySelector('.chapter-lock');
-            if (lockTag) lockTag.hidden = !locked;
+            if (lockTag) {
+                lockTag.hidden = !locked;
+                lockTag.textContent = attempted
+                    ? '✓ Exam attempt submitted'
+                    : '⌛ Exam window closed';
+            }
         });
         const mixedBtn = $('#startMixed');
         if (mixedBtn) {
-            const locked = mode === 'exam' && hasAttemptedExam(makeQuizKey('mixed', null, state.questions.length));
+            const attempted = hasAttemptedExam(makeQuizKey('mixed', null, state.questions.length));
+            const locked = mode === 'exam' && (attempted || !windowOpen);
             mixedBtn.disabled = locked;
-            mixedBtn.textContent = locked
-                ? '✓ Mixed exam already submitted'
-                : '▶ Start mixed (all 180)';
+            mixedBtn.textContent = !windowOpen && mode === 'exam'
+                ? '⌛ Exam window closed'
+                : attempted && mode === 'exam'
+                    ? '✓ Mixed exam already submitted'
+                    : '▶ Start mixed (all 180)';
         }
     };
     modeCards.forEach(card => {
@@ -709,6 +728,135 @@ function finishQuiz({ reason } = {}) {
     if (q.mode === 'exam') recordExamAttempt(q);
     clearActiveQuiz();
     renderResult();
+
+    // Submit exam attempts to the configured webhook (Phase 2).
+    if (q.mode === 'exam' && state.config.submitUrl) {
+        submitExam(q).catch(err => console.error('[mcq] submit failed irrecoverably', err));
+    }
+}
+
+async function submitExam(q) {
+    const body = {
+        userEmail: state.user.email,
+        userName:  state.user.name,
+        userId:    state.user.id,
+        quizKey:   q.quizKey,
+        examKey:   state.config.examKey,
+        bankVersion: state.bank.version,
+        title:     q.title,
+        scope:     q.scope,
+        chapter:   q.chapter,
+        startedAt: new Date(q.started).toISOString(),
+        elapsedSec: q.elapsed,
+        finishReason: q.finishReason,
+        score:     q.score,
+        flags:     q.flags,
+        answers:   q.questions.map((qq, i) => ({
+            id: qq.id, chapter: qq.chapter,
+            chosen: q.answers[i] || null,
+            correct: qq.answer,
+        })),
+    };
+
+    setSubmitOverlay({ phase: 'sending' });
+
+    const maxAttempts = 3;
+    let lastErr;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+            const res = await fetch(state.config.submitUrl, {
+                method: 'POST',
+                // text/plain avoids the CORS preflight Apps Script endpoints don't support.
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(body),
+                redirect: 'follow',
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const json = await res.json().catch(() => ({}));
+            if (json && json.ok === false && json.error === 'duplicate') {
+                setSubmitOverlay({ phase: 'duplicate' });
+                return;
+            }
+            setSubmitOverlay({ phase: 'ok', receipt: json.receipt || '—' });
+            return;
+        } catch (err) {
+            lastErr = err;
+            console.warn(`[mcq] submit attempt ${attempt} failed:`, err);
+            if (attempt < maxAttempts) await sleep(800 * attempt);
+        }
+    }
+    setSubmitOverlay({ phase: 'error', error: String(lastErr), payload: body });
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function setSubmitOverlay({ phase, receipt, error, payload }) {
+    let host = $('#submitOverlay');
+    if (!host) {
+        host = document.createElement('div');
+        host.id = 'submitOverlay';
+        host.className = 'submit-overlay';
+        document.body.appendChild(host);
+    }
+    if (phase === 'sending') {
+        host.innerHTML = `
+            <div class="submit-card">
+                <div class="submit-spinner" aria-hidden="true"></div>
+                <div class="submit-title">Submitting your answers…</div>
+                <div class="submit-sub muted">Please don't close this tab.</div>
+            </div>`;
+        host.classList.add('show');
+        return;
+    }
+    if (phase === 'ok') {
+        host.innerHTML = `
+            <div class="submit-card">
+                <div class="submit-icon ok" aria-hidden="true">✓</div>
+                <div class="submit-title">Submission received</div>
+                <div class="submit-sub">Receipt: <code>${escapeHtml(receipt || '—')}</code></div>
+                <div class="submit-sub muted">Keep this code in case the instructor asks for proof.</div>
+                <button class="btn-primary" data-action="close-overlay">OK</button>
+            </div>`;
+    } else if (phase === 'duplicate') {
+        host.innerHTML = `
+            <div class="submit-card">
+                <div class="submit-icon warn" aria-hidden="true">!</div>
+                <div class="submit-title">Already submitted</div>
+                <div class="submit-sub">An attempt for this exam was already recorded for your account. Only the first submission counts.</div>
+                <button class="btn-primary" data-action="close-overlay">OK</button>
+            </div>`;
+    } else if (phase === 'error') {
+        host.innerHTML = `
+            <div class="submit-card">
+                <div class="submit-icon err" aria-hidden="true">✗</div>
+                <div class="submit-title">Couldn't reach the server</div>
+                <div class="submit-sub">Your answers were not lost. Copy the block below and email it to your instructor.</div>
+                <textarea class="submit-blob" readonly>${escapeHtml(JSON.stringify(payload, null, 2))}</textarea>
+                <div class="submit-actions">
+                    <button class="btn-primary" data-action="copy-blob">Copy</button>
+                    <button class="btn-ghost" data-action="close-overlay">Close</button>
+                </div>
+                <div class="submit-sub muted">Network error: ${escapeHtml(error || 'unknown')}</div>
+            </div>`;
+        host.querySelector('[data-action="copy-blob"]').addEventListener('click', () => {
+            const ta = host.querySelector('.submit-blob');
+            ta.select();
+            try { navigator.clipboard.writeText(ta.value); showToast('Submission copied to clipboard.', 'info'); }
+            catch { document.execCommand('copy'); }
+        });
+    }
+    const closeBtn = host.querySelector('[data-action="close-overlay"]');
+    if (closeBtn) closeBtn.addEventListener('click', () => host.classList.remove('show'));
+    host.classList.add('show');
+}
+
+function isExamWindowOpen() {
+    const w = state.config.examWindow;
+    if (!w || (!w.open && !w.close)) return true;     // no window configured → always open
+    const now = Date.now();
+    if (w.open  && now < Date.parse(w.open))  return false;
+    if (w.close && now > Date.parse(w.close)) return false;
+    return true;
 }
 
 /* ---------- Result ---------- */

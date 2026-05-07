@@ -2,6 +2,8 @@
   "course": "Structured Programming C++",
   "instructor": "Dr. Husam Salah Mahdi",
   "institution": "Al-Mustafa University — Department of AI",
+  "version": "ca27a6120f",
+  "builtAt": "2026-05-07T09:12Z",
   "chapters": [
     {
       "number": 1,

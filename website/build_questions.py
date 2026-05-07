@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Convert MCQ-Question-Bank.md into questions.json for the web app."""
+import hashlib
 import json
 import re
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 SRC = Path(__file__).resolve().parent.parent / "MCQ-Question-Bank.md"
@@ -131,16 +133,24 @@ def main():
         for q in bad[:5]:
             print(f"  Q{q['id']} chapter={q['chapter']} options={len(q['options'])} answer={q['answer']}")
 
+    # Stable version hash so submissions can record exactly which question set was used.
+    # Changing question text → new hash → easy to spot in the results sheet.
+    digest = hashlib.sha256(SRC.read_bytes()).hexdigest()[:10]
+    built_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+
     payload = {
         "course": "Structured Programming C++",
         "instructor": "Dr. Husam Salah Mahdi",
         "institution": "Al-Mustafa University — Department of AI",
+        "version": digest,
+        "builtAt": built_at,
         "chapters": chapters,
         "questions": questions,
     }
 
     DST.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"Wrote {len(questions)} questions across {len(chapters)} chapters → {DST}")
+    print(f"Bank version: {digest}  built: {built_at}")
 
 
 if __name__ == "__main__":
