@@ -1,0 +1,751 @@
+%=============================================================================
+% Chapter 1: Functions in C++
+% Structured Programming with C++ -- Lectures 11-12
+%=============================================================================
+
+\chapter{Functions in C++}
+\label{ch:functions}
+
+%-----------------------------------------------------------------------------
+\section{Introduction to Functions}
+\label{sec:intro-functions}
+%-----------------------------------------------------------------------------
+
+\begin{definitionbox}{Function}
+A \textbf{function} is a self-contained set of statements designed to accomplish
+a particular task. Every C++ program contains at least one function ---
+\texttt{main()} --- and may define any number of additional functions.
+\end{definitionbox}
+
+In practice, large programs are difficult to write, read, and maintain as a
+single monolithic block of code. The solution is \emph{modular programming}:
+dividing a program into smaller, manageable pieces called \textbf{functions}.
+Each function performs a specific, well-defined task, and the complete program
+is built by combining these functions together.
+
+\begin{infobox}{Advantages of Using Functions}
+\begin{enumerate}
+    \item \textbf{Easier to write:} Each function focuses on a single task,
+          making the logic simpler to implement.
+    \item \textbf{Easier to read:} Well-named functions make the overall
+          program flow self-documenting and understandable at a glance.
+    \item \textbf{Easier to debug:} Errors can be isolated to individual
+          functions, reducing the search space during troubleshooting.
+    \item \textbf{Reusability:} A function can be called multiple times with
+          different parameters, eliminating code duplication.
+    \item \textbf{Team development:} Different programmers can work on
+          different functions simultaneously.
+\end{enumerate}
+\end{infobox}
+
+\begin{conceptbox}{Modular Programming}
+Modular programming is a software design technique that decomposes a program
+into separate sub-programs (modules or functions). Each module is developed
+and tested independently, then integrated into the complete program. This
+approach reduces complexity and improves code quality.
+\end{conceptbox}
+
+%-----------------------------------------------------------------------------
+\section{Defining a Function}
+\label{sec:defining-function}
+%-----------------------------------------------------------------------------
+
+Every function definition in C++ consists of four parts: a \textbf{return type},
+a \textbf{function name}, a \textbf{parameter list}, and a \textbf{function
+body}. The general form is:
+
+\begin{cppcode}
+return-type function-name(parameter-list)
+{
+    // body of the function
+    statement1;
+    statement2;
+    ...
+    return value;  // (if return-type is not void)
+}
+\end{cppcode}
+
+\begin{importantbox}{Components of a Function Definition}
+\begin{itemize}
+    \item \textbf{Return type:} The data type of the value returned by the
+          function. Common types include \texttt{int}, \texttt{float},
+          \texttt{double}, \texttt{char}, and \texttt{void} (when the function
+          returns nothing).
+    \item \textbf{Function name:} A valid C++ identifier that describes the
+          purpose of the function.
+    \item \textbf{Parameter list:} A comma-separated list of typed variables
+          that receive values from the caller. May be empty if the function
+          requires no input.
+    \item \textbf{Function body:} The block of statements enclosed in braces
+          \texttt{\{\}} that define what the function does.
+\end{itemize}
+\end{importantbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Function Prototype (Declaration)}
+\label{subsec:function-prototype}
+%-----------------------------------------------------------------------------
+
+A \textbf{function prototype} tells the compiler about a function's name,
+return type, and parameters \emph{before} the function is fully defined. This
+allows \texttt{main()} (or any calling function) to appear before the function
+definition in the source file.
+
+\begin{definitionbox}{Function Prototype}
+A \textbf{function prototype} is a declaration of a function that specifies its
+return type, name, and parameter types, terminated by a semicolon.
+It does \emph{not} include the function body. The general form is:
+
+\medskip
+\texttt{return-type function-name(parameter-type-list);}
+\end{definitionbox}
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+// Function prototype (declaration)
+int add(int, int);
+
+int main()
+{
+    int result = add(10, 20);
+    cout << "Sum = " << result << endl;
+    return 0;
+}
+
+// Function definition (after main)
+int add(int a, int b)
+{
+    return a + b;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+Sum = 30
+\end{verbatim}
+
+\begin{warningbox}{Function Declaration Order}
+In C++, a function must be \emph{declared} before it is called. You can either
+place the full function definition before \texttt{main()}, or provide a
+\textbf{function prototype} (declaration) before \texttt{main()} and define
+the function afterwards. If you call a function without a prior declaration,
+the compiler will report an error.
+\end{warningbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Function Return Types Summary}
+%-----------------------------------------------------------------------------
+
+The following table summarises the most common return types used with
+functions:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}llp{6cm}@{}}
+\toprule
+\textbf{Return Type} & \textbf{Example Signature}
+    & \textbf{Description} \\
+\midrule
+\texttt{void}   & \texttt{void greet()}
+    & Performs an action; returns nothing. \\
+\texttt{int}    & \texttt{int square(int n)}
+    & Returns an integer result. \\
+\texttt{float}  & \texttt{float aver(int a, int b)}
+    & Returns a floating-point result. \\
+\texttt{double} & \texttt{double area(double r)}
+    & Returns a double-precision result. \\
+\texttt{char}   & \texttt{char grade(int mark)}
+    & Returns a single character. \\
+\texttt{bool}   & \texttt{bool isEven(int n)}
+    & Returns \texttt{true} or \texttt{false}. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%-----------------------------------------------------------------------------
+\subsection{Scope: Local vs.\ Global}
+%-----------------------------------------------------------------------------
+
+Variables declared inside a function are \textbf{local} to that function ---
+they exist only while the function is executing and cannot be accessed from
+outside. Variables declared outside all functions are \textbf{global} and can
+be accessed from any function in the program. A detailed discussion of scope
+follows in Chapter~\ref{ch:advanced-functions}.
+
+%-----------------------------------------------------------------------------
+\subsection{Example: A \texttt{void} Function}
+%-----------------------------------------------------------------------------
+
+The simplest kind of function performs an action without returning a value.
+Its return type is \texttt{void}.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+// Function definition
+void printMessage()
+{
+    cout << "Welcome to the world of C++ Functions!"
+         << endl;
+    cout << "Functions make programs modular and reusable."
+         << endl;
+}
+
+int main()
+{
+    printMessage();   // Function call
+    printMessage();   // Called again -- reusability in action
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+Welcome to the world of C++ Functions!
+Functions make programs modular and reusable.
+Welcome to the world of C++ Functions!
+Functions make programs modular and reusable.
+\end{verbatim}
+
+%-----------------------------------------------------------------------------
+\subsection{Example: A Function that Returns a Value}
+%-----------------------------------------------------------------------------
+
+When a function computes and returns a result, its return type must match the
+type of the value returned.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+// Function to find the maximum of two integers
+int max(int a, int b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+int main()
+{
+    int x = 15, y = 27;
+    int result = max(x, y);
+    cout << "The maximum of " << x << " and " << y
+         << " is: " << result << endl;
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+The maximum of 15 and 27 is: 27
+\end{verbatim}
+
+%-----------------------------------------------------------------------------
+\section{The Return Statement}
+\label{sec:return-statement}
+%-----------------------------------------------------------------------------
+
+\begin{definitionbox}{The \texttt{return} Statement}
+The \texttt{return} statement terminates execution of the current function and
+passes control back to the calling function. It has two forms:
+\begin{itemize}
+    \item \texttt{return;}\ --- used in \texttt{void} functions to exit early.
+    \item \texttt{return expression;}\ --- used in non-\texttt{void} functions
+          to send a value back to the caller.
+\end{itemize}
+\end{definitionbox}
+
+\begin{conceptbox}{How \texttt{return} Works}
+When the \texttt{return} statement executes, the function stops immediately.
+Any statements after the \texttt{return} in the same block are \emph{not}
+executed. In non-\texttt{void} functions, the returned expression is evaluated
+and its value is made available at the point of the function call.
+\end{conceptbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Example: Calculating Squares of 1--10}
+%-----------------------------------------------------------------------------
+
+The following program uses a function to compute the square of an integer and
+prints the squares of numbers from 1 to 10.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+int square(int y)
+{
+    return y * y;
+}
+
+int main()
+{
+    cout << "Number\tSquare" << endl;
+    cout << "------\t------" << endl;
+
+    for (int x = 1; x <= 10; x++)
+    {
+        cout << x << "\t" << square(x) << endl;
+    }
+
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+Number  Square
+------  ------
+1       1
+2       4
+3       9
+4       16
+5       25
+6       36
+7       49
+8       64
+9       81
+10      100
+\end{verbatim}
+
+%-----------------------------------------------------------------------------
+\subsection{Example: Calculating an Average}
+%-----------------------------------------------------------------------------
+
+This function receives two integer values and returns their average as a
+floating-point number.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+float aver(int x1, int x2)
+{
+    float result;
+    result = (x1 + x2) / 2.0;
+    return result;
+}
+
+int main()
+{
+    int a, b;
+    cout << "Enter two integers: ";
+    cin >> a >> b;
+
+    float avg = aver(a, b);
+    cout << "The average of " << a << " and " << b
+         << " is: " << avg << endl;
+
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Sample Output:}
+\begin{verbatim}
+Enter two integers: 7 13
+The average of 7 and 13 is: 10
+\end{verbatim}
+
+\begin{warningbox}{Integer Division Pitfall}
+Note the use of \texttt{2.0} instead of \texttt{2} in the division. Dividing
+two integers in C++ produces an integer result (truncating the decimal part).
+Writing \texttt{2.0} forces floating-point division, ensuring an accurate
+average.
+\end{warningbox}
+
+%-----------------------------------------------------------------------------
+\subsection{Example: Sum of Squares Series}
+%-----------------------------------------------------------------------------
+
+The following program computes the sum of the series
+$1^{2} + 2^{2} + 3^{2} + \cdots + n^{2}$ using a dedicated function.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+int summation(int x)
+{
+    int sum = 0;
+    for (int i = 1; i <= x; i++)
+    {
+        sum += i * i;
+    }
+    return sum;
+}
+
+int main()
+{
+    int n;
+    cout << "Enter a positive integer n: ";
+    cin >> n;
+
+    int result = summation(n);
+    cout << "The sum of squares from 1 to " << n
+         << " is: " << result << endl;
+
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Sample Output:}
+\begin{verbatim}
+Enter a positive integer n: 5
+The sum of squares from 1 to 5 is: 55
+\end{verbatim}
+
+\noindent The computation:
+$1^{2} + 2^{2} + 3^{2} + 4^{2} + 5^{2} = 1 + 4 + 9 + 16 + 25 = 55$.
+
+%-----------------------------------------------------------------------------
+\subsection{Example: Maximum of Three Integers}
+\label{subsec:max-of-three}
+%-----------------------------------------------------------------------------
+
+A function can call other functions. Here \texttt{max3()} finds the largest
+of three integers by calling the two-argument \texttt{max()} function twice.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+int max(int a, int b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+int max3(int a, int b, int c)
+{
+    return max(max(a, b), c);
+}
+
+int main()
+{
+    int x, y, z;
+    cout << "Enter three integers: ";
+    cin >> x >> y >> z;
+
+    cout << "The largest value is: "
+         << max3(x, y, z) << endl;
+
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Sample Output:}
+\begin{verbatim}
+Enter three integers: 14 7 21
+The largest value is: 21
+\end{verbatim}
+
+\begin{infobox}{Composing Functions}
+Notice how \texttt{max3()} reuses \texttt{max()} rather than duplicating
+comparison logic. This demonstrates the principle of \emph{function
+composition}: building complex behaviour by combining simpler functions.
+\end{infobox}
+
+%-----------------------------------------------------------------------------
+\subsection{Example: Logic Gates}
+\label{subsec:logic-gates}
+%-----------------------------------------------------------------------------
+
+Functions can also model logical operations. The following program implements
+the four basic logic gates --- AND, OR, XOR, and NOT --- as separate
+functions.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+bool AND(bool a, bool b) { return a && b; }
+bool OR(bool a, bool b)  { return a || b; }
+bool XOR(bool a, bool b) { return a != b; }
+bool NOT(bool a)          { return !a;     }
+
+int main()
+{
+    bool x = true, y = false;
+
+    cout << "x = " << x << ", y = " << y << endl;
+    cout << "AND(x,y) = " << AND(x, y) << endl;
+    cout << "OR(x,y)  = " << OR(x, y)  << endl;
+    cout << "XOR(x,y) = " << XOR(x, y) << endl;
+    cout << "NOT(x)   = " << NOT(x)    << endl;
+    cout << "NOT(y)   = " << NOT(y)    << endl;
+
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+x = 1, y = 0
+AND(x,y) = 0
+OR(x,y)  = 1
+XOR(x,y) = 1
+NOT(x)   = 0
+NOT(y)   = 1
+\end{verbatim}
+
+\begin{conceptbox}{Logic Gate Truth Table}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{AND}
+    & \textbf{OR} & \textbf{XOR} & \textbf{NOT A} \\
+\midrule
+0 & 0 & 0 & 0 & 0 & 1 \\
+0 & 1 & 0 & 1 & 1 & 1 \\
+1 & 0 & 0 & 1 & 1 & 0 \\
+1 & 1 & 1 & 1 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{conceptbox}
+
+%-----------------------------------------------------------------------------
+\section{Passing Parameters}
+\label{sec:passing-parameters}
+%-----------------------------------------------------------------------------
+
+When a function is called, data can be communicated to it through
+\textbf{parameters} (also called \textbf{arguments}). C++ provides two
+fundamental mechanisms for passing parameters: \emph{by value} and \emph{by
+reference}.
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection{Passing by Value}
+\label{subsec:pass-by-value}
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{definitionbox}{Pass by Value}
+When a parameter is passed \textbf{by value}, a \emph{copy} of the argument's
+value is made and given to the function. Any changes the function makes to the
+parameter affect only the local copy; the original variable in the calling
+function remains unchanged.
+\end{definitionbox}
+
+All examples presented so far in this chapter use pass-by-value. Consider the
+\texttt{square()} function: when we call \texttt{square(x)}, the value of
+\texttt{x} is copied into the parameter \texttt{y}. Modifying \texttt{y}
+inside \texttt{square()} would have no effect on \texttt{x} in
+\texttt{main()}.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+void tryToChange(int n)
+{
+    n = 999;   // Only changes the LOCAL copy
+    cout << "Inside function: n = " << n << endl;
+}
+
+int main()
+{
+    int x = 5;
+    cout << "Before call: x = " << x << endl;
+
+    tryToChange(x);
+
+    cout << "After call:  x = " << x << endl;
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+Before call: x = 5
+Inside function: n = 999
+After call:  x = 5
+\end{verbatim}
+
+\begin{infobox}{When to Use Pass by Value}
+Use pass by value when:
+\begin{itemize}
+    \item The function only needs to \emph{read} the argument.
+    \item The argument is a small, inexpensive-to-copy type (e.g.,
+          \texttt{int}, \texttt{float}, \texttt{char}).
+    \item You want to guarantee that the original variable is not modified.
+\end{itemize}
+\end{infobox}
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsection{Passing by Reference}
+\label{subsec:pass-by-reference}
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+\begin{definitionbox}{Pass by Reference}
+When a parameter is passed \textbf{by reference}, the \emph{address} of the
+original variable is passed to the function. The function receives a pointer
+(or reference) to the original data, so any changes made inside the function
+\emph{directly affect} the original variable.
+\end{definitionbox}
+
+Passing by reference is useful when a function needs to modify variables in
+the calling scope, or when copying large data structures would be inefficient.
+
+\begin{importantbox}{Advantages of Pass by Reference}
+\begin{itemize}
+    \item The function can \textbf{modify} the caller's variables directly.
+    \item No copy is created, resulting in \textbf{higher execution speed} and
+          \textbf{lower memory usage}, especially for large objects.
+    \item A function can effectively ``return'' multiple values by modifying
+          several referenced parameters.
+\end{itemize}
+\end{importantbox}
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsubsection{Example: Swapping Two Values Using Pointers}
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+The classic demonstration of pass-by-reference is a \texttt{swap} function
+that exchanges the values of two variables. Using pointers, the function
+receives the \emph{addresses} of the variables and modifies them in place.
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+void swap(int *a, int *b)
+{
+    int temp;
+    temp = *a;   // Store the value at address a
+    *a = *b;     // Copy value at address b into a
+    *b = temp;   // Copy saved value into address b
+}
+
+int main()
+{
+    int x = 10, y = 20;
+
+    cout << "Before swap:" << endl;
+    cout << "  x = " << x << ", y = " << y << endl;
+
+    swap(&x, &y);   // Pass addresses of x and y
+
+    cout << "After swap:" << endl;
+    cout << "  x = " << x << ", y = " << y << endl;
+
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+Before swap:
+  x = 10, y = 20
+After swap:
+  x = 20, y = 10
+\end{verbatim}
+
+\begin{conceptbox}{Tracing the Swap Step by Step}
+The following table traces every statement inside \texttt{swap(\&x, \&y)}
+where initially \texttt{x\,=\,10} and \texttt{y\,=\,20}:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}clccc@{}}
+\toprule
+\textbf{Step} & \textbf{Statement}
+    & \texttt{temp} & \texttt{*a (x)} & \texttt{*b (y)} \\
+\midrule
+0 & (entry)          & ---  & 10 & 20 \\
+1 & \texttt{temp = *a;}  & 10   & 10 & 20 \\
+2 & \texttt{*a = *b;}    & 10   & 20 & 20 \\
+3 & \texttt{*b = temp;}  & 10   & 20 & 10 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Because the function operates on the \emph{actual memory locations}
+of \texttt{x} and \texttt{y}, the changes persist after the function returns.
+\end{conceptbox}
+
+\begin{warningbox}{Pass by Value Would Fail Here}
+If the swap function used pass-by-value (\texttt{void swap(int a, int b)}),
+only the \emph{local copies} would be swapped. The original variables
+\texttt{x} and \texttt{y} in \texttt{main()} would remain unchanged.
+Always use pass-by-reference (via pointers or C++ references) when a function
+must modify its arguments.
+\end{warningbox}
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\subsubsection{Alternative: C++ Reference Syntax}
+%- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+C++ also supports pass-by-reference using the \texttt{\&} (ampersand)
+notation in the parameter list, which provides a cleaner syntax than pointers:
+
+\begin{cppcode}
+#include <iostream>
+using namespace std;
+
+void swap(int &a, int &b)
+{
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main()
+{
+    int x = 10, y = 20;
+
+    cout << "Before swap: x = " << x
+         << ", y = " << y << endl;
+
+    swap(x, y);   // No need to pass addresses
+
+    cout << "After swap:  x = " << x
+         << ", y = " << y << endl;
+
+    return 0;
+}
+\end{cppcode}
+
+\noindent\textbf{Output:}
+\begin{verbatim}
+Before swap: x = 10, y = 20
+After swap:  x = 20, y = 10
+\end{verbatim}
+
+\begin{infobox}{Pointers vs.\ References}
+Both pointers and references achieve pass-by-reference behaviour. C++
+references (\texttt{int \&a}) are generally preferred because they are
+simpler, safer (cannot be null), and produce cleaner code. Pointers are still
+essential in many scenarios, such as dynamic memory allocation, arrays, and
+data structures.
+\end{infobox}
+
+%-----------------------------------------------------------------------------
+\section{Chapter Summary}
+\label{sec:ch1-summary}
+%-----------------------------------------------------------------------------
+
+\begin{importantbox}{Key Takeaways -- Functions in C++}
+\begin{enumerate}
+    \item A \textbf{function} groups related statements into a reusable unit,
+          promoting modularity, readability, and maintainability.
+    \item Every function has a \textbf{return type}, a \textbf{name}, a
+          \textbf{parameter list}, and a \textbf{body}.
+    \item A \textbf{function prototype} declares a function before its
+          definition, allowing flexible source-file organisation.
+    \item The \texttt{return} statement sends a value back to the caller
+          and terminates the function.
+    \item \textbf{Pass by value} copies the argument; the original is safe
+          from modification.
+    \item \textbf{Pass by reference} (via pointers or \texttt{\&}) gives the
+          function direct access to the caller's variable, enabling in-place
+          modification.
+\end{enumerate}
+\end{importantbox}

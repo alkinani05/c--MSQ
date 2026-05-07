@@ -1,0 +1,4533 @@
+{
+  "course": "Structured Programming C++",
+  "instructor": "Dr. Husam Salah Mahdi",
+  "institution": "Al-Mustafa University — Department of AI",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Functions in C++"
+    },
+    {
+      "number": 2,
+      "title": "Advanced Function Concepts"
+    },
+    {
+      "number": 3,
+      "title": "One-Dimensional Arrays"
+    },
+    {
+      "number": 4,
+      "title": "Two-Dimensional Arrays"
+    },
+    {
+      "number": 5,
+      "title": "Strings in C++"
+    },
+    {
+      "number": 6,
+      "title": "Structures"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "chapter": 1,
+      "stem": "Look at the four parts of a function definition. Which part is **always required** even when the function takes no input?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The parameter list"
+        },
+        {
+          "letter": "B",
+          "text": "The return type"
+        },
+        {
+          "letter": "C",
+          "text": "A `return` statement"
+        },
+        {
+          "letter": "D",
+          "text": "The `void` keyword inside the parentheses"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The return type is mandatory in every function definition (it can be `void`, but it must be written). The parameter list may be empty `()`, the `return` statement is only needed for non-void functions, and writing `void` inside the parentheses (C-style) is optional in C++."
+    },
+    {
+      "id": 2,
+      "chapter": 1,
+      "stem": "What is printed by the following program?\n```cpp\n#include <iostream>\nusing namespace std;\nint f(int x) { return x + 1; }\nint g(int x) { return x * 2; }\nint main() {\n    cout << f(g(3)) << \" \" << g(f(3));\n    return 0;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`7 7`"
+        },
+        {
+          "letter": "B",
+          "text": "`7 8`"
+        },
+        {
+          "letter": "C",
+          "text": "`8 7`"
+        },
+        {
+          "letter": "D",
+          "text": "`8 8`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Trace from the inside out. `f(g(3))`: `g(3) = 6`, then `f(6) = 7`. `g(f(3))`: `f(3) = 4`, then `g(4) = 8`. Output: `7 8`."
+    },
+    {
+      "id": 3,
+      "chapter": 1,
+      "stem": "A student writes the following. Why does it **not compile**?\n```cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    cout << add(2, 3);\n    return 0;\n}\nint add(int a, int b) { return a + b; }\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`cout` cannot print the return value of a function"
+        },
+        {
+          "letter": "B",
+          "text": "`add` is called before it is declared or defined"
+        },
+        {
+          "letter": "C",
+          "text": "The function `add` has the wrong return type"
+        },
+        {
+          "letter": "D",
+          "text": "`main` must come after every other function"
+        }
+      ],
+      "answer": "B",
+      "explanation": "C++ requires a function to be **declared** (via prototype) or **defined** before it is called. Adding `int add(int, int);` above `main` fixes the error. Note: `main` does not have to come last — placing the full definition of `add` above `main` would also work."
+    },
+    {
+      "id": 4,
+      "chapter": 1,
+      "stem": "Which **single line** added at the top would make Q3's program compile?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`int add;`"
+        },
+        {
+          "letter": "B",
+          "text": "`extern add;`"
+        },
+        {
+          "letter": "C",
+          "text": "`int add(int, int);`"
+        },
+        {
+          "letter": "D",
+          "text": "`function add(int, int);`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`int add(int, int);` is a valid function prototype. Parameter names are optional in a prototype — only the return type, name, and parameter *types* are required."
+    },
+    {
+      "id": 5,
+      "chapter": 1,
+      "stem": "What does the following function return when called as `mystery(5)`?\n```cpp\nint mystery(int n) {\n    if (n > 0) return 1;\n    return -1;\n    return 0;          // Will this ever execute?\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1`"
+        },
+        {
+          "letter": "B",
+          "text": "`-1`"
+        },
+        {
+          "letter": "C",
+          "text": "`0`"
+        },
+        {
+          "letter": "D",
+          "text": "Compile error because of two `return` statements"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`n > 0` is true for `n = 5`, so the first `return 1;` executes immediately and the function exits. The other return statements are *unreachable code*. Multiple return statements are perfectly legal — only the first one reached executes."
+    },
+    {
+      "id": 6,
+      "chapter": 1,
+      "stem": "A C++ function intended to return the absolute value of a number is written as below. What is the bug?\n```cpp\nint absVal(int x) {\n    if (x < 0) -x;\n    else x;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The `if` should be a `while`"
+        },
+        {
+          "letter": "B",
+          "text": "The function never actually returns anything"
+        },
+        {
+          "letter": "C",
+          "text": "`-x` should be `+x`"
+        },
+        {
+          "letter": "D",
+          "text": "`int` should be `unsigned`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The lines `-x;` and `x;` are valid statements (they evaluate an expression and discard it), but the function never executes a `return`. The result is undefined behaviour. The fix: write `return -x;` and `return x;`."
+    },
+    {
+      "id": 7,
+      "chapter": 1,
+      "stem": "Complete the prototype so the following call is legal: `float a = average(3, 4, 5);`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`float average();`"
+        },
+        {
+          "letter": "B",
+          "text": "`float average(int, int, int);`"
+        },
+        {
+          "letter": "C",
+          "text": "`int average(float, float, float);`"
+        },
+        {
+          "letter": "D",
+          "text": "`float average(int);`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The call passes three `int` arguments and assigns the result to a `float`, so the function must return `float` and accept three `int` parameters in order."
+    },
+    {
+      "id": 8,
+      "chapter": 1,
+      "stem": "What does the following program print?\n```cpp\n#include <iostream>\nusing namespace std;\nvoid inc(int n) { n = n + 10; }\nint main() {\n    int x = 5;\n    inc(x);\n    cout << x;\n    return 0;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`5`"
+        },
+        {
+          "letter": "B",
+          "text": "`15`"
+        },
+        {
+          "letter": "C",
+          "text": "`10`"
+        },
+        {
+          "letter": "D",
+          "text": "Garbage value"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`inc` receives `n` by **value** (a copy of `x`). Modifying the copy has no effect on `x` in `main`, so `x` is still `5` after the call."
+    },
+    {
+      "id": 9,
+      "chapter": 1,
+      "stem": "Modify Q8 so that `inc` actually changes `x` in `main`. Which signature works?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`void inc(int n)`"
+        },
+        {
+          "letter": "B",
+          "text": "`void inc(int& n)`"
+        },
+        {
+          "letter": "C",
+          "text": "`void inc(const int n)`"
+        },
+        {
+          "letter": "D",
+          "text": "`int inc(int n)`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`int& n` is a **reference parameter** — the function operates on the same memory cell as `x`, so any change persists after the call."
+    },
+    {
+      "id": 10,
+      "chapter": 1,
+      "stem": "What does this program print?\n```cpp\n#include <iostream>\nusing namespace std;\nvoid swap(int *a, int *b) {\n    int t = *a; *a = *b; *b = t;\n}\nint main() {\n    int x = 1, y = 9;\n    swap(&x, &y);\n    cout << x << \" \" << y;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1 9`"
+        },
+        {
+          "letter": "B",
+          "text": "`9 1`"
+        },
+        {
+          "letter": "C",
+          "text": "`1 1`"
+        },
+        {
+          "letter": "D",
+          "text": "`9 9`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The swap function dereferences the pointers and exchanges the values stored at the addresses of `x` and `y`, so the final values are swapped."
+    },
+    {
+      "id": 11,
+      "chapter": 1,
+      "stem": "Why does `swap(x, y);` (without `&`) **not** work for the swap function declared as `void swap(int *a, int *b)`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Pointer parameters require addresses, not values"
+        },
+        {
+          "letter": "B",
+          "text": "`swap` cannot be used in `main`"
+        },
+        {
+          "letter": "C",
+          "text": "Pointers can only point to `const` data"
+        },
+        {
+          "letter": "D",
+          "text": "The compiler reorders parameters automatically"
+        }
+      ],
+      "answer": "A",
+      "explanation": "The function expects `int *` (a pointer), so the call must supply addresses (`&x`, `&y`). Passing `x` and `y` directly passes values, which the compiler will refuse because the types do not match."
+    },
+    {
+      "id": 12,
+      "chapter": 1,
+      "stem": "Which statement about C++ references is **true**?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A reference can be reassigned to refer to a different object later"
+        },
+        {
+          "letter": "B",
+          "text": "A reference variable must be initialised when declared"
+        },
+        {
+          "letter": "C",
+          "text": "References can be `null`, just like pointers"
+        },
+        {
+          "letter": "D",
+          "text": "References use the `*` operator to access the underlying value"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A reference must be bound to an object at the moment of declaration and cannot be re-bound afterwards. References cannot be null and do not need an explicit dereference operator."
+    },
+    {
+      "id": 13,
+      "chapter": 1,
+      "stem": "Predict the output:\n```cpp\nint max(int a, int b) { return (a > b) ? a : b; }\nint main() {\n    cout << max(max(2, 7), max(4, 5));\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`4`"
+        },
+        {
+          "letter": "B",
+          "text": "`5`"
+        },
+        {
+          "letter": "C",
+          "text": "`7`"
+        },
+        {
+          "letter": "D",
+          "text": "`2`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Inner: `max(2,7) = 7`, `max(4,5) = 5`. Outer: `max(7, 5) = 7`. The ternary `(a > b) ? a : b` is a compact form of an if/else."
+    },
+    {
+      "id": 14,
+      "chapter": 1,
+      "stem": "The function `int f(int n) { return n; }` is called as `f(3.7)`. What value is returned?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`3.7`"
+        },
+        {
+          "letter": "B",
+          "text": "`4`"
+        },
+        {
+          "letter": "C",
+          "text": "`3`"
+        },
+        {
+          "letter": "D",
+          "text": "Compile error"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Passing a `double` (3.7) to an `int` parameter triggers an implicit narrowing conversion that **truncates** the fractional part. The function receives `3` and returns `3`. (Some compilers warn about this conversion.)"
+    },
+    {
+      "id": 15,
+      "chapter": 1,
+      "stem": "Which is the **smallest valid** definition of a function that does nothing and returns nothing?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`void nop() { return; }`"
+        },
+        {
+          "letter": "B",
+          "text": "`void nop() {}`"
+        },
+        {
+          "letter": "C",
+          "text": "`nop() { }`"
+        },
+        {
+          "letter": "D",
+          "text": "`void nop;`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`void nop() {}` is a complete, legal function: void return type, name, empty parameter list, empty body. Option A is also legal but adds an unnecessary `return;`. Option C lacks a return type. Option D is a *variable* declaration of type `void` (illegal)."
+    },
+    {
+      "id": 16,
+      "chapter": 1,
+      "stem": "What is wrong with this attempt to compute the average of two integers?\n```cpp\nfloat avg(int a, int b) {\n    return (a + b) / 2;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The integer division truncates the decimal part"
+        },
+        {
+          "letter": "B",
+          "text": "`float` cannot hold the result"
+        },
+        {
+          "letter": "C",
+          "text": "The parameters must be of type `float`"
+        },
+        {
+          "letter": "D",
+          "text": "Nothing is wrong"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`a + b` is `int`, and `2` is `int`, so `(a+b)/2` performs **integer division**. To get a true average, write `(a + b) / 2.0` to force floating-point division, or cast one operand to `float`."
+    },
+    {
+      "id": 17,
+      "chapter": 1,
+      "stem": "Fill in the blank so the function correctly returns the larger of two numbers in **one line**.\n```cpp\nint max(int a, int b) {\n    return _________;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`a > b`"
+        },
+        {
+          "letter": "B",
+          "text": "`(a > b) ? a : b`"
+        },
+        {
+          "letter": "C",
+          "text": "`if (a > b) a else b`"
+        },
+        {
+          "letter": "D",
+          "text": "`max(a, b)`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The ternary operator `(condition) ? value_if_true : value_if_false` is the idiomatic single-expression way to choose between two values. Option D would be infinite recursion."
+    },
+    {
+      "id": 18,
+      "chapter": 1,
+      "stem": "What does the program print?\n```cpp\n#include <iostream>\nusing namespace std;\nint squareSum(int a, int b) { return a*a + b*b; }\nint main() {\n    cout << squareSum(3, 4);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`7`"
+        },
+        {
+          "letter": "B",
+          "text": "`12`"
+        },
+        {
+          "letter": "C",
+          "text": "`25`"
+        },
+        {
+          "letter": "D",
+          "text": "`49`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`3*3 + 4*4 = 9 + 16 = 25`. (This is the Pythagorean identity for a 3-4-5 right triangle.)"
+    },
+    {
+      "id": 19,
+      "chapter": 1,
+      "stem": "Identify the bug:\n```cpp\nvoid greet(string name = \"Friend\") {\n    cout << \"Hello, \" << name << endl;\n}\nint main() {\n    greet;     // intended: print \"Hello, Friend\"\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`greet` is missing parentheses, so it is not actually called"
+        },
+        {
+          "letter": "B",
+          "text": "`string` is the wrong type"
+        },
+        {
+          "letter": "C",
+          "text": "`endl` should be `\"\\n\"`"
+        },
+        {
+          "letter": "D",
+          "text": "Default parameters are illegal"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Writing `greet;` only references the function but does not invoke it. The call must be `greet();`. This is a very common beginner mistake."
+    },
+    {
+      "id": 20,
+      "chapter": 1,
+      "stem": "Which of these statements about pass-by-reference is **false**?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The function can modify the caller's variable"
+        },
+        {
+          "letter": "B",
+          "text": "No copy of the argument is made, so it is faster for large objects"
+        },
+        {
+          "letter": "C",
+          "text": "References must be initialised when they are first declared"
+        },
+        {
+          "letter": "D",
+          "text": "Reference parameters always require the `&` operator at the call site"
+        }
+      ],
+      "answer": "D",
+      "explanation": "The `&` is part of the **parameter declaration** (`void f(int& x)`), not the call site. The function is called as `f(y);` — the same syntax used for pass-by-value."
+    },
+    {
+      "id": 21,
+      "chapter": 1,
+      "stem": "What is the output?\n```cpp\nint triple(int x) { return 3 * x; }\nint main() {\n    int n = 4;\n    cout << triple(triple(n));\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`12`"
+        },
+        {
+          "letter": "B",
+          "text": "`24`"
+        },
+        {
+          "letter": "C",
+          "text": "`36`"
+        },
+        {
+          "letter": "D",
+          "text": "`48`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`triple(4) = 12`, then `triple(12) = 36`. Functions can be composed by passing the return value of one as the argument of another."
+    },
+    {
+      "id": 22,
+      "chapter": 1,
+      "stem": "Write a one-line function body that returns whether an integer is **even**. Which is correct?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`return n % 2;`"
+        },
+        {
+          "letter": "B",
+          "text": "`return n % 2 == 0;`"
+        },
+        {
+          "letter": "C",
+          "text": "`return n / 2 == 0;`"
+        },
+        {
+          "letter": "D",
+          "text": "`return n == 2;`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "An integer is even iff its remainder when divided by 2 is zero. Option A returns 0 or 1 (the remainder), not a clean boolean for *even*. Option C is true only when `-1 ≤ n ≤ 1`."
+    },
+    {
+      "id": 23,
+      "chapter": 1,
+      "stem": "The following compiles but produces unexpected output. What is happening?\n```cpp\nint answer(int n) {\n    if (n > 0)\n        return 1;\n}\nint main() {\n    cout << answer(-3);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Always prints `0`"
+        },
+        {
+          "letter": "B",
+          "text": "Prints garbage — the function returns no value when `n <= 0`"
+        },
+        {
+          "letter": "C",
+          "text": "Prints `-3`"
+        },
+        {
+          "letter": "D",
+          "text": "Always prints `1`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The function only returns a value when `n > 0`. For `n = -3`, control falls off the end of a non-void function, which is **undefined behaviour**. The program may print 0, 1, garbage, or crash."
+    },
+    {
+      "id": 24,
+      "chapter": 1,
+      "stem": "Which is the correct prototype declaration corresponding to the function definition `double area(double r) { return 3.14 * r * r; }`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`area(r);`"
+        },
+        {
+          "letter": "B",
+          "text": "`double area;`"
+        },
+        {
+          "letter": "C",
+          "text": "`double area(double);`"
+        },
+        {
+          "letter": "D",
+          "text": "`double area(double r) { return 3.14 * r * r; }`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "A prototype lists the return type, name, and parameter *types*, terminated by a semicolon. Names are optional. Option D is a definition (not a prototype)."
+    },
+    {
+      "id": 25,
+      "chapter": 1,
+      "stem": "The function below is intended to set both `a` and `b` to zero. Which version works?\n```cpp\n// Goal: after the call, x == 0 and y == 0 in the caller.\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`void zero(int a, int b) { a = 0; b = 0; }`"
+        },
+        {
+          "letter": "B",
+          "text": "`void zero(int *a, int *b) { *a = 0; *b = 0; }`"
+        },
+        {
+          "letter": "C",
+          "text": "`int zero(int a, int b) { return 0; }`"
+        },
+        {
+          "letter": "D",
+          "text": "`void zero() { a = 0; b = 0; }`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "To modify the caller's variables, the function must receive references or pointers. Pointers (B) work when called as `zero(&x, &y);`. Equivalent reference version: `void zero(int& a, int& b)`."
+    },
+    {
+      "id": 26,
+      "chapter": 1,
+      "stem": "What is the output?\n```cpp\nvoid show(int a, int b = 5, int c = 10) {\n    cout << a << \",\" << b << \",\" << c << \" \";\n}\nint main() {\n    show(1);\n    show(1, 2);\n    show(1, 2, 3);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1,5,10 1,2,10 1,2,3`"
+        },
+        {
+          "letter": "B",
+          "text": "`1,0,0 1,2,0 1,2,3`"
+        },
+        {
+          "letter": "C",
+          "text": "`1,5,10 1,5,10 1,5,10`"
+        },
+        {
+          "letter": "D",
+          "text": "Compile error — too few arguments"
+        }
+      ],
+      "answer": "A",
+      "explanation": "C++ allows **default arguments**. Missing arguments at the call are filled in from right to left using the defaults declared in the function signature."
+    },
+    {
+      "id": 27,
+      "chapter": 1,
+      "stem": "Why does this overload pair compile?\n```cpp\nint sum(int a, int b) { return a + b; }\ndouble sum(double a, double b) { return a + b; }\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "C++ permits **function overloading** — same name, different parameter types"
+        },
+        {
+          "letter": "B",
+          "text": "The two functions have different return types, so they are distinct"
+        },
+        {
+          "letter": "C",
+          "text": "The compiler renames the second function automatically"
+        },
+        {
+          "letter": "D",
+          "text": "It actually does **not** compile"
+        }
+      ],
+      "answer": "A",
+      "explanation": "C++ allows multiple functions with the same name as long as their **parameter lists differ** (different number or types). The compiler picks the right one based on the argument types at the call site. Return types alone are not enough to overload."
+    },
+    {
+      "id": 28,
+      "chapter": 1,
+      "stem": "Which call would the compiler reject for `int sum(int, int);`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`sum(2, 3)`"
+        },
+        {
+          "letter": "B",
+          "text": "`sum(2.5, 3.5)`        *(silently truncates)*"
+        },
+        {
+          "letter": "C",
+          "text": "`sum(2, 3, 4)`"
+        },
+        {
+          "letter": "D",
+          "text": "`sum(2 + 1, 3 * 2)`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The number of arguments at the call must match the number of formal parameters (unless defaults are declared). Type mismatches like B trigger an implicit conversion (often with a warning), but a wrong **count** is always a hard error."
+    },
+    {
+      "id": 29,
+      "chapter": 1,
+      "stem": "Predict the output and choose the *reason*:\n```cpp\nint a = 100;          // global\nvoid show() { cout << a << \" \"; }\nint main() {\n    int a = 5;        // local, shadows global\n    show();\n    cout << a;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`100 5` — the function uses the global, `main` uses its local"
+        },
+        {
+          "letter": "B",
+          "text": "`5 5` — the local `a` overrides everywhere"
+        },
+        {
+          "letter": "C",
+          "text": "`100 100` — globals always win"
+        },
+        {
+          "letter": "D",
+          "text": "`5 100` — the function uses the most recent assignment"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Each function looks up names in **its own scope** first, then globals. `show()` has no local `a`, so it finds the global `100`. `main` has its own `a = 5`, which shadows the global *only inside `main`*."
+    },
+    {
+      "id": 30,
+      "chapter": 1,
+      "stem": "Which is the **best style** when a function only reads its argument and never modifies it, and the argument is a small built-in type like `int`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Pass by value: `void f(int x)`"
+        },
+        {
+          "letter": "B",
+          "text": "Pass by reference: `void f(int& x)`"
+        },
+        {
+          "letter": "C",
+          "text": "Pass by const reference: `void f(const int& x)`"
+        },
+        {
+          "letter": "D",
+          "text": "Pass by pointer: `void f(int* x)`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "For small built-in types (`int`, `char`, `float`, `double`), pass-by-value is **simplest and equally fast** — the copy is essentially free. Const-reference is preferred for **large** objects (strings, structs, vectors) where copying is expensive."
+    },
+    {
+      "id": 31,
+      "chapter": 2,
+      "stem": "Which of the following best describes a **Type 1** function (no arguments, no return value)?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Useful for printing a banner or menu"
+        },
+        {
+          "letter": "B",
+          "text": "Useful for computing a math result"
+        },
+        {
+          "letter": "C",
+          "text": "Useful for receiving user input and returning it"
+        },
+        {
+          "letter": "D",
+          "text": "Cannot exist — every function must return something"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A void function with no parameters is ideal for **side-effect-only** actions such as printing a fixed banner or menu. Its signature looks like `void greet();`."
+    },
+    {
+      "id": 32,
+      "chapter": 2,
+      "stem": "Identify the type:\n```cpp\nvoid printSquare(int n) { cout << n*n; }\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Type 1: no args, no return"
+        },
+        {
+          "letter": "B",
+          "text": "Type 2: with args, no return"
+        },
+        {
+          "letter": "C",
+          "text": "Type 3: with args, with return"
+        },
+        {
+          "letter": "D",
+          "text": "Type 4: with return, no args"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The function receives an `int` argument but its return type is `void`. It performs an action (printing) without returning a value."
+    },
+    {
+      "id": 33,
+      "chapter": 2,
+      "stem": "In the call `add(x, y)`, the names `x` and `y` are called the:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Formal arguments"
+        },
+        {
+          "letter": "B",
+          "text": "Actual arguments"
+        },
+        {
+          "letter": "C",
+          "text": "Default arguments"
+        },
+        {
+          "letter": "D",
+          "text": "Reference arguments"
+        }
+      ],
+      "answer": "B",
+      "explanation": "**Actual arguments** appear in the function call (the *actual* values passed). **Formal arguments** appear in the function definition's parameter list (placeholders that *receive* the values)."
+    },
+    {
+      "id": 34,
+      "chapter": 2,
+      "stem": "What must match between actual and formal arguments?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The variable names"
+        },
+        {
+          "letter": "B",
+          "text": "Only the number of arguments"
+        },
+        {
+          "letter": "C",
+          "text": "The order, number, and type"
+        },
+        {
+          "letter": "D",
+          "text": "Only the data types"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The compiler matches arguments by **position**, so the order, number, and type must all be consistent. The names need not match — `add(x, y)` calling `int add(int a, int b)` works fine."
+    },
+    {
+      "id": 35,
+      "chapter": 2,
+      "stem": "What is printed?\n```cpp\nint x = 10;                      // global\nvoid modify() { x = x + 5; }\nint main() {\n    modify();\n    modify();\n    cout << x;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`10`"
+        },
+        {
+          "letter": "B",
+          "text": "`15`"
+        },
+        {
+          "letter": "C",
+          "text": "`20`"
+        },
+        {
+          "letter": "D",
+          "text": "`30`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Each call to `modify()` adds 5 to the global `x`. After two calls, `x = 10 + 5 + 5 = 20`."
+    },
+    {
+      "id": 36,
+      "chapter": 2,
+      "stem": "A global variable in C++ is **automatically initialised to**:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Garbage / undefined"
+        },
+        {
+          "letter": "B",
+          "text": "`0` (zero) for built-in numeric types"
+        },
+        {
+          "letter": "C",
+          "text": "`1` for integers, `0.0` for floats"
+        },
+        {
+          "letter": "D",
+          "text": "The value of the previous global with the same name"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Globals (and `static` locals) are zero-initialised by default. Only **non-static local** variables of built-in types start with garbage if not explicitly initialised."
+    },
+    {
+      "id": 37,
+      "chapter": 2,
+      "stem": "Which line will cause a **compile error**?\n```cpp\nvoid f() { int k = 5; }\nint main() {\n    f();\n    cout << k;          // line A\n    return 0;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`cout << k;` — `k` is local to `f` and is not visible in `main`"
+        },
+        {
+          "letter": "B",
+          "text": "`f();` — `f` cannot be called"
+        },
+        {
+          "letter": "C",
+          "text": "`int k = 5;` — `k` is not initialised"
+        },
+        {
+          "letter": "D",
+          "text": "None — the program prints `5`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`k` is a local variable inside `f()`. It exists only during the execution of `f` and is **invisible** outside it. Trying to use `k` in `main` is a scope error."
+    },
+    {
+      "id": 38,
+      "chapter": 2,
+      "stem": "Identify the **two essential components** every recursive function must have.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A loop and a return"
+        },
+        {
+          "letter": "B",
+          "text": "A base case and a recursive case"
+        },
+        {
+          "letter": "C",
+          "text": "A global variable and a parameter"
+        },
+        {
+          "letter": "D",
+          "text": "A pointer and a reference"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A **base case** stops the recursion, and a **recursive case** moves the problem closer to the base case. Without a base case, recursion never stops and causes a stack overflow."
+    },
+    {
+      "id": 39,
+      "chapter": 2,
+      "stem": "What does `factorial(0)` return for the standard recursive factorial below?\n```cpp\nlong long factorial(int n) {\n    if (n <= 1) return 1;\n    return n * factorial(n - 1);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`0`"
+        },
+        {
+          "letter": "B",
+          "text": "`1`"
+        },
+        {
+          "letter": "C",
+          "text": "Undefined"
+        },
+        {
+          "letter": "D",
+          "text": "Infinite loop"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The base case `n <= 1` covers both `n = 0` and `n = 1`, returning `1`. Mathematically, `0! = 1`."
+    },
+    {
+      "id": 40,
+      "chapter": 2,
+      "stem": "What happens if you remove the base case from a recursive function?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The function still works, just slower"
+        },
+        {
+          "letter": "B",
+          "text": "The compiler refuses to compile it"
+        },
+        {
+          "letter": "C",
+          "text": "The function calls itself indefinitely until a stack overflow"
+        },
+        {
+          "letter": "D",
+          "text": "It returns `0` automatically"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Without a base case, every call makes another call. The call stack grows until memory runs out — a **stack overflow** crash."
+    },
+    {
+      "id": 41,
+      "chapter": 2,
+      "stem": "Trace `sum(3)` for:\n```cpp\nint sum(int n) {\n    if (n == 0) return 0;\n    return n + sum(n - 1);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`3`"
+        },
+        {
+          "letter": "B",
+          "text": "`5`"
+        },
+        {
+          "letter": "C",
+          "text": "`6`"
+        },
+        {
+          "letter": "D",
+          "text": "`7`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`sum(3) = 3 + sum(2) = 3 + 2 + sum(1) = 3 + 2 + 1 + sum(0) = 3 + 2 + 1 + 0 = 6`."
+    },
+    {
+      "id": 42,
+      "chapter": 2,
+      "stem": "Convert the recursive sum to **iteration**. Which body is correct?\n```cpp\nint sum(int n) {\n    int total = 0;\n    _________________________   // fill in\n    return total;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`for (int i = 1; i <= n; i++) total += i;`"
+        },
+        {
+          "letter": "B",
+          "text": "`for (int i = 0; i < n; i++) total += n;`"
+        },
+        {
+          "letter": "C",
+          "text": "`while (n--) total = n;`"
+        },
+        {
+          "letter": "D",
+          "text": "`for (int i = 1; i < n; i++) total = i;`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Add each integer from 1 to `n` to the running total. Option B adds `n` to itself `n` times (giving `n*n`). Option C and D are buggy."
+    },
+    {
+      "id": 43,
+      "chapter": 2,
+      "stem": "Which **single line** correctly implements a recursive `power(base, exp)` function?\n```cpp\nint power(int b, int e) {\n    if (e == 0) return 1;\n    return _________________;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`b * power(b, e)`        *(infinite recursion)*"
+        },
+        {
+          "letter": "B",
+          "text": "`b * power(b, e - 1)`"
+        },
+        {
+          "letter": "C",
+          "text": "`b + power(b, e - 1)`"
+        },
+        {
+          "letter": "D",
+          "text": "`power(b - 1, e)`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`b^e = b × b^(e-1)`, with base case `b^0 = 1`. Option A never reduces `e`, so it never reaches the base case."
+    },
+    {
+      "id": 44,
+      "chapter": 2,
+      "stem": "What is the maximum recursion depth (number of simultaneously active stack frames) when computing `factorial(5)` with the standard `if (n <= 1) return 1;` base case?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1"
+        },
+        {
+          "letter": "B",
+          "text": "5"
+        },
+        {
+          "letter": "C",
+          "text": "6"
+        },
+        {
+          "letter": "D",
+          "text": "25"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Active frames at the deepest point: `factorial(5)`, `factorial(4)`, `factorial(3)`, `factorial(2)`, `factorial(1)` — five frames. `factorial(1)` hits the base case and returns immediately without spawning another call."
+    },
+    {
+      "id": 45,
+      "chapter": 2,
+      "stem": "Why is iteration usually preferred over recursion for **simple sequential** tasks?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Iteration is more readable for repetition without recursive structure"
+        },
+        {
+          "letter": "B",
+          "text": "Iteration cannot be implemented in C++"
+        },
+        {
+          "letter": "C",
+          "text": "Recursion always crashes on inputs above 10"
+        },
+        {
+          "letter": "D",
+          "text": "Compilers do not support recursion"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Loops avoid the per-call stack overhead and are more idiomatic for problems that lack a natural recursive structure (like adding 1..n). Recursion shines for problems with a self-similar shape (trees, divide-and-conquer)."
+    },
+    {
+      "id": 46,
+      "chapter": 2,
+      "stem": "What is the output of:\n```cpp\nint x = 1;                 // global\nvoid f() { int x = 2; cout << x << \" \"; }\nvoid g() { x = 3; cout << x << \" \"; }\nint main() { f(); g(); cout << x; }\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`2 3 3`"
+        },
+        {
+          "letter": "B",
+          "text": "`1 1 1`"
+        },
+        {
+          "letter": "C",
+          "text": "`2 3 1`"
+        },
+        {
+          "letter": "D",
+          "text": "`1 3 3`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Inside `f`, the local `x = 2` shadows the global, so `f` prints `2`. `g` has no local `x`, so it modifies the **global** `x` to `3` and prints `3`. `main` then prints the global, which is now `3`."
+    },
+    {
+      "id": 47,
+      "chapter": 2,
+      "stem": "Which is a **safer alternative** to a global variable for sharing data between two functions?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Pass it explicitly as a parameter and/or return value"
+        },
+        {
+          "letter": "B",
+          "text": "Re-declare it in each function as `extern`"
+        },
+        {
+          "letter": "C",
+          "text": "Use the same name in both functions to make it global automatically"
+        },
+        {
+          "letter": "D",
+          "text": "Make it a `#define`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Passing data through parameters and return values keeps each function **self-contained**, easier to test, and free of hidden coupling. Globals work but increase coupling and make bugs harder to track."
+    },
+    {
+      "id": 48,
+      "chapter": 2,
+      "stem": "Predict the output:\n```cpp\nint counter = 0;\nvoid inc() { counter++; }\nint main() {\n    for (int i = 0; i < 4; i++) inc();\n    cout << counter;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`0`"
+        },
+        {
+          "letter": "B",
+          "text": "`1`"
+        },
+        {
+          "letter": "C",
+          "text": "`4`"
+        },
+        {
+          "letter": "D",
+          "text": "`5`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Every call to `inc()` increases the global `counter` by 1. The loop runs 4 times → final value `4`."
+    },
+    {
+      "id": 49,
+      "chapter": 2,
+      "stem": "What is **wrong** with this recursive factorial?\n```cpp\nint fact(int n) {\n    return n * fact(n - 1);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Missing base case — infinite recursion"
+        },
+        {
+          "letter": "B",
+          "text": "Wrong return type"
+        },
+        {
+          "letter": "C",
+          "text": "`n - 1` should be `n + 1`"
+        },
+        {
+          "letter": "D",
+          "text": "Nothing is wrong"
+        }
+      ],
+      "answer": "A",
+      "explanation": "There is no `if` statement to stop the recursion. Every call spawns another call → stack overflow. Add `if (n <= 1) return 1;` at the top."
+    },
+    {
+      "id": 50,
+      "chapter": 2,
+      "stem": "The Fibonacci sequence is `0, 1, 1, 2, 3, 5, 8, ...` Which recursive definition matches `fib(n)` for this sequence?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`fib(n) = fib(n-1) + fib(n+1)`"
+        },
+        {
+          "letter": "B",
+          "text": "`fib(n) = fib(n-1) * fib(n-2)`"
+        },
+        {
+          "letter": "C",
+          "text": "`fib(0) = 0; fib(1) = 1; fib(n) = fib(n-1) + fib(n-2)` for `n >= 2`"
+        },
+        {
+          "letter": "D",
+          "text": "`fib(n) = n + fib(n-1)`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Two base cases (`fib(0) = 0`, `fib(1) = 1`) and the recurrence `fib(n) = fib(n-1) + fib(n-2)` for `n >= 2`."
+    },
+    {
+      "id": 51,
+      "chapter": 2,
+      "stem": "Predict the output:\n```cpp\nint fib(int n) {\n    if (n < 2) return n;\n    return fib(n - 1) + fib(n - 2);\n}\nint main() { cout << fib(6); }\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`5`"
+        },
+        {
+          "letter": "B",
+          "text": "`6`"
+        },
+        {
+          "letter": "C",
+          "text": "`8`"
+        },
+        {
+          "letter": "D",
+          "text": "`13`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`fib(6)` evaluates to `8`. Sequence: `0,1,1,2,3,5,8` — the 7th term (index 6) is `8`."
+    },
+    {
+      "id": 52,
+      "chapter": 2,
+      "stem": "Which function is the more efficient way to compute `n!` for **large `n`**, given that recursion uses O(n) extra stack space?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The recursive version"
+        },
+        {
+          "letter": "B",
+          "text": "The iterative version using a `for` loop"
+        },
+        {
+          "letter": "C",
+          "text": "Both have identical performance"
+        },
+        {
+          "letter": "D",
+          "text": "Recursion is always faster"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The iterative version uses O(1) extra space (a single accumulator) regardless of `n`. Recursion uses O(n) stack space, risking overflow for huge `n`."
+    },
+    {
+      "id": 53,
+      "chapter": 2,
+      "stem": "In the function `int average(int x, int y)` called as `average(p, q)`:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`x` and `y` are actual arguments; `p` and `q` are formal arguments"
+        },
+        {
+          "letter": "B",
+          "text": "`p` and `q` are actual arguments; `x` and `y` are formal arguments"
+        },
+        {
+          "letter": "C",
+          "text": "Both pairs are formal arguments"
+        },
+        {
+          "letter": "D",
+          "text": "`p`, `q`, `x`, `y` are all references to the same variables"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Definitions hold **formal** parameters; calls supply **actual** arguments. Mnemonic: *Formal = in the Function (definition); Actual = at the call*."
+    },
+    {
+      "id": 54,
+      "chapter": 2,
+      "stem": "What is a key difference between **local** and **global** variables?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Local variables persist across function calls; globals do not"
+        },
+        {
+          "letter": "B",
+          "text": "Locals exist only during their block's execution; globals last for the whole program"
+        },
+        {
+          "letter": "C",
+          "text": "Locals are automatically zero-initialised; globals are not"
+        },
+        {
+          "letter": "D",
+          "text": "There is no real difference"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Locals live on the stack for the duration of their block; globals live in the data segment for the lifetime of the program. Default-initialisation is the reverse of (C): **globals** are zero-initialised, **locals** are not."
+    },
+    {
+      "id": 55,
+      "chapter": 2,
+      "stem": "Choose the **best signature** for a function that returns whether a year is a leap year.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`void leapYear(int year)`"
+        },
+        {
+          "letter": "B",
+          "text": "`int leapYear(int year)`"
+        },
+        {
+          "letter": "C",
+          "text": "`bool isLeapYear(int year)`"
+        },
+        {
+          "letter": "D",
+          "text": "`string leapYear(int year)`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Returning `bool` makes the function self-documenting and works directly with `if`. The `is...` naming convention also makes the call site read like English: `if (isLeapYear(2024)) ...`."
+    },
+    {
+      "id": 56,
+      "chapter": 2,
+      "stem": "Complete the body of `bool isLeapYear(int y)`:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`return y % 4 == 0;`"
+        },
+        {
+          "letter": "B",
+          "text": "`return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);`"
+        },
+        {
+          "letter": "C",
+          "text": "`return y % 100 == 0;`"
+        },
+        {
+          "letter": "D",
+          "text": "`return y % 400 == 0;`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The Gregorian rule: divisible by 4 but **not** by 100, **unless** also divisible by 400. Examples: 2000 (leap), 1900 (not leap), 2024 (leap), 2100 (not leap)."
+    },
+    {
+      "id": 57,
+      "chapter": 2,
+      "stem": "Trace the call `mystery(4)`:\n```cpp\nint mystery(int n) {\n    if (n == 0) return 0;\n    return 2 + mystery(n - 1);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`4`"
+        },
+        {
+          "letter": "B",
+          "text": "`6`"
+        },
+        {
+          "letter": "C",
+          "text": "`8`"
+        },
+        {
+          "letter": "D",
+          "text": "`10`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Each call adds `2` and reduces `n` by 1 until `n == 0` returns 0. Total `2 + 2 + 2 + 2 + 0 = 8`. (This computes `2n`.)"
+    },
+    {
+      "id": 58,
+      "chapter": 2,
+      "stem": "Identify the bug in the recursive sum below:\n```cpp\nint sum(int n) {\n    if (n == 1) return 1;\n    return n + sum(n - 1);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "For `n = 0`, `sum(0)` recurses to `sum(-1)`, `sum(-2)`, … forever"
+        },
+        {
+          "letter": "B",
+          "text": "The return type should be `void`"
+        },
+        {
+          "letter": "C",
+          "text": "`n + sum(n - 1)` should be `n - sum(n - 1)`"
+        },
+        {
+          "letter": "D",
+          "text": "Nothing is wrong"
+        }
+      ],
+      "answer": "A",
+      "explanation": "The base case only fires at `n == 1`. For `n = 0` (or any negative input), the recursion never stops. A safer base case is `if (n <= 0) return 0;`."
+    },
+    {
+      "id": 59,
+      "chapter": 2,
+      "stem": "Predict the output:\n```cpp\nint x = 10;\nvoid inc() { x = x * 2; }\nint main() {\n    inc(); inc(); inc();\n    cout << x;\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`10`"
+        },
+        {
+          "letter": "B",
+          "text": "`30`"
+        },
+        {
+          "letter": "C",
+          "text": "`60`"
+        },
+        {
+          "letter": "D",
+          "text": "`80`"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Each call doubles `x`. Starting from 10: → 20 → 40 → **80**."
+    },
+    {
+      "id": 60,
+      "chapter": 2,
+      "stem": "Which mathematical series does the chapter's `series` example approximate?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`e^x`"
+        },
+        {
+          "letter": "B",
+          "text": "`cos(x)`"
+        },
+        {
+          "letter": "C",
+          "text": "`sin(x)`"
+        },
+        {
+          "letter": "D",
+          "text": "`ln(1 + x)`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The series `x − x³/3! + x⁵/5! − x⁷/7! + …` is the Taylor expansion of **sin(x)**. The chapter verifies the result by comparing against `sin(x)` from `<cmath>`."
+    },
+    {
+      "id": 61,
+      "chapter": 3,
+      "stem": "What is an array, in one sentence?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A pointer to a single value of any type"
+        },
+        {
+          "letter": "B",
+          "text": "A collection of *different* data types stored in contiguous memory"
+        },
+        {
+          "letter": "C",
+          "text": "A consecutive group of *homogeneous* memory locations sharing one name"
+        },
+        {
+          "letter": "D",
+          "text": "An object with named members accessed by the dot operator"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Arrays are contiguous, fixed-size, homogeneous (same type for every element). Heterogeneous types belong to a `struct`; named-member access is also a struct feature."
+    },
+    {
+      "id": 62,
+      "chapter": 3,
+      "stem": "What is the value of `arr[3]` after `int arr[6] = {10, 20, 30};`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`30`"
+        },
+        {
+          "letter": "B",
+          "text": "`0`"
+        },
+        {
+          "letter": "C",
+          "text": "Garbage"
+        },
+        {
+          "letter": "D",
+          "text": "Compile error"
+        }
+      ],
+      "answer": "B",
+      "explanation": "When fewer initialisers are given than the declared size, the **remaining elements are zero-initialised**. So `arr` = `{10, 20, 30, 0, 0, 0}`."
+    },
+    {
+      "id": 63,
+      "chapter": 3,
+      "stem": "The shortcut `int arr[100] = {0};` initialises:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Only the first element to 0; the rest are garbage"
+        },
+        {
+          "letter": "B",
+          "text": "All elements to 0"
+        },
+        {
+          "letter": "C",
+          "text": "Only the last element to 0"
+        },
+        {
+          "letter": "D",
+          "text": "All elements to 100"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The first element is explicitly `0`, and the partial-initialisation rule sets every other element to `0` as well."
+    },
+    {
+      "id": 64,
+      "chapter": 3,
+      "stem": "What is the index of the **last** element of `int arr[10];`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`10`"
+        },
+        {
+          "letter": "B",
+          "text": "`9`"
+        },
+        {
+          "letter": "C",
+          "text": "`11`"
+        },
+        {
+          "letter": "D",
+          "text": "`0`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Indices run from `0` to `size − 1`. For a size-10 array, valid indices are `0..9`."
+    },
+    {
+      "id": 65,
+      "chapter": 3,
+      "stem": "What happens when you read or write `arr[10]` in a 10-element array?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Compile error — array index out of range"
+        },
+        {
+          "letter": "B",
+          "text": "Runtime exception is thrown"
+        },
+        {
+          "letter": "C",
+          "text": "Undefined behaviour: anything from garbage to a crash to silent memory corruption"
+        },
+        {
+          "letter": "D",
+          "text": "Returns `0` automatically"
+        }
+      ],
+      "answer": "C",
+      "explanation": "C++ does **no bounds checking** on raw arrays. Out-of-range access is undefined behaviour and may corrupt nearby memory or crash unpredictably."
+    },
+    {
+      "id": 66,
+      "chapter": 3,
+      "stem": "Predict the output:\n```cpp\nint a[] = {3, 1, 4, 1, 5, 9, 2, 6};\nint sum = 0;\nfor (int i = 0; i < 8; i++) sum += a[i];\ncout << sum;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`30`"
+        },
+        {
+          "letter": "B",
+          "text": "`31`"
+        },
+        {
+          "letter": "C",
+          "text": "`34`"
+        },
+        {
+          "letter": "D",
+          "text": "`0`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`3+1+4+1+5+9+2+6 = 31`."
+    },
+    {
+      "id": 67,
+      "chapter": 3,
+      "stem": "Complete the body that finds the **maximum** element of `int a[N]`:\n```cpp\nint maxVal = a[0];\nfor (int i = 1; i < N; i++)\n    ____________________;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`if (a[i] < maxVal) maxVal = a[i];`"
+        },
+        {
+          "letter": "B",
+          "text": "`if (a[i] > maxVal) maxVal = a[i];`"
+        },
+        {
+          "letter": "C",
+          "text": "`maxVal = a[i];`"
+        },
+        {
+          "letter": "D",
+          "text": "`maxVal++;`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Replace `maxVal` whenever a **larger** element appears. Option A would compute the *minimum*. Option C just stores the last element."
+    },
+    {
+      "id": 68,
+      "chapter": 3,
+      "stem": "Predict the output:\n```cpp\nint a[5] = {2, 4, 6, 8, 10};\nfor (int i = 4; i >= 0; i--) cout << a[i] << \" \";\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`2 4 6 8 10`"
+        },
+        {
+          "letter": "B",
+          "text": "`10 8 6 4 2`"
+        },
+        {
+          "letter": "C",
+          "text": "`10 10 10 10 10`"
+        },
+        {
+          "letter": "D",
+          "text": "Crash (negative index)"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The loop walks the array backwards from index 4 to 0, printing the elements in reverse order. The loop stops when `i` becomes `-1` because `-1 >= 0` is false."
+    },
+    {
+      "id": 69,
+      "chapter": 3,
+      "stem": "Which line correctly counts how many elements equal `target`?\n```cpp\nint count = 0;\nfor (int i = 0; i < N; i++) {\n    _____________________\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`count++;`"
+        },
+        {
+          "letter": "B",
+          "text": "`if (a[i] == target) count++;`"
+        },
+        {
+          "letter": "C",
+          "text": "`if (a[i] = target) count++;`"
+        },
+        {
+          "letter": "D",
+          "text": "`count += a[i];`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Increment only when the element matches. Option C uses `=` (assignment), which silently overwrites and is almost certainly a bug."
+    },
+    {
+      "id": 70,
+      "chapter": 3,
+      "stem": "The `search` function on page 28 of the chapter returns:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The element that matches `x`"
+        },
+        {
+          "letter": "B",
+          "text": "The **index** of `x`, or `-1` if not found"
+        },
+        {
+          "letter": "C",
+          "text": "The number of times `x` appears"
+        },
+        {
+          "letter": "D",
+          "text": "`true` or `false`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Linear search returns the position (index) of the first occurrence, or `-1` (a sentinel value) when the target is missing."
+    },
+    {
+      "id": 71,
+      "chapter": 3,
+      "stem": "What does the linear-search algorithm have **time complexity**?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "O(1)"
+        },
+        {
+          "letter": "B",
+          "text": "O(log n)"
+        },
+        {
+          "letter": "C",
+          "text": "O(n)"
+        },
+        {
+          "letter": "D",
+          "text": "O(n²)"
+        }
+      ],
+      "answer": "C",
+      "explanation": "In the worst case, every element is examined → O(n). Binary search achieves O(log n) but only on **sorted** arrays."
+    },
+    {
+      "id": 72,
+      "chapter": 3,
+      "stem": "What is the bug?\n```cpp\nint a[5];\nfor (int i = 1; i <= 5; i++) cin >> a[i];\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The loop reads `a[1]..a[5]`, but valid indices are `0..4`. `a[0]` is skipped and `a[5]` is out of bounds."
+        },
+        {
+          "letter": "B",
+          "text": "`cin >>` cannot read into array elements"
+        },
+        {
+          "letter": "C",
+          "text": "The array must be initialised first"
+        },
+        {
+          "letter": "D",
+          "text": "Nothing is wrong"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Off-by-one error — a classic. The correct loop is `for (int i = 0; i < 5; i++)`."
+    },
+    {
+      "id": 73,
+      "chapter": 3,
+      "stem": "What is printed?\n```cpp\nint a[] = {1, 2, 3, 4, 5};\ncout << a[a[0] + a[1]];\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`3`"
+        },
+        {
+          "letter": "B",
+          "text": "`4`"
+        },
+        {
+          "letter": "C",
+          "text": "`5`"
+        },
+        {
+          "letter": "D",
+          "text": "`Compile error`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`a[0]+a[1] = 1+2 = 3`, so we print `a[3]` which is `4`."
+    },
+    {
+      "id": 74,
+      "chapter": 3,
+      "stem": "Which of the following is a **valid** array declaration in standard C++?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`int n; int a[n];`           *(VLA — non-standard)*"
+        },
+        {
+          "letter": "B",
+          "text": "`int a[];`                    *(no initialiser, no size)*"
+        },
+        {
+          "letter": "C",
+          "text": "`int a[5] = {1, 2};`"
+        },
+        {
+          "letter": "D",
+          "text": "`int a(5);`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The size must be a compile-time constant (or deducible from an initialiser list). Variable-length arrays (A) are a GCC extension, not standard C++. (B) is illegal because the compiler cannot determine the size."
+    },
+    {
+      "id": 75,
+      "chapter": 3,
+      "stem": "Two arrays where parallel index positions correspond to a single conceptual record (e.g., `name[i]` and `age[i]`) are called:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Parallel arrays"
+        },
+        {
+          "letter": "B",
+          "text": "Mirror arrays"
+        },
+        {
+          "letter": "C",
+          "text": "Diagonal arrays"
+        },
+        {
+          "letter": "D",
+          "text": "Linked arrays"
+        }
+      ],
+      "answer": "A",
+      "explanation": "**Parallel arrays** are a simple way to associate multiple attributes per record before learning structures."
+    },
+    {
+      "id": 76,
+      "chapter": 3,
+      "stem": "What does the program print?\n```cpp\nint a[5] = {1, 2, 3, 4, 5};\nfor (int i = 0; i < 5; i++) a[i] *= 2;\nfor (int i = 0; i < 5; i++) cout << a[i] << \" \";\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1 2 3 4 5`"
+        },
+        {
+          "letter": "B",
+          "text": "`2 4 6 8 10`"
+        },
+        {
+          "letter": "C",
+          "text": "`2 2 2 2 2`"
+        },
+        {
+          "letter": "D",
+          "text": "`0 0 0 0 0`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The first loop doubles every element. The second prints the result."
+    },
+    {
+      "id": 77,
+      "chapter": 3,
+      "stem": "Complete the body of `int sum(int a[], int n)`:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`for (int i = 0; i <= n; i++) s += a[i]; return s;`"
+        },
+        {
+          "letter": "B",
+          "text": "`for (int i = 0; i < n; i++) s += a[i]; return s;`        *(with `int s = 0;` first)*"
+        },
+        {
+          "letter": "C",
+          "text": "`for (int i = 1; i < n; i++) s += a[i]; return s;`"
+        },
+        {
+          "letter": "D",
+          "text": "`return a[0] + a[n];`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Iterate over `0..n−1`, accumulating into `s`. (A) would read `a[n]` (out of bounds). (C) skips `a[0]`. (D) only sums two elements."
+    },
+    {
+      "id": 78,
+      "chapter": 3,
+      "stem": "Why does the function below behave as if **the array were passed by reference**, even though it looks like an ordinary parameter?\n```cpp\nvoid zeroOut(int a[], int n) { for (int i = 0; i < n; i++) a[i] = 0; }\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "C++ secretly clones the array"
+        },
+        {
+          "letter": "B",
+          "text": "Array names decay to **pointers** when passed to a function — the function operates on the original memory"
+        },
+        {
+          "letter": "C",
+          "text": "Functions cannot modify their parameters at all"
+        },
+        {
+          "letter": "D",
+          "text": "The compiler always passes by reference"
+        }
+      ],
+      "answer": "B",
+      "explanation": "When you pass an array, C++ passes a **pointer to its first element**. Modifying `a[i]` inside the function modifies the original array."
+    },
+    {
+      "id": 79,
+      "chapter": 3,
+      "stem": "Inside `void f(int a[])`, what does `sizeof(a)` return?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The number of elements in the array"
+        },
+        {
+          "letter": "B",
+          "text": "The total bytes occupied by the array"
+        },
+        {
+          "letter": "C",
+          "text": "The size of a **pointer** (typically 4 or 8 bytes), not the array"
+        },
+        {
+          "letter": "D",
+          "text": "Always `1`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Inside the function, `a` is a pointer, so `sizeof(a)` gives the pointer's size, not the array's. To know the array length, **pass it as a separate parameter** (`int n`)."
+    },
+    {
+      "id": 80,
+      "chapter": 3,
+      "stem": "Predict the output:\n```cpp\nint a[] = {5, 3, 8, 1, 9, 2};\nint n = sizeof(a) / sizeof(a[0]);\ncout << n;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`5`"
+        },
+        {
+          "letter": "B",
+          "text": "`6`"
+        },
+        {
+          "letter": "C",
+          "text": "`24`"
+        },
+        {
+          "letter": "D",
+          "text": "`48`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`sizeof(a)` is the total bytes (`6 * sizeof(int) = 24`), and `sizeof(a[0])` is the size of one element (`4`). So `n = 24/4 = 6`. *Note: this trick only works in the **same scope** where the array is declared, not inside a function that received it."
+    },
+    {
+      "id": 81,
+      "chapter": 3,
+      "stem": "Implement a one-line **swap of two array elements**:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`a[i] = a[j];`"
+        },
+        {
+          "letter": "B",
+          "text": "`int t = a[i]; a[i] = a[j]; a[j] = t;`        *(three statements, not one)*"
+        },
+        {
+          "letter": "C",
+          "text": "`swap(a[i], a[j]);`        *(from `<algorithm>`)*"
+        },
+        {
+          "letter": "D",
+          "text": "`a[i] + a[j] = a[j] + a[i];`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The standard library's `std::swap(a[i], a[j])` is the cleanest one-liner. Option B is the manual three-line approach. Option A overwrites and loses data."
+    },
+    {
+      "id": 82,
+      "chapter": 3,
+      "stem": "Which describes the result of `int a[5] = {1, 2};`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`{1, 2, 1, 2, 1}`"
+        },
+        {
+          "letter": "B",
+          "text": "`{1, 2, 0, 0, 0}`"
+        },
+        {
+          "letter": "C",
+          "text": "`{1, 2}` and the rest are uninitialised"
+        },
+        {
+          "letter": "D",
+          "text": "Compile error"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The first two elements take the listed values; the remaining elements are zero-initialised."
+    },
+    {
+      "id": 83,
+      "chapter": 3,
+      "stem": "What does the program print?\n```cpp\nint a[5] = {1, 2, 3, 4, 5};\nint b[5];\nfor (int i = 0; i < 5; i++) b[i] = a[4 - i];\nfor (int i = 0; i < 5; i++) cout << b[i] << \" \";\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1 2 3 4 5`"
+        },
+        {
+          "letter": "B",
+          "text": "`5 5 5 5 5`"
+        },
+        {
+          "letter": "C",
+          "text": "`5 4 3 2 1`"
+        },
+        {
+          "letter": "D",
+          "text": "`1 1 1 1 1`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`b[i]` receives `a[4 - i]` — the array is copied **in reverse**."
+    },
+    {
+      "id": 84,
+      "chapter": 3,
+      "stem": "Complete the body that splits `arr[N]` into `even[]` and `odd[]`:\n```cpp\nint evenCount = 0, oddCount = 0;\nfor (int i = 0; i < N; i++) {\n    if (arr[i] % 2 == 0) ____________\n    else                 ____________\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`even[i] = arr[i]; ` and `odd[i] = arr[i];`"
+        },
+        {
+          "letter": "B",
+          "text": "`even[evenCount++] = arr[i];` and `odd[oddCount++] = arr[i];`"
+        },
+        {
+          "letter": "C",
+          "text": "`even[evenCount] = arr[i];` and `odd[oddCount] = arr[i];`        *(no counter increment)*"
+        },
+        {
+          "letter": "D",
+          "text": "`even[N] = arr[i];` and `odd[N] = arr[i];`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Use a separate counter for each output array, and **increment** it after each insertion. Option C overwrites position 0 every iteration. Option A uses the source index (could leave gaps)."
+    },
+    {
+      "id": 85,
+      "chapter": 3,
+      "stem": "Predict the output:\n```cpp\nint a[] = {7, 2, 9, 4, 1};\nint min = a[0];\nint idx = 0;\nfor (int i = 1; i < 5; i++)\n    if (a[i] < min) { min = a[i]; idx = i; }\ncout << min << \" \" << idx;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1 4`"
+        },
+        {
+          "letter": "B",
+          "text": "`7 0`"
+        },
+        {
+          "letter": "C",
+          "text": "`1 1`"
+        },
+        {
+          "letter": "D",
+          "text": "`9 2`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Walks the array; the smallest value is `1` at index `4`. (Tracking the **index** as well as the value is a useful pattern.)"
+    },
+    {
+      "id": 86,
+      "chapter": 3,
+      "stem": "Which is the cleanest way to **reverse an array in place** with `n` elements?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Copy to a new array, then back, in reverse"
+        },
+        {
+          "letter": "B",
+          "text": "Swap `a[i]` with `a[n-1-i]` for `i = 0..n/2-1`"
+        },
+        {
+          "letter": "C",
+          "text": "Sort the array in descending order"
+        },
+        {
+          "letter": "D",
+          "text": "Use `a[-i]`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Swap symmetric pairs. Only `n/2` swaps are needed. (C) is wrong because reverse ≠ sorted unless the array is already sorted."
+    },
+    {
+      "id": 87,
+      "chapter": 3,
+      "stem": "What does this print? (Trace carefully.)\n```cpp\nint a[] = {4, 8, 15, 16, 23, 42};\nfor (int i = 0; i < 6; i++)\n    if (a[i] % 2 == 1) cout << a[i] << \" \";\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`4 8 16 42`"
+        },
+        {
+          "letter": "B",
+          "text": "`15 23`"
+        },
+        {
+          "letter": "C",
+          "text": "`4 8 15 16 23 42`"
+        },
+        {
+          "letter": "D",
+          "text": "`nothing`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Print only odd elements (`a[i] % 2 == 1`). The odd elements are `15` and `23`."
+    },
+    {
+      "id": 88,
+      "chapter": 3,
+      "stem": "Suppose `int a[] = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};`. How many times does `5` appear?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1`"
+        },
+        {
+          "letter": "B",
+          "text": "`2`"
+        },
+        {
+          "letter": "C",
+          "text": "`3`"
+        },
+        {
+          "letter": "D",
+          "text": "`4`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The value `5` appears at indices 4, 8, and 10 → three occurrences. (Counting occurrences is a one-liner with a `for` and an `if`.)"
+    },
+    {
+      "id": 89,
+      "chapter": 3,
+      "stem": "What is the issue with `int a[]` (no size, no initialiser)?\n```cpp\nint a[];\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The compiler defaults the size to 1"
+        },
+        {
+          "letter": "B",
+          "text": "The compiler reports an error: incomplete type / unknown size"
+        },
+        {
+          "letter": "C",
+          "text": "Undefined behaviour at runtime"
+        },
+        {
+          "letter": "D",
+          "text": "Allocates 0 bytes"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Without an initialiser the compiler cannot determine the array length, so the declaration is rejected."
+    },
+    {
+      "id": 90,
+      "chapter": 3,
+      "stem": "The chapter's `search` function returns `-1` to indicate \"not found\". This is an example of:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "An error code returned through a special integer value (a **sentinel**)"
+        },
+        {
+          "letter": "B",
+          "text": "An exception"
+        },
+        {
+          "letter": "C",
+          "text": "A null pointer"
+        },
+        {
+          "letter": "D",
+          "text": "A reference parameter"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Returning a value that cannot be a valid result (here, `-1`, since indices are non-negative) is a classic C-style way to signal failure. Modern alternatives include exceptions and `std::optional`."
+    },
+    {
+      "id": 91,
+      "chapter": 4,
+      "stem": "How many elements does `int m[3][4]` contain?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "7"
+        },
+        {
+          "letter": "B",
+          "text": "12"
+        },
+        {
+          "letter": "C",
+          "text": "24"
+        },
+        {
+          "letter": "D",
+          "text": "16"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`rows * cols = 3 * 4 = 12`. Total bytes are `12 * sizeof(int)` (typically 48 bytes)."
+    },
+    {
+      "id": 92,
+      "chapter": 4,
+      "stem": "Which declaration is **invalid**?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`int m[3][4] = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};`"
+        },
+        {
+          "letter": "B",
+          "text": "`int m[][4] = {{1,2,3,4},{5,6,7,8}};`         *(rows deduced)*"
+        },
+        {
+          "letter": "C",
+          "text": "`int m[3][] = {{1,2,3},{4,5,6},{7,8,9}};`     *(columns omitted)*"
+        },
+        {
+          "letter": "D",
+          "text": "`int m[2][2] = {1, 2, 3, 4};`                  *(flat initialiser allowed)*"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The **column size cannot be omitted**. Only the row count can be deduced because the compiler must know how many elements are in each row to lay them out."
+    },
+    {
+      "id": 93,
+      "chapter": 4,
+      "stem": "After `int m[2][3] = {{1,2,3},{4,5,6}};`, what is `m[1][2]`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`2`"
+        },
+        {
+          "letter": "B",
+          "text": "`3`"
+        },
+        {
+          "letter": "C",
+          "text": "`5`"
+        },
+        {
+          "letter": "D",
+          "text": "`6`"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Row index `1` (second row) and column index `2` (third column) → `6`."
+    },
+    {
+      "id": 94,
+      "chapter": 4,
+      "stem": "In **row-major** memory layout, the element after `m[i][j]` in memory is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`m[i][j+1]`"
+        },
+        {
+          "letter": "B",
+          "text": "`m[i+1][j]`"
+        },
+        {
+          "letter": "C",
+          "text": "`m[i+1][j+1]`"
+        },
+        {
+          "letter": "D",
+          "text": "`m[i-1][j]`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Row-major means an entire row is laid out before the next row begins, so consecutive memory addresses correspond to consecutive **column indices** in the same row."
+    },
+    {
+      "id": 95,
+      "chapter": 4,
+      "stem": "Which loop pair correctly **reads** a 3 × 4 array `arr` from `cin`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`for (i=0;i<4;i++) for (j=0;j<3;j++) cin >> arr[i][j];`"
+        },
+        {
+          "letter": "B",
+          "text": "`for (i=0;i<3;i++) for (j=0;j<4;j++) cin >> arr[i][j];`"
+        },
+        {
+          "letter": "C",
+          "text": "`for (i=0;i<3;i++) cin >> arr[i];`"
+        },
+        {
+          "letter": "D",
+          "text": "`cin >> arr;`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The outer loop iterates over rows (size 3) and the inner loop over columns (size 4). Option A swaps the bounds and goes out of range on the rows."
+    },
+    {
+      "id": 96,
+      "chapter": 4,
+      "stem": "For an `n × n` matrix, the **main-diagonal** elements are those where:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`i + j == n - 1`"
+        },
+        {
+          "letter": "B",
+          "text": "`i == j`"
+        },
+        {
+          "letter": "C",
+          "text": "`i > j`"
+        },
+        {
+          "letter": "D",
+          "text": "`i < j`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Main diagonal: row index equals column index. The condition `i + j == n − 1` describes the *secondary* diagonal."
+    },
+    {
+      "id": 97,
+      "chapter": 4,
+      "stem": "For a 4 × 4 matrix, which positions are on the **secondary diagonal**?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`(0,0), (1,1), (2,2), (3,3)`"
+        },
+        {
+          "letter": "B",
+          "text": "`(0,3), (1,2), (2,1), (3,0)`"
+        },
+        {
+          "letter": "C",
+          "text": "`(0,0), (0,3), (3,0), (3,3)`"
+        },
+        {
+          "letter": "D",
+          "text": "`(0,1), (1,2), (2,3)`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`i + j == 3` → indices `(0,3), (1,2), (2,1), (3,0)`. (A) is the main diagonal; (C) is the four corners."
+    },
+    {
+      "id": 98,
+      "chapter": 4,
+      "stem": "Complete the line that **sums the main diagonal** of an `n × n` matrix `m`:\n```cpp\nint s = 0;\nfor (int i = 0; i < n; i++) ____________;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`s += m[0][i]`"
+        },
+        {
+          "letter": "B",
+          "text": "`s += m[i][0]`"
+        },
+        {
+          "letter": "C",
+          "text": "`s += m[i][i]`"
+        },
+        {
+          "letter": "D",
+          "text": "`s += m[n-1-i][i]`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Main diagonal: `m[i][i]`. Option A sums the first row. Option B sums the first column. Option D sums the secondary diagonal."
+    },
+    {
+      "id": 99,
+      "chapter": 4,
+      "stem": "Complete the line that **sums the secondary diagonal**:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`s += m[i][i];`"
+        },
+        {
+          "letter": "B",
+          "text": "`s += m[i][n - i];`"
+        },
+        {
+          "letter": "C",
+          "text": "`s += m[i][n - 1 - i];`"
+        },
+        {
+          "letter": "D",
+          "text": "`s += m[n - 1][i];`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The column index for row `i` on the secondary diagonal is `n - 1 - i`. (B) overshoots by one."
+    },
+    {
+      "id": 100,
+      "chapter": 4,
+      "stem": "For an `n × n` matrix, the elements **above the main diagonal** (the upper triangle) satisfy:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`i < j`"
+        },
+        {
+          "letter": "B",
+          "text": "`i > j`"
+        },
+        {
+          "letter": "C",
+          "text": "`i == j`"
+        },
+        {
+          "letter": "D",
+          "text": "`i + j < n - 1`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Upper triangle: row index is **less** than column index. Lower triangle: `i > j`."
+    },
+    {
+      "id": 101,
+      "chapter": 4,
+      "stem": "Predict the output:\n```cpp\nint m[3][3] = {{1,2,3},{4,5,6},{7,8,9}};\nint s = 0;\nfor (int i = 0; i < 3; i++)\n    for (int j = 0; j < 3; j++)\n        if (i == j) s += m[i][j];\ncout << s;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`9`"
+        },
+        {
+          "letter": "B",
+          "text": "`15`"
+        },
+        {
+          "letter": "C",
+          "text": "`21`"
+        },
+        {
+          "letter": "D",
+          "text": "`45`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Main-diagonal sum: `1 + 5 + 9 = 15`."
+    },
+    {
+      "id": 102,
+      "chapter": 4,
+      "stem": "Predict the output for the same matrix:\n```cpp\nint s = 0;\nfor (int i = 0; i < 3; i++)\n    for (int j = 0; j < 3; j++)\n        if (i + j == 2) s += m[i][j];\ncout << s;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`9`"
+        },
+        {
+          "letter": "B",
+          "text": "`15`"
+        },
+        {
+          "letter": "C",
+          "text": "`21`"
+        },
+        {
+          "letter": "D",
+          "text": "`45`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Secondary-diagonal sum for a 3 × 3: `m[0][2]+m[1][1]+m[2][0] = 3 + 5 + 7 = 15`. (For this magic-like matrix, both diagonals happen to sum to the same value.)"
+    },
+    {
+      "id": 103,
+      "chapter": 4,
+      "stem": "Complete the line that **flattens** a 2D array `m[R][C]` into a 1D array `flat[R*C]` in row-major order:\n```cpp\nfor (int i = 0; i < R; i++)\n    for (int j = 0; j < C; j++)\n        flat[___________] = m[i][j];\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`i + j`"
+        },
+        {
+          "letter": "B",
+          "text": "`i * j`"
+        },
+        {
+          "letter": "C",
+          "text": "`i * C + j`"
+        },
+        {
+          "letter": "D",
+          "text": "`j * R + i`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The element at row `i`, column `j` lands at index `i * C + j` in row-major flat layout. (D) would be column-major."
+    },
+    {
+      "id": 104,
+      "chapter": 4,
+      "stem": "Predict the output:\n```cpp\nint m[2][3] = {{1,2,3},{4,5,6}};\nint sum = 0;\nfor (int i = 0; i < 2; i++)\n    for (int j = 0; j < 3; j++)\n        sum += m[i][j];\ncout << sum;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`6`"
+        },
+        {
+          "letter": "B",
+          "text": "`15`"
+        },
+        {
+          "letter": "C",
+          "text": "`21`"
+        },
+        {
+          "letter": "D",
+          "text": "`36`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`1+2+3+4+5+6 = 21`."
+    },
+    {
+      "id": 105,
+      "chapter": 4,
+      "stem": "To compute the **sum of each column** of an `R × C` matrix, you should:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Reset the accumulator inside the row loop"
+        },
+        {
+          "letter": "B",
+          "text": "Reset the accumulator inside the column loop, with the row loop on the inside"
+        },
+        {
+          "letter": "C",
+          "text": "Use a single loop over the diagonals"
+        },
+        {
+          "letter": "D",
+          "text": "Use one accumulator for the whole matrix"
+        }
+      ],
+      "answer": "B",
+      "explanation": "For column sums, the **outer loop runs over columns** (`j`), the inner loop walks **down the rows** (`i`), and the accumulator resets at the start of each column."
+    },
+    {
+      "id": 106,
+      "chapter": 4,
+      "stem": "What does this print?\n```cpp\nint a[2][2] = {{1,2},{3,4}}, b[2][2] = {{5,6},{7,8}}, c[2][2];\nfor (int i = 0; i < 2; i++)\n    for (int j = 0; j < 2; j++)\n        c[i][j] = a[i][j] + b[i][j];\ncout << c[1][1];\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`4`"
+        },
+        {
+          "letter": "B",
+          "text": "`8`"
+        },
+        {
+          "letter": "C",
+          "text": "`10`"
+        },
+        {
+          "letter": "D",
+          "text": "`12`"
+        }
+      ],
+      "answer": "D",
+      "explanation": "`c[1][1] = a[1][1] + b[1][1] = 4 + 8 = 12`. (Element-wise addition.)"
+    },
+    {
+      "id": 107,
+      "chapter": 4,
+      "stem": "The chapter notes that for a matrix with an **odd** dimension, the centre element belongs to:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Only the main diagonal"
+        },
+        {
+          "letter": "B",
+          "text": "Only the secondary diagonal"
+        },
+        {
+          "letter": "C",
+          "text": "**Both** diagonals"
+        },
+        {
+          "letter": "D",
+          "text": "Neither diagonal"
+        }
+      ],
+      "answer": "C",
+      "explanation": "For a 3×3 matrix, position `(1,1)` satisfies `i == j` (main) and `i + j == n − 1 = 2` (secondary). To avoid double-counting in the combined sum, subtract that element once."
+    },
+    {
+      "id": 108,
+      "chapter": 4,
+      "stem": "Replace every `5` in a 2D array with `0`. Which fragment is correct?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`if (m[i][j] = 5) m[i][j] = 0;`"
+        },
+        {
+          "letter": "B",
+          "text": "`if (m[i][j] == 5) m[i][j] = 0;`"
+        },
+        {
+          "letter": "C",
+          "text": "`m[i][j] == 5 ? m[i][j] = 0;`"
+        },
+        {
+          "letter": "D",
+          "text": "`m[i][j] = 5; m[i][j] = 0;`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Use `==` for comparison. (A) uses `=` (assignment), which sets the element to 5 and is non-zero (true), so the body always runs. (C) is malformed ternary syntax. (D) overwrites everything."
+    },
+    {
+      "id": 109,
+      "chapter": 4,
+      "stem": "Which loop initialises an `n × n` matrix to the **identity matrix** (1s on the main diagonal, 0s elsewhere)?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`for (i=0;i<n;i++) for (j=0;j<n;j++) m[i][j] = i + j;`"
+        },
+        {
+          "letter": "B",
+          "text": "`for (i=0;i<n;i++) for (j=0;j<n;j++) m[i][j] = (i == j) ? 1 : 0;`"
+        },
+        {
+          "letter": "C",
+          "text": "`for (i=0;i<n;i++) m[i][i] = 1;`"
+        },
+        {
+          "letter": "D",
+          "text": "`for (i=0;i<n;i++) for (j=0;j<n;j++) m[i][j] = 1;`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "For each cell, store `1` if on the main diagonal, otherwise `0`. (C) only sets the diagonal but doesn't zero out the rest, so the matrix is left full of garbage (or whatever it had before)."
+    },
+    {
+      "id": 110,
+      "chapter": 4,
+      "stem": "The most efficient way to set just the diagonal (assuming the matrix is already zero) is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Two nested loops with an `if`"
+        },
+        {
+          "letter": "B",
+          "text": "One loop: `for (int i = 0; i < n; i++) m[i][i] = 1;`"
+        },
+        {
+          "letter": "C",
+          "text": "Recursive function"
+        },
+        {
+          "letter": "D",
+          "text": "Switch statement"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A single linear loop visits exactly the `n` diagonal cells — O(n) instead of O(n²)."
+    },
+    {
+      "id": 111,
+      "chapter": 4,
+      "stem": "What does this print?\n```cpp\nint m[3][3] = {{1,0,0},{0,1,0},{0,0,1}};\nint trace = 0;\nfor (int i = 0; i < 3; i++) trace += m[i][i];\ncout << trace;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`0`"
+        },
+        {
+          "letter": "B",
+          "text": "`1`"
+        },
+        {
+          "letter": "C",
+          "text": "`3`"
+        },
+        {
+          "letter": "D",
+          "text": "`9`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The sum of the main diagonal of an identity matrix equals its dimension. This sum is called the **trace** of the matrix."
+    },
+    {
+      "id": 112,
+      "chapter": 4,
+      "stem": "To **transpose** a matrix means to:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Sort each row"
+        },
+        {
+          "letter": "B",
+          "text": "Swap rows with columns: `T[j][i] = m[i][j]`"
+        },
+        {
+          "letter": "C",
+          "text": "Negate every element"
+        },
+        {
+          "letter": "D",
+          "text": "Reverse every row"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The transpose flips a matrix over its main diagonal. A 2 × 3 matrix becomes 3 × 2."
+    },
+    {
+      "id": 113,
+      "chapter": 4,
+      "stem": "Implement a transpose into `t[C][R]`:\n```cpp\nfor (int i = 0; i < R; i++)\n    for (int j = 0; j < C; j++)\n        ____________ = ____________;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`t[i][j] = m[j][i]`"
+        },
+        {
+          "letter": "B",
+          "text": "`t[j][i] = m[i][j]`"
+        },
+        {
+          "letter": "C",
+          "text": "`t[i][j] = m[i][j]`"
+        },
+        {
+          "letter": "D",
+          "text": "`t[j][i] = m[j][i]`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Element at `(i,j)` in the original goes to `(j,i)` in the transpose."
+    },
+    {
+      "id": 114,
+      "chapter": 4,
+      "stem": "What does this fragment compute?\n```cpp\nint n = 4, count = 0;\nfor (int i = 0; i < n; i++)\n    for (int j = 0; j < n; j++)\n        if (i > j) count++;\ncout << count;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The number of elements on the main diagonal"
+        },
+        {
+          "letter": "B",
+          "text": "The number of elements **strictly below** the main diagonal"
+        },
+        {
+          "letter": "C",
+          "text": "The total number of elements"
+        },
+        {
+          "letter": "D",
+          "text": "The number of elements on the secondary diagonal"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`i > j` defines the **strict lower triangle**. For a 4 × 4 matrix it has `n(n−1)/2 = 6` elements."
+    },
+    {
+      "id": 115,
+      "chapter": 4,
+      "stem": "To read a 2D matrix declared as `int m[R][C]` and pass it to a function, the function must declare:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`void f(int m[][C], int R)`        *(column size required)*"
+        },
+        {
+          "letter": "B",
+          "text": "`void f(int m[R][C])`               *(row size unnecessary)*"
+        },
+        {
+          "letter": "C",
+          "text": "`void f(int **m)`                    *(only for arrays of pointers)*"
+        },
+        {
+          "letter": "D",
+          "text": "`void f(int m[][])`                  *(both sizes optional)*"
+        }
+      ],
+      "answer": "A",
+      "explanation": "When an array is passed, only the **leftmost** dimension can be omitted. The compiler needs the column count to compute the address `m[i][j] = base + i * C + j`."
+    },
+    {
+      "id": 116,
+      "chapter": 4,
+      "stem": "Predict the output:\n```cpp\nint m[2][2] = {{1,2},{3,4}};\nm[0][1] = m[1][0];\nm[1][1] = m[0][0] + m[0][1];\ncout << m[0][0] << m[0][1] << m[1][0] << m[1][1];\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1234`"
+        },
+        {
+          "letter": "B",
+          "text": "`1334`"
+        },
+        {
+          "letter": "C",
+          "text": "`1234` then `4`"
+        },
+        {
+          "letter": "D",
+          "text": "`3344`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Step 1: `m[0][1] = m[1][0] = 3` → `{{1,3},{3,4}}`. Step 2: `m[1][1] = 1 + 3 = 4` (no change). Print: `1 3 3 4` → `1334`."
+    },
+    {
+      "id": 117,
+      "chapter": 4,
+      "stem": "To print a 3 × 3 matrix in **column-major** order (column by column), the loop nesting is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Rows outer, columns inner"
+        },
+        {
+          "letter": "B",
+          "text": "Columns outer, rows inner"
+        },
+        {
+          "letter": "C",
+          "text": "A single loop with index `i*3 + j`"
+        },
+        {
+          "letter": "D",
+          "text": "Either nesting works"
+        }
+      ],
+      "answer": "B",
+      "explanation": "To visit cells column by column, put the column loop on the **outside** and step rows on the inside."
+    },
+    {
+      "id": 118,
+      "chapter": 4,
+      "stem": "What is the result of multiplying a 2 × 3 matrix by a 3 × 4 matrix?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A 2 × 4 matrix"
+        },
+        {
+          "letter": "B",
+          "text": "A 3 × 3 matrix"
+        },
+        {
+          "letter": "C",
+          "text": "A 4 × 2 matrix"
+        },
+        {
+          "letter": "D",
+          "text": "Multiplication is undefined"
+        }
+      ],
+      "answer": "A",
+      "explanation": "For matrix product `A × B`, A's columns must equal B's rows. The result has A's rows and B's columns: 2 × 4."
+    },
+    {
+      "id": 119,
+      "chapter": 4,
+      "stem": "The kernel line of standard 3-loop matrix multiply is:\n```cpp\nfor (i ...) for (j ...) for (k ...)\n    c[i][j] += ____________;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`a[i][j] * b[i][j]`"
+        },
+        {
+          "letter": "B",
+          "text": "`a[i][k] * b[k][j]`"
+        },
+        {
+          "letter": "C",
+          "text": "`a[k][j] * b[i][k]`"
+        },
+        {
+          "letter": "D",
+          "text": "`a[i][k] + b[k][j]`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The dot product of row `i` of A with column `j` of B accumulates into `c[i][j]`."
+    },
+    {
+      "id": 120,
+      "chapter": 4,
+      "stem": "What's the bug?\n```cpp\nint m[3][3];\nfor (int i = 0; i <= 3; i++)        // <-- look here\n    for (int j = 0; j < 3; j++)\n        m[i][j] = 0;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Off-by-one — `i` reaches `3`, so `m[3][j]` writes outside the array"
+        },
+        {
+          "letter": "B",
+          "text": "`j < 3` should be `j <= 3`"
+        },
+        {
+          "letter": "C",
+          "text": "Cannot assign 0 to an int"
+        },
+        {
+          "letter": "D",
+          "text": "The compiler will catch this"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`i <= 3` runs for `i = 0,1,2,3`. When `i = 3`, `m[3][j]` is out of bounds (valid rows are 0..2). C++ will not catch this; expect undefined behaviour."
+    },
+    {
+      "id": 121,
+      "chapter": 5,
+      "stem": "A C-style string is stored as:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "An array of characters terminated by `'\\0'`"
+        },
+        {
+          "letter": "B",
+          "text": "A linked list of characters"
+        },
+        {
+          "letter": "C",
+          "text": "An object with a `length` member"
+        },
+        {
+          "letter": "D",
+          "text": "A pointer to a single character"
+        }
+      ],
+      "answer": "A",
+      "explanation": "C-strings are arrays of `char` ending in the **null terminator** `'\\0'`. The terminator tells library functions where the string ends."
+    },
+    {
+      "id": 122,
+      "chapter": 5,
+      "stem": "The string literal `\"ABCD\"` occupies how many bytes (assuming `sizeof(char) == 1`)?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "3"
+        },
+        {
+          "letter": "B",
+          "text": "4"
+        },
+        {
+          "letter": "C",
+          "text": "5"
+        },
+        {
+          "letter": "D",
+          "text": "8"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Four visible characters plus one byte for the terminating `'\\0'` → 5 bytes total."
+    },
+    {
+      "id": 123,
+      "chapter": 5,
+      "stem": "Which declaration is **too small** to hold the string `\"Mazin Alaa\"`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`char s[10];`"
+        },
+        {
+          "letter": "B",
+          "text": "`char s[11];`"
+        },
+        {
+          "letter": "C",
+          "text": "`char s[12];`"
+        },
+        {
+          "letter": "D",
+          "text": "`char s[20];`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`\"Mazin Alaa\"` has 10 visible characters, so the array must hold at least 11 chars (10 + null terminator). `char s[10]` would be one byte short."
+    },
+    {
+      "id": 124,
+      "chapter": 5,
+      "stem": "What does `strlen(\"Hello\")` return?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`4`"
+        },
+        {
+          "letter": "B",
+          "text": "`5`"
+        },
+        {
+          "letter": "C",
+          "text": "`6`"
+        },
+        {
+          "letter": "D",
+          "text": "`0`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`strlen` counts **visible** characters — it does **not** include the null terminator."
+    },
+    {
+      "id": 125,
+      "chapter": 5,
+      "stem": "To read a sentence with spaces into `char s[100]`, you should use:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`cin >> s;`"
+        },
+        {
+          "letter": "B",
+          "text": "`cin.getline(s, 100);`"
+        },
+        {
+          "letter": "C",
+          "text": "`gets(s);`        *(unsafe, removed from C++14)*"
+        },
+        {
+          "letter": "D",
+          "text": "`cin.read(s);`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`>>` stops at whitespace, so it cannot read a full sentence. `cin.getline(s, 100)` reads up to 99 characters or until newline. `gets` is dangerous and removed."
+    },
+    {
+      "id": 126,
+      "chapter": 5,
+      "stem": "Predict the output:\n```cpp\nchar s[] = \"Hello\";\nfor (int i = 0; s[i] != '\\0'; i++) cout << s[i];\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`Hello`"
+        },
+        {
+          "letter": "B",
+          "text": "`Hello\\0`"
+        },
+        {
+          "letter": "C",
+          "text": "Compile error"
+        },
+        {
+          "letter": "D",
+          "text": "Infinite loop"
+        }
+      ],
+      "answer": "A",
+      "explanation": "The loop walks character by character and stops when it finds `'\\0'`, printing `Hello`. The terminator itself is not printed."
+    },
+    {
+      "id": 127,
+      "chapter": 5,
+      "stem": "After `char a[10] = \"abc\";`, what does `strlen(a)` return and what does `sizeof(a)` return?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Both `3`"
+        },
+        {
+          "letter": "B",
+          "text": "Both `10`"
+        },
+        {
+          "letter": "C",
+          "text": "`strlen(a) = 3`, `sizeof(a) = 10`"
+        },
+        {
+          "letter": "D",
+          "text": "`strlen(a) = 4`, `sizeof(a) = 10`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`strlen` counts visible chars (3). `sizeof` is the **storage size** of the array (10 bytes), independent of contents."
+    },
+    {
+      "id": 128,
+      "chapter": 5,
+      "stem": "Which header provides `strlen`, `strcpy`, `strcat`, `strcmp`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`<string>`"
+        },
+        {
+          "letter": "B",
+          "text": "`<cstring>` (or `<string.h>`)"
+        },
+        {
+          "letter": "C",
+          "text": "`<iostream>`"
+        },
+        {
+          "letter": "D",
+          "text": "`<cstdlib>`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`<cstring>` is the C++ wrapper for the C `<string.h>`. `<string>` is for the **C++** `std::string` class."
+    },
+    {
+      "id": 129,
+      "chapter": 5,
+      "stem": "After `char a[20] = \"abcd\"; char b[] = \"1234\"; strcat(a, b);`, what is `a`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`\"abcd\"`"
+        },
+        {
+          "letter": "B",
+          "text": "`\"1234\"`"
+        },
+        {
+          "letter": "C",
+          "text": "`\"abcd1234\"`"
+        },
+        {
+          "letter": "D",
+          "text": "`\"1234abcd\"`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`strcat` **appends** the second argument to the first. The destination `a` must have enough room (here, 20 chars is plenty)."
+    },
+    {
+      "id": 130,
+      "chapter": 5,
+      "stem": "Why is the code below dangerous?\n```cpp\nchar a[5] = \"abcd\";\nchar b[] = \"1234\";\nstrcat(a, b);\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`strcat` is deprecated in C++"
+        },
+        {
+          "letter": "B",
+          "text": "`a` only has room for `\"abcd\\0\"`; appending `\"1234\"` writes past its end → **buffer overflow**"
+        },
+        {
+          "letter": "C",
+          "text": "Strings cannot be concatenated"
+        },
+        {
+          "letter": "D",
+          "text": "`a` and `b` must be the same size"
+        }
+      ],
+      "answer": "B",
+      "explanation": "After concatenation, `a` would need to hold `\"abcd1234\\0\"` = 9 bytes, but only 5 were allocated. The extra characters spill into adjacent memory — undefined behaviour, possibly a crash or security hole."
+    },
+    {
+      "id": 131,
+      "chapter": 5,
+      "stem": "What does `strcmp(s1, s2)` return when the two strings are **equal**?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`0`"
+        },
+        {
+          "letter": "B",
+          "text": "A positive integer"
+        },
+        {
+          "letter": "C",
+          "text": "A negative integer"
+        },
+        {
+          "letter": "D",
+          "text": "`1`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Equal strings → `0`. Positive → `s1 > s2`, negative → `s1 < s2`. Comparison is lexicographic, character by character."
+    },
+    {
+      "id": 132,
+      "chapter": 5,
+      "stem": "Predict the output:\n```cpp\nchar a[] = \"apple\", b[] = \"banana\";\nif (strcmp(a, b) < 0) cout << \"before\";\nelse cout << \"not before\";\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`before`"
+        },
+        {
+          "letter": "B",
+          "text": "`not before`"
+        },
+        {
+          "letter": "C",
+          "text": "Compile error"
+        },
+        {
+          "letter": "D",
+          "text": "`0`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`'a' < 'b'`, so `apple` comes before `banana` lexicographically. `strcmp` returns negative, so the `if` body runs."
+    },
+    {
+      "id": 133,
+      "chapter": 5,
+      "stem": "What's wrong?\n```cpp\nchar a[20] = \"Hello\", b[20] = \"World\";\na = b;          // intend: assign b's content to a\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Array names are not assignable; use `strcpy(a, b);` instead"
+        },
+        {
+          "letter": "B",
+          "text": "`=` only works for `int`s"
+        },
+        {
+          "letter": "C",
+          "text": "The arrays must have the same size"
+        },
+        {
+          "letter": "D",
+          "text": "Nothing is wrong"
+        }
+      ],
+      "answer": "A",
+      "explanation": "C-style arrays cannot be assigned with `=`. Use `strcpy(a, b)` or `std::string`."
+    },
+    {
+      "id": 134,
+      "chapter": 5,
+      "stem": "Which converts `\"123\"` to the integer `123`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`atoi(\"123\")`"
+        },
+        {
+          "letter": "B",
+          "text": "`strlen(\"123\")`"
+        },
+        {
+          "letter": "C",
+          "text": "`strcat(\"123\", \"\")`"
+        },
+        {
+          "letter": "D",
+          "text": "`cout << \"123\"`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`atoi` (ASCII to int) parses a numeric string. (B) returns 3 (length). Modern alternative: `std::stoi(\"123\")`."
+    },
+    {
+      "id": 135,
+      "chapter": 5,
+      "stem": "Which converts `\"3.14\"` to a `double`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`atoi(\"3.14\")`         *(returns 3, the integer part)*"
+        },
+        {
+          "letter": "B",
+          "text": "`atof(\"3.14\")`"
+        },
+        {
+          "letter": "C",
+          "text": "`strlen(\"3.14\")`"
+        },
+        {
+          "letter": "D",
+          "text": "`strcat(\"3\", \".14\")`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`atof` (ASCII to floating-point) parses a decimal string into a `double`. Modern alternative: `std::stod`."
+    },
+    {
+      "id": 136,
+      "chapter": 5,
+      "stem": "Why might `itoa` not compile on your machine?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`itoa` is **non-standard** — it's a compiler extension (Borland/MSVC)"
+        },
+        {
+          "letter": "B",
+          "text": "`itoa` only works on negative numbers"
+        },
+        {
+          "letter": "C",
+          "text": "`itoa` requires `<iostream>`"
+        },
+        {
+          "letter": "D",
+          "text": "`itoa` was renamed to `int_to_array`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`itoa` is **not** part of the C or C++ standard. Use `sprintf(buf, \"%d\", n)` or `std::to_string(n)` (C++11) for portability."
+    },
+    {
+      "id": 137,
+      "chapter": 5,
+      "stem": "Predict the output:\n```cpp\nchar s[] = \"abc\";\ns[1] = 'X';\ncout << s;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`abc`"
+        },
+        {
+          "letter": "B",
+          "text": "`aXc`"
+        },
+        {
+          "letter": "C",
+          "text": "`Xbc`"
+        },
+        {
+          "letter": "D",
+          "text": "Compile error"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Strings declared as `char[]` are mutable: replacing index 1 (`'b'`) with `'X'` yields `\"aXc\"`. Note: a `const char* p = \"abc\"` literal is **not** writable."
+    },
+    {
+      "id": 138,
+      "chapter": 5,
+      "stem": "Convert all characters of `char s[100]` to **uppercase** in one line. Which is correct?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`for (int i = 0; s[i] != '\\0'; i++) s[i] = toupper(s[i]);`"
+        },
+        {
+          "letter": "B",
+          "text": "`s = toupper(s);`"
+        },
+        {
+          "letter": "C",
+          "text": "`toupper(s);`"
+        },
+        {
+          "letter": "D",
+          "text": "`cout << toupper(s);`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`toupper` operates on a single `char`. Loop through the string until `'\\0'`. (B) and (C) and (D) treat the array as a single value, which doesn't work."
+    },
+    {
+      "id": 139,
+      "chapter": 5,
+      "stem": "After `char buf[10]; for (int i=0;i<5;i++) buf[i] = 'A' + i;`, calling `cout << buf;` may print:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Always `ABCDE`"
+        },
+        {
+          "letter": "B",
+          "text": "`ABCDE` followed by **garbage**, until a `'\\0'` happens to appear"
+        },
+        {
+          "letter": "C",
+          "text": "`ABCDEFGHIJ`"
+        },
+        {
+          "letter": "D",
+          "text": "Nothing (empty)"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The loop fills 5 characters but **never appends `'\\0'`**. `cout << buf;` keeps printing past index 4 until it encounters a zero byte. Always terminate manually: `buf[5] = '\\0';`."
+    },
+    {
+      "id": 140,
+      "chapter": 5,
+      "stem": "Which one-line snippet **correctly** copies `src` into `dst` *and* appends a null terminator?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`dst = src;`"
+        },
+        {
+          "letter": "B",
+          "text": "`for (int i = 0; src[i]; i++) dst[i] = src[i];`        *(forgets the `'\\0'`)*"
+        },
+        {
+          "letter": "C",
+          "text": "`strcpy(dst, src);`"
+        },
+        {
+          "letter": "D",
+          "text": "`dst[0] = src[0];`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`strcpy` copies up to and **including** the `'\\0'`. Option B copies the visible chars but stops before the terminator, leaving `dst` un-terminated."
+    },
+    {
+      "id": 141,
+      "chapter": 5,
+      "stem": "Predict the output:\n```cpp\nchar s[] = \"Programming\";\ncout << strlen(s) << \" \" << sizeof(s);\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`11 11`"
+        },
+        {
+          "letter": "B",
+          "text": "`11 12`"
+        },
+        {
+          "letter": "C",
+          "text": "`12 12`"
+        },
+        {
+          "letter": "D",
+          "text": "`10 11`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`strlen` ignores `'\\0'` → 11 visible chars. `sizeof(s)` includes the terminator → 12 bytes."
+    },
+    {
+      "id": 142,
+      "chapter": 5,
+      "stem": "The character `'\\0'` has ASCII value:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`'0'` (which is 48)"
+        },
+        {
+          "letter": "B",
+          "text": "`0`"
+        },
+        {
+          "letter": "C",
+          "text": "`1`"
+        },
+        {
+          "letter": "D",
+          "text": "`255`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`'\\0'` is the **null** character — ASCII value `0`. Don't confuse it with the digit `'0'` (ASCII 48)."
+    },
+    {
+      "id": 143,
+      "chapter": 5,
+      "stem": "Implement `bool isEmpty(char *s)` that returns whether the string has length 0.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`return s == nullptr;`"
+        },
+        {
+          "letter": "B",
+          "text": "`return s[0] == '\\0';`"
+        },
+        {
+          "letter": "C",
+          "text": "`return strlen(s) == 1;`"
+        },
+        {
+          "letter": "D",
+          "text": "`return s == \"\";`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "An empty C-string starts with `'\\0'`. (A) checks for a null pointer (different concept). (C) checks for length 1. (D) compares pointers, not contents."
+    },
+    {
+      "id": 144,
+      "chapter": 5,
+      "stem": "Reverse a C-string in place, given its length `n`. Which fragment works?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`for (int i = 0; i < n; i++) swap(s[i], s[n - 1 - i]);`        *(swaps twice — no net change)*"
+        },
+        {
+          "letter": "B",
+          "text": "`for (int i = 0; i < n / 2; i++) swap(s[i], s[n - 1 - i]);`"
+        },
+        {
+          "letter": "C",
+          "text": "`for (int i = 0; i < n; i++) s[i] = s[n - i];`"
+        },
+        {
+          "letter": "D",
+          "text": "`for (int i = n; i >= 0; i--) s[i] = s[i + 1];`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Swap symmetric pairs only **half** the length, otherwise each swap is undone. (A) restores the original. (C) and (D) don't reverse correctly and may go out of bounds."
+    },
+    {
+      "id": 145,
+      "chapter": 5,
+      "stem": "Predict the output:\n```cpp\nchar a[] = \"abc\", b[] = \"abcd\";\ncout << (strcmp(a, b) < 0 ? \"shorter\" : \"not\");\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`shorter`"
+        },
+        {
+          "letter": "B",
+          "text": "`not`"
+        },
+        {
+          "letter": "C",
+          "text": "`0`"
+        },
+        {
+          "letter": "D",
+          "text": "Garbage"
+        }
+      ],
+      "answer": "A",
+      "explanation": "After comparing the common prefix \"abc\" equally, `a` ends (`'\\0'`) while `b` has another character. `'\\0' < 'd'`, so `a` is \"less than\" `b`. The conditional prints `shorter`."
+    },
+    {
+      "id": 146,
+      "chapter": 5,
+      "stem": "Which sentence about `cin.ignore(80, '\\n');` is true?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "It deletes the next 80 lines of input"
+        },
+        {
+          "letter": "B",
+          "text": "It discards up to 80 characters or until a newline, whichever comes first"
+        },
+        {
+          "letter": "C",
+          "text": "It always discards exactly 80 characters"
+        },
+        {
+          "letter": "D",
+          "text": "It writes 80 newlines to `cout`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`ignore` is the standard way to flush leftover input (typically the newline left after `cin >> n`) before a `getline` call."
+    },
+    {
+      "id": 147,
+      "chapter": 5,
+      "stem": "The expression `cout.put('A');` is equivalent to:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`cout << 'A';`"
+        },
+        {
+          "letter": "B",
+          "text": "`cout << \"A\";`"
+        },
+        {
+          "letter": "C",
+          "text": "Both A and B"
+        },
+        {
+          "letter": "D",
+          "text": "None of the above"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`cout.put(c)` writes a single character — same effect as either `<<`-based form for a single character."
+    },
+    {
+      "id": 148,
+      "chapter": 5,
+      "stem": "Why is `std::string` (from `<string>`) usually preferred over C-style strings in modern C++?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "It manages its own memory, supports `+`, `==`, and dynamic resizing"
+        },
+        {
+          "letter": "B",
+          "text": "It is faster on every operation"
+        },
+        {
+          "letter": "C",
+          "text": "C-style strings are illegal in C++"
+        },
+        {
+          "letter": "D",
+          "text": "`std::string` is required by the compiler"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`std::string` removes manual size and `'\\0'` management, supports natural operators, and grows automatically — eliminating an entire class of buffer-overflow bugs."
+    },
+    {
+      "id": 149,
+      "chapter": 5,
+      "stem": "Predict the output:\n```cpp\nchar s[] = \"Hello\";\nint count = 0;\nfor (int i = 0; s[i] != '\\0'; i++)\n    if (s[i] == 'l') count++;\ncout << count;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`0`"
+        },
+        {
+          "letter": "B",
+          "text": "`1`"
+        },
+        {
+          "letter": "C",
+          "text": "`2`"
+        },
+        {
+          "letter": "D",
+          "text": "`3`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "The letter `l` appears twice in `\"Hello\"`."
+    },
+    {
+      "id": 150,
+      "chapter": 5,
+      "stem": "What does the program print?\n```cpp\nchar s[20] = \"Hello\";\nstrcat(s, \" World\");\ncout << strlen(s);\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`5`"
+        },
+        {
+          "letter": "B",
+          "text": "`6`"
+        },
+        {
+          "letter": "C",
+          "text": "`11`"
+        },
+        {
+          "letter": "D",
+          "text": "`12`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "After concatenation: `\"Hello World\"` → 11 visible characters (5 + 1 space + 5)."
+    },
+    {
+      "id": 151,
+      "chapter": 6,
+      "stem": "What is a `struct` in C++?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A grouping of named members of (possibly) **different** data types"
+        },
+        {
+          "letter": "B",
+          "text": "A fixed-size array of one type"
+        },
+        {
+          "letter": "C",
+          "text": "A function that returns multiple values"
+        },
+        {
+          "letter": "D",
+          "text": "A pointer to an object"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A `struct` bundles related data of varying types under one name. Arrays bundle items of the **same** type."
+    },
+    {
+      "id": 152,
+      "chapter": 6,
+      "stem": "The closing brace of a `struct` definition is followed by:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Nothing"
+        },
+        {
+          "letter": "B",
+          "text": "A semicolon (`;`)"
+        },
+        {
+          "letter": "C",
+          "text": "A comma (`,`)"
+        },
+        {
+          "letter": "D",
+          "text": "A colon (`:`)"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`struct Name { ... };` — forgetting the semicolon is one of the most common compile errors."
+    },
+    {
+      "id": 153,
+      "chapter": 6,
+      "stem": "Which is the correct way to access the `age` member of a `Student s;`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`s->age`"
+        },
+        {
+          "letter": "B",
+          "text": "`s.age`"
+        },
+        {
+          "letter": "C",
+          "text": "`s::age`"
+        },
+        {
+          "letter": "D",
+          "text": "`s[age]`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The **dot operator** is used on struct *variables*. The arrow `->` is for **pointers** to structs (`Student* p; p->age;`)."
+    },
+    {
+      "id": 154,
+      "chapter": 6,
+      "stem": "Given:\n```cpp\nstruct Point { int x, y; };\nPoint p = {3, 4};\n```\nWhat is `p.x + p.y`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`0`"
+        },
+        {
+          "letter": "B",
+          "text": "`3`"
+        },
+        {
+          "letter": "C",
+          "text": "`4`"
+        },
+        {
+          "letter": "D",
+          "text": "`7`"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Brace initialisation assigns `x = 3`, `y = 4` in declaration order. Sum = 7."
+    },
+    {
+      "id": 155,
+      "chapter": 6,
+      "stem": "Which line is invalid?\n```cpp\nstruct Point { int x, y; };\nPoint a = {1, 2};\nPoint b = a;          // line 1\nb.x = 10;             // line 2\na = b;                 // line 3\na.x + b.x;             // line 4\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "line 1"
+        },
+        {
+          "letter": "B",
+          "text": "line 2"
+        },
+        {
+          "letter": "C",
+          "text": "line 3"
+        },
+        {
+          "letter": "D",
+          "text": "line 4 — actually all four are valid"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Structs **can** be copied member-wise with `=` (unlike C-style arrays). All four lines compile and behave intuitively."
+    },
+    {
+      "id": 156,
+      "chapter": 6,
+      "stem": "Which is **not** a valid way to declare a struct variable?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`struct Data { int x; }; Data d;`"
+        },
+        {
+          "letter": "B",
+          "text": "`struct Data { int x; } d;`"
+        },
+        {
+          "letter": "C",
+          "text": "`typedef struct { int x; } Data; Data d;`"
+        },
+        {
+          "letter": "D",
+          "text": "`Data d; struct Data { int x; };`"
+        }
+      ],
+      "answer": "D",
+      "explanation": "The struct must be **defined before** any variable of that type is declared."
+    },
+    {
+      "id": 157,
+      "chapter": 6,
+      "stem": "With nested structures\n```cpp\nstruct Distance { int feet; float inches; };\nstruct Room { Distance length, width; };\nRoom r;\n```\nhow do you set the length's inches?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`r.length.inches = 6.5;`"
+        },
+        {
+          "letter": "B",
+          "text": "`r.inches = 6.5;`"
+        },
+        {
+          "letter": "C",
+          "text": "`r->length->inches = 6.5;`"
+        },
+        {
+          "letter": "D",
+          "text": "`r[length][inches] = 6.5;`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Chain dot operators to descend into nested structs."
+    },
+    {
+      "id": 158,
+      "chapter": 6,
+      "stem": "Predict the output:\n```cpp\nstruct P { int a, b; };\nP x = {2, 5};\nP y = x;\ny.a = 99;\ncout << x.a << \" \" << y.a;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`99 99`"
+        },
+        {
+          "letter": "B",
+          "text": "`2 99`"
+        },
+        {
+          "letter": "C",
+          "text": "`2 2`"
+        },
+        {
+          "letter": "D",
+          "text": "`99 2`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`P y = x;` performs a **copy**, so `y` is independent. Modifying `y.a` does not affect `x.a`."
+    },
+    {
+      "id": 159,
+      "chapter": 6,
+      "stem": "What is the size of `struct S { char c; int i; };` on a typical 64-bit system?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "5 bytes"
+        },
+        {
+          "letter": "B",
+          "text": "8 bytes (includes padding for alignment)"
+        },
+        {
+          "letter": "C",
+          "text": "4 bytes"
+        },
+        {
+          "letter": "D",
+          "text": "1 byte"
+        }
+      ],
+      "answer": "B",
+      "explanation": "The compiler adds **padding** between `char c` and `int i` so that `int i` starts on a 4-byte boundary. Total: 1 + 3 padding + 4 = **8** bytes."
+    },
+    {
+      "id": 160,
+      "chapter": 6,
+      "stem": "Which is true of an **array of structures** like `Student arr[10];`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "All 10 elements share the same members' memory"
+        },
+        {
+          "letter": "B",
+          "text": "Each element is a complete struct with its own copies of all members"
+        },
+        {
+          "letter": "C",
+          "text": "The members must all be of the same primitive type"
+        },
+        {
+          "letter": "D",
+          "text": "Cannot iterate with a `for` loop"
+        }
+      ],
+      "answer": "B",
+      "explanation": "An array of structs is just an array — each cell is a full struct. Access: `arr[i].member`."
+    },
+    {
+      "id": 161,
+      "chapter": 6,
+      "stem": "Predict the output:\n```cpp\nstruct E { int code; const char* msg; };\nE errs[] = {{1,\"OK\"},{2,\"NotFound\"},{3,\"Forbidden\"}};\ncout << errs[1].msg;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`OK`"
+        },
+        {
+          "letter": "B",
+          "text": "`NotFound`"
+        },
+        {
+          "letter": "C",
+          "text": "`Forbidden`"
+        },
+        {
+          "letter": "D",
+          "text": "`2`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Index 1 is the second struct, whose `msg` is `\"NotFound\"`."
+    },
+    {
+      "id": 162,
+      "chapter": 6,
+      "stem": "Which is the typedef syntax that lets you write `Student s;` instead of `struct Student s;`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`typedef struct { int age; } Student;`"
+        },
+        {
+          "letter": "B",
+          "text": "`typedef Student struct { int age; };`"
+        },
+        {
+          "letter": "C",
+          "text": "`typedef int Student;`"
+        },
+        {
+          "letter": "D",
+          "text": "`class Student { int age; };`"
+        }
+      ],
+      "answer": "A",
+      "explanation": "`typedef struct { ... } Alias;` creates an alias. (Note: in **C++**, simply writing `struct Student { int age; };` already lets you write `Student s;` — `typedef` is mostly a C carry-over.)"
+    },
+    {
+      "id": 163,
+      "chapter": 6,
+      "stem": "To pass a struct **without copying it** so the function can modify it, declare:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`void f(Student s)`            *(by value — copies)*"
+        },
+        {
+          "letter": "B",
+          "text": "`void f(Student& s)`            *(by reference — no copy, modifies caller)*"
+        },
+        {
+          "letter": "C",
+          "text": "`void f(Student* s)`            *(by pointer — also no copy)*"
+        },
+        {
+          "letter": "D",
+          "text": "Both B and C"
+        }
+      ],
+      "answer": "D",
+      "explanation": "Reference and pointer parameters both avoid copying and allow modification. Reference is more idiomatic in modern C++; pointer is necessary when the argument can be `nullptr`."
+    },
+    {
+      "id": 164,
+      "chapter": 6,
+      "stem": "To accept a struct without copying but **prevent modification**, use:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`void f(Student s)`"
+        },
+        {
+          "letter": "B",
+          "text": "`void f(const Student& s)`"
+        },
+        {
+          "letter": "C",
+          "text": "`void f(Student& s)`"
+        },
+        {
+          "letter": "D",
+          "text": "`void f(Student* s)`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`const Student&` gives the speed of pass-by-reference and the safety of read-only access. This is the standard C++ idiom for large read-only inputs."
+    },
+    {
+      "id": 165,
+      "chapter": 6,
+      "stem": "Through a pointer, struct members are accessed using:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`.`"
+        },
+        {
+          "letter": "B",
+          "text": "`->`"
+        },
+        {
+          "letter": "C",
+          "text": "`::`"
+        },
+        {
+          "letter": "D",
+          "text": "`*`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`p->member` is shorthand for `(*p).member`."
+    },
+    {
+      "id": 166,
+      "chapter": 6,
+      "stem": "Predict the output:\n```cpp\nstruct V { int x, y, z; };\nV v{1, 2, 3};\nV* p = &v;\ncout << p->y;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1`"
+        },
+        {
+          "letter": "B",
+          "text": "`2`"
+        },
+        {
+          "letter": "C",
+          "text": "`3`"
+        },
+        {
+          "letter": "D",
+          "text": "Garbage"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`p->y` is the second member, `2`."
+    },
+    {
+      "id": 167,
+      "chapter": 6,
+      "stem": "After\n```cpp\nstruct C { int n; };\nC arr[3];\nfor (int i = 0; i < 3; i++) arr[i].n = i * 10;\n```\nwhat does `arr[2].n` equal?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`0`"
+        },
+        {
+          "letter": "B",
+          "text": "`10`"
+        },
+        {
+          "letter": "C",
+          "text": "`20`"
+        },
+        {
+          "letter": "D",
+          "text": "`30`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`arr[i].n = i * 10` → `arr[0].n = 0`, `arr[1].n = 10`, `arr[2].n = 20`."
+    },
+    {
+      "id": 168,
+      "chapter": 6,
+      "stem": "A struct containing a `char name[30];` member uses how many bytes for the name field?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "30 always (regardless of the actual string length)"
+        },
+        {
+          "letter": "B",
+          "text": "The length of the stored string + 1"
+        },
+        {
+          "letter": "C",
+          "text": "4 bytes (just a pointer)"
+        },
+        {
+          "letter": "D",
+          "text": "0 bytes if the name is empty"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Storage is fixed by the array declaration. `strlen(s.name)` may be small, but the struct still reserves all 30 bytes."
+    },
+    {
+      "id": 169,
+      "chapter": 6,
+      "stem": "The struct below is intended to model a 2D point. Which constructor-style initialisation works in C++11+?\n```cpp\nstruct Point { double x, y; };\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`Point p = (1.5, 2.5);`        *(comma operator — wrong)*"
+        },
+        {
+          "letter": "B",
+          "text": "`Point p{1.5, 2.5};`             *(brace init — correct)*"
+        },
+        {
+          "letter": "C",
+          "text": "`Point p[1.5, 2.5];`              *(array syntax — wrong)*"
+        },
+        {
+          "letter": "D",
+          "text": "`Point p = 1.5, 2.5;`             *(assignment list — wrong)*"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Aggregate initialisation with braces sets each member in declaration order."
+    },
+    {
+      "id": 170,
+      "chapter": 6,
+      "stem": "Which is the **biggest difference** between `struct` and `class` in C++?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`struct` cannot have member functions, but `class` can"
+        },
+        {
+          "letter": "B",
+          "text": "Default access in `struct` is **public**; default in `class` is **private**"
+        },
+        {
+          "letter": "C",
+          "text": "`struct` cannot inherit, but `class` can"
+        },
+        {
+          "letter": "D",
+          "text": "There is no difference at all"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Both can have members and methods. The only real difference is the **default access specifier** and default inheritance access. Convention: use `struct` for plain data aggregates and `class` for objects with invariants."
+    },
+    {
+      "id": 171,
+      "chapter": 6,
+      "stem": "Predict the output:\n```cpp\nstruct Box { int w, h; };\nint area(Box b) { return b.w * b.h; }\nint main() {\n    Box b{3, 4};\n    cout << area(b);\n}\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`7`"
+        },
+        {
+          "letter": "B",
+          "text": "`12`"
+        },
+        {
+          "letter": "C",
+          "text": "`0`"
+        },
+        {
+          "letter": "D",
+          "text": "Compile error"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`area` returns `w * h` = `3 * 4 = 12`. The struct is passed by value (a small copy is fine here)."
+    },
+    {
+      "id": 172,
+      "chapter": 6,
+      "stem": "To **return** a struct from a function, the return type is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "The struct type itself: `Point makePoint() { ... }`"
+        },
+        {
+          "letter": "B",
+          "text": "`void` plus an out-parameter"
+        },
+        {
+          "letter": "C",
+          "text": "A pointer to a static struct"
+        },
+        {
+          "letter": "D",
+          "text": "Impossible in C++"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Functions can return structs by value just like any other type. (B) and (C) are older C-era patterns that are rarely needed in modern C++."
+    },
+    {
+      "id": 173,
+      "chapter": 6,
+      "stem": "Add 1 inch carry-over: feet = 5, inches = 11.5, plus inches = 0.7. What does the chapter's `distance` example produce?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`5 feet, 12.2 inches`"
+        },
+        {
+          "letter": "B",
+          "text": "`6 feet, 0.2 inches`"
+        },
+        {
+          "letter": "C",
+          "text": "`6 feet, 12.2 inches`"
+        },
+        {
+          "letter": "D",
+          "text": "`5 feet, 0.2 inches`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Total inches = 12.2. Since 12.2 ≥ 12, subtract 12 (→ 0.2) and add 1 to feet (→ 6). Result: 6 feet, 0.2 inches."
+    },
+    {
+      "id": 174,
+      "chapter": 6,
+      "stem": "Implement `bool equal(Point a, Point b)` for a 2D point. Which is correct?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`return &a == &b;`        *(compares addresses of copies)*"
+        },
+        {
+          "letter": "B",
+          "text": "`return a == b;`              *(structs have no built-in `==`)*"
+        },
+        {
+          "letter": "C",
+          "text": "`return a.x == b.x && a.y == b.y;`"
+        },
+        {
+          "letter": "D",
+          "text": "`return a.x + a.y == b.x + b.y;`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Compare member by member. Aggregate `==` is auto-generated only in C++20 (`= default`); in earlier standards you must write the comparison yourself."
+    },
+    {
+      "id": 175,
+      "chapter": 6,
+      "stem": "Which line is wrong?\n```cpp\nstruct S { int a, b; };\nS s = {1, 2};\nS t;\nt = s;            // line A\ns.a = 9;          // line B\nS u({3, 4});       // line C\nS v[2] = {{1,2},{3,4}};  // line D\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "line A"
+        },
+        {
+          "letter": "B",
+          "text": "line B"
+        },
+        {
+          "letter": "C",
+          "text": "line C"
+        },
+        {
+          "letter": "D",
+          "text": "line D"
+        }
+      ],
+      "answer": "C",
+      "explanation": "`S u({3, 4});` is not standard aggregate-initialisation syntax. Use `S u = {3, 4};` or `S u{3, 4};`. The other lines are all valid."
+    },
+    {
+      "id": 176,
+      "chapter": 6,
+      "stem": "To group a student's name (string), age (int), and GPA (float), the **most natural** choice is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Three parallel arrays"
+        },
+        {
+          "letter": "B",
+          "text": "A `struct` with three named members"
+        },
+        {
+          "letter": "C",
+          "text": "An array of three `int`s"
+        },
+        {
+          "letter": "D",
+          "text": "Three global variables"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A struct keeps related fields together as one logical record, and an `array of struct` is the natural extension to many students."
+    },
+    {
+      "id": 177,
+      "chapter": 6,
+      "stem": "Predict the output:\n```cpp\nstruct Count { int n = 0; };\nCount c;\ncout << c.n;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Garbage"
+        },
+        {
+          "letter": "B",
+          "text": "`0`"
+        },
+        {
+          "letter": "C",
+          "text": "Compile error"
+        },
+        {
+          "letter": "D",
+          "text": "`1`"
+        }
+      ],
+      "answer": "B",
+      "explanation": "C++11 supports **default member initialisers**. `n = 0` inside the struct sets the default, so any new `Count` has `n = 0` automatically."
+    },
+    {
+      "id": 178,
+      "chapter": 6,
+      "stem": "What does this print?\n```cpp\nstruct Vec { int dx, dy; };\nVec a{1, 2}, b{3, 4};\nVec c = {a.dx + b.dx, a.dy + b.dy};\ncout << c.dx << \" \" << c.dy;\n```",
+      "options": [
+        {
+          "letter": "A",
+          "text": "`1 2`"
+        },
+        {
+          "letter": "B",
+          "text": "`3 4`"
+        },
+        {
+          "letter": "C",
+          "text": "`4 6`"
+        },
+        {
+          "letter": "D",
+          "text": "`2 4`"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Element-wise vector add: `c.dx = 1 + 3 = 4`, `c.dy = 2 + 4 = 6`."
+    },
+    {
+      "id": 179,
+      "chapter": 6,
+      "stem": "Which sentence is **true**?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Two structs of the same shape are interchangeable types"
+        },
+        {
+          "letter": "B",
+          "text": "Each struct definition introduces a **distinct** type, even if the members match"
+        },
+        {
+          "letter": "C",
+          "text": "`struct A { int x; };` and `struct B { int x; };` define the same type"
+        },
+        {
+          "letter": "D",
+          "text": "Structs cannot be parameters of functions"
+        }
+      ],
+      "answer": "B",
+      "explanation": "`struct A` and `struct B` are different types even with identical members. To convert, you must copy member-by-member or use a common type."
+    },
+    {
+      "id": 180,
+      "chapter": 6,
+      "stem": "To find the student with the **highest GPA** in `Student arr[N]`, the cleanest pattern is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Sort the array, then take the first element"
+        },
+        {
+          "letter": "B",
+          "text": "Track an index `bestIdx = 0; for (i=1..N-1) if (arr[i].gpa > arr[bestIdx].gpa) bestIdx = i;`"
+        },
+        {
+          "letter": "C",
+          "text": "Use recursion with the array as a global"
+        },
+        {
+          "letter": "D",
+          "text": "Use `strcmp` on the names"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Linear scan with an index of the current best — O(n), in-place, no extra memory. Sorting (A) works but is O(n log n), unnecessary if you only need the max."
+    }
+  ]
+}

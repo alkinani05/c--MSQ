@@ -1,0 +1,292 @@
+%=============================================================================
+% Work Sheets (Appendix)
+%=============================================================================
+\chapter{Work Sheets}
+\label{ch:worksheets}
+
+%=============================================================================
+\section{Work Sheet 5 --- Functions}
+\label{ws:functions}
+%=============================================================================
+
+\begin{importantbox}{Instructions}
+For each question below, write a complete C++ program.  Where a
+\emph{function} is requested, implement the logic inside a
+user-defined function and call it from \texttt{main()}.
+\end{importantbox}
+
+\begin{enumerate}[leftmargin=*, label=\textbf{Q\arabic*.}]
+
+\item Write a program that reads 20 characters and uses a function to
+      count and return how many of them are \textbf{uppercase} letters.
+
+\item Write a function that receives a distance expressed in
+      \textbf{feet and inches} and converts it to \textbf{meters}.\\
+      \textit{Hint:} 1 foot = 12 inches, 1 inch = 2.54\,cm.
+
+\item Write a function that receives a total number of \textbf{seconds}
+      and converts it to the format \texttt{hr:mn:sec}.  For example,
+      3661 seconds $\rightarrow$ \texttt{1:1:1}.
+
+\item Write a function that takes an integer and determines whether it
+      is \textbf{odd} or \textbf{even}.
+
+\item Write a function that computes the \textbf{permutation}
+      $P(n) = n!$ of a given positive integer~$n$.
+
+\item Write a function that receives a student's mark and returns the
+      corresponding \textbf{grade point} according to the following
+      scale:
+
+      \begin{center}
+      \renewcommand{\arraystretch}{1.2}
+      \begin{tabular}{@{} c c @{}}
+      \toprule
+      \textbf{Mark Range} & \textbf{Grade Point} \\
+      \midrule
+      90--100 & 4 \\
+      80--89  & 3 \\
+      70--79  & 2 \\
+      60--69  & 1 \\
+      Below 60 & 0 \\
+      \bottomrule
+      \end{tabular}
+      \end{center}
+
+\item Write a program that uses a function to compute and print the
+      first $n$ terms of the \textbf{Fibonacci} sequence:\\
+      $0,\ 1,\ 1,\ 2,\ 3,\ 5,\ 8,\ 13,\ \ldots$
+
+\item Write a function that receives an integer $n$ and returns its
+      \textbf{factorial} ($n!$).
+
+\item Using a factorial function, evaluate
+      \[
+          z = \frac{x! - y!}{(x - y)!}
+      \]
+      for user-supplied values of $x$ and $y$ (where $x \geq y$).
+
+\item Write a function that receives a \textbf{year} and determines
+      whether it is a \textbf{leap year}.\\
+      \textit{Rule:} A year is a leap year if it is divisible by~4,
+      except for century years which must also be divisible by~400.
+
+\item Write a program that reads two integers $x$ and $y$ and uses the
+      library function \texttt{pow()} to compute $x^{y}$.
+
+\item Write a function that receives an integer and returns its
+      \textbf{reverse}.  For example, $765432 \rightarrow 234567$.
+
+\item Write a program that uses functions to read the marks of
+      \textbf{8~students}, then compute and display their \textbf{sum}
+      and \textbf{average}.
+
+\item Write a function that receives a character and \textbf{converts
+      its case} --- uppercase to lowercase or vice versa --- and returns
+      the result.
+
+\item Write a \textbf{recursive} function that computes $n^{p}$
+      (the power of $n$ raised to $p$) without using
+      \texttt{pow()}.\\
+      \textit{Hint:} $n^{p} = n \times n^{p-1}$, with base case
+      $n^{0} = 1$.
+
+\end{enumerate}
+
+\newpage
+%=============================================================================
+\section{Work Sheet 6 --- Arrays}
+\label{ws:arrays}
+%=============================================================================
+
+\begin{importantbox}{Instructions}
+For each question below, write a complete C++ program.  Use arrays as
+specified; you may use functions where appropriate.
+\end{importantbox}
+
+\begin{enumerate}[leftmargin=*, label=\textbf{Q\arabic*.}]
+
+\item Write a program that reads an array of $n$ integers and checks
+      whether the array is \textbf{sorted in ascending order}.
+
+\item Write a program that reads an array of $n$ integers and counts
+      the number of elements that are equal to \textbf{zero}.
+
+\item Write a program that reads two integer arrays of the same size
+      and produces a third array that is their element-wise
+      \textbf{sum}.
+
+\item Write a program that reads an integer array and creates a new
+      array in which every element is \textbf{multiplied by~2}.
+
+\item Write a program that reads the daily temperatures for one week
+      (7 values) into an array, then computes and prints the
+      \textbf{average temperature}.
+
+\item Write a program that reads two sorted arrays and \textbf{merges}
+      them into a single sorted array.
+
+\item Write a program that reads a $3 \times 4$ matrix and computes
+      the \textbf{sum of each column}.
+
+\item Write a program that reads a square matrix of order $n$ and
+      computes the \textbf{sum of the main diagonal} elements.
+
+\item Write a program that reads a square matrix of order $n$ and
+      computes the \textbf{sum of the secondary diagonal} elements.
+
+\item Write a program that reads a $4 \times 5$ matrix and
+      \textbf{searches} for a user-supplied value, reporting its
+      position (row and column) if found.
+
+\item Write a program that reads a one-dimensional array of 12 elements
+      and stores them into a $3 \times 4$ two-dimensional array
+      (\textbf{1-D to 2-D conversion}).
+
+\item Write a program that reads a character array and \textbf{splits}
+      it into two arrays: one containing the letters and the other
+      containing the digits.
+
+\item Write a program that reads an integer array and replaces every
+      element that is both \textbf{even} and \textbf{positive} with
+      the value~\textbf{10}.  Print the array before and after the
+      replacement.
+
+\item Write a program that reads a square matrix and replaces every
+      \textbf{even} element on the \textbf{main diagonal} with~0.
+      Print the matrix before and after.
+
+\item Write a program that reads a $4 \times 5$ matrix and finds the
+      \textbf{minimum element} in the entire matrix, printing its value
+      and position (row and column).
+
+\item Write a program that reads a $3 \times 3$ matrix and
+      \textbf{exchanges} (swaps) two user-specified \textbf{rows}.
+      Print the matrix before and after the swap.
+
+\item Write a program that reads a $3 \times 3$ matrix and
+      \textbf{exchanges} (swaps) a user-specified \textbf{row} with a
+      user-specified \textbf{column}.  Print the matrix before and
+      after.
+
+\item Write a program that reads an array of $n$ integers and performs
+      a \textbf{left rotation} by one position.  For example,
+      $\{1,2,3,4,5\} \rightarrow \{2,3,4,5,1\}$.
+
+\item Write a program that reads an array of $n$ integers and
+      \textbf{deletes} the element at a user-specified position,
+      shifting subsequent elements to fill the gap.
+
+\item Write a program that reads an array of $n$ integers and sorts it
+      in \textbf{ascending} order.
+
+\item Write a program that reads an array of $n$ integers and sorts it
+      in \textbf{descending} order.
+
+\item Write a program that reads an array of $n$ integers and computes
+      the \textbf{average of the even} numbers only.
+
+\item Write a program that reads a $3 \times 4$ matrix~$A$ and creates
+      a one-dimensional array~$B$ of size~3 such that each element
+      $B[i]$ is the \textbf{sum of row~$i$} of~$A$.
+
+      \textit{Example:}
+\begin{verbatim}
+A = | 1  2  3  4 |    B = | 10 |
+    | 5  6  7  8 |        | 26 |
+    | 9 10 11 12 |        | 42 |
+\end{verbatim}
+
+\item Write a program that reads a square matrix of order $n$ and
+      finds the \textbf{greatest element on the secondary diagonal}.
+
+\item Write a program that creates and prints each of the following
+      arrays (the user supplies the size~$n$):
+
+      \begin{enumerate}[label=(\alph*)]
+        \item An array containing the first $n$ \textbf{even} numbers:
+              $\{2, 4, 6, 8, \ldots\}$
+        \item An array containing the first $n$ \textbf{odd} numbers:
+              $\{1, 3, 5, 7, \ldots\}$
+        \item An array whose elements follow the pattern
+              $\{1, 2, 4, 8, 16, \ldots\}$ (powers of~2).
+      \end{enumerate}
+
+\end{enumerate}
+
+\newpage
+%=============================================================================
+\section{Work Sheet 7 --- Strings}
+\label{ws:strings}
+%=============================================================================
+
+\begin{importantbox}{Instructions}
+For each question below, write a complete C++ program using C-style
+strings (\texttt{char} arrays).  Make use of the string I/O and
+library functions discussed in Chapter~\ref{ch:strings}.
+\end{importantbox}
+
+\begin{enumerate}[leftmargin=*, label=\textbf{Q\arabic*.}]
+
+\item Write a program that reads a string from the user, prints the
+      complete string, and then prints its characters in
+      \textbf{reverse order} (one character per line).
+
+      \textit{Example:}
+\begin{verbatim}
+Input:  Hello
+Output: Hello
+        o
+        l
+        l
+        e
+        H
+\end{verbatim}
+
+\item Write a program that reads a string and \textbf{swaps the case}
+      of every letter --- uppercase letters become lowercase and vice
+      versa.  Non-letter characters remain unchanged.
+
+      \textit{Example:}
+\begin{verbatim}
+Input:  Hello World 123
+Output: hELLO wORLD 123
+\end{verbatim}
+
+\item Write a program that reads a full sentence (using
+      \texttt{cin.getline()}) and prints each \textbf{word on a
+      separate line}.  Assume words are separated by single spaces.
+
+      \textit{Example:}
+\begin{verbatim}
+Input:  Structured Programming in C++
+Output: Structured
+        Programming
+        in
+        C++
+\end{verbatim}
+
+\item Write a program that demonstrates the use of the following
+      \textbf{I/O functions}:
+      \begin{itemize}
+        \item \texttt{cin.getline()} --- to read a full line,
+        \item \texttt{cin.get()} --- to read a single character,
+        \item \texttt{cin.ignore()} --- to discard remaining input,
+        \item \texttt{cin.putback()} --- to push a character back,
+        \item \texttt{cout.put()} --- to output a single character.
+      \end{itemize}
+      Display appropriate messages so the output clearly shows which
+      function is being used.
+
+\item Write a program that demonstrates the use of the following
+      \textbf{string library functions}:
+      \begin{itemize}
+        \item \texttt{strlen()} --- to find the length of a string,
+        \item \texttt{strcpy()} --- to copy one string into another,
+        \item \texttt{strcat()} --- to concatenate two strings,
+        \item \texttt{strcmp()} --- to compare two strings.
+      \end{itemize}
+      Read two strings from the user and apply each function, printing
+      the result after every operation.
+
+\end{enumerate}

@@ -1,0 +1,472 @@
+\documentclass[12pt,a4paper]{report}
+
+% ============================================================
+%  PACKAGES
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows.meta, positioning, calc, fit, backgrounds, decorations.pathreplacing}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable, listings}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{parskip}
+
+% ============================================================
+%  COLOR DEFINITIONS (matching Database SQL style)
+% ============================================================
+\definecolor{chapterblue}{RGB}{0, 82, 155}
+\definecolor{sectionblue}{RGB}{0, 82, 155}
+\definecolor{defblue}{RGB}{0, 102, 179}
+\definecolor{defbg}{RGB}{222, 239, 252}
+\definecolor{defborder}{RGB}{150, 200, 235}
+\definecolor{infobg}{RGB}{222, 239, 252}
+\definecolor{infoborder}{RGB}{100, 160, 220}
+\definecolor{warningbg}{RGB}{255, 243, 224}
+\definecolor{warningborder}{RGB}{230, 160, 60}
+\definecolor{warningheader}{RGB}{220, 120, 20}
+\definecolor{importantbg}{RGB}{230, 248, 230}
+\definecolor{importantborder}{RGB}{80, 180, 80}
+\definecolor{conceptbg}{RGB}{240, 237, 252}
+\definecolor{conceptborder}{RGB}{120, 100, 190}
+\definecolor{codebg}{RGB}{248, 248, 248}
+\definecolor{codeborder}{RGB}{80, 80, 80}
+\definecolor{cppkeyword}{RGB}{0, 0, 200}
+\definecolor{cppcomment}{RGB}{0, 128, 0}
+\definecolor{cppstring}{RGB}{200, 0, 0}
+\definecolor{cpppreproc}{RGB}{128, 0, 128}
+\definecolor{borderblue}{RGB}{0, 102, 179}
+\definecolor{headergray}{RGB}{100, 100, 100}
+\definecolor{tableheader}{RGB}{0, 102, 179}
+\definecolor{tableheadtext}{RGB}{255, 255, 255}
+\definecolor{coverred}{RGB}{180, 30, 30}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+
+% ============================================================
+%  PAGE STYLE & HEADERS
+% ============================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textsc{\nouppercase{\leftmark}}}
+\fancyhead[R]{\small\textcolor{headergray}{Al-Mustafa University $|$ Dept.\ of AI}}
+\fancyfoot[C]{%
+    \begin{tikzpicture}[baseline={(current bounding box.north)}]
+        \draw[borderblue, line width=0.4pt] (0,0) -- (\textwidth,0);
+        \node[anchor=north] at (0.5\textwidth, -2pt) {\small\thepage};
+    \end{tikzpicture}%
+}
+\renewcommand{\headrulewidth}{0pt}% we draw our own
+\renewcommand{\footrulewidth}{0pt}% we draw our own via tikz
+
+% Custom blue header rule
+\makeatletter
+\renewcommand{\headrule}{%
+    \vspace{-4pt}%
+    {\color{borderblue}\hrule width\headwidth height 1.2pt}%
+}
+\makeatother
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{%
+        \begin{tikzpicture}[baseline={(current bounding box.north)}]
+            \draw[borderblue, line width=0.4pt] (0,0) -- (\textwidth,0);
+            \node[anchor=north] at (0.5\textwidth, -2pt) {\small\thepage};
+        \end{tikzpicture}%
+    }
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+% ============================================================
+%  CHAPTER & SECTION FORMATTING
+% ============================================================
+\titleformat{\chapter}[display]
+    {\normalfont\bfseries\centering}
+    {%
+        \tikz[baseline]{%
+            \node[inner sep=6pt, text=chapterblue] {\small\textsc{CHAPTER \thechapter}};%
+            \draw[borderblue, line width=0.6pt] (-2,-.15) -- (2,-.15);%
+        }%
+    }
+    {6pt}
+    {\Huge\color{chapterblue}}
+\titlespacing*{\chapter}{0pt}{-10pt}{35pt}
+
+\titleformat{\section}
+    {\normalfont\Large\bfseries\color{sectionblue}}
+    {\thesection}{1em}{}
+
+\titleformat{\subsection}
+    {\normalfont\large\bfseries\color{sectionblue!80!black}}
+    {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+    {\normalfont\normalsize\bfseries}
+    {\thesubsubsection}{1em}{}
+
+% ============================================================
+%  TABLE STYLING - Blue header rows with white text
+% ============================================================
+\newcommand{\tableheaderrow}{\rowcolor{tableheader}}
+\newcommand{\tablehead}[1]{\textcolor{tableheadtext}{\textbf{#1}}}
+
+% ============================================================
+%  CUSTOM TCOLORBOX ENVIRONMENTS
+% ============================================================
+
+% --- Definition Box (light blue, like Database SQL style) ---
+\newtcolorbox{definitionbox}[1]{
+    enhanced,
+    breakable,
+    colback=defbg,
+    colframe=defborder,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    title={\colorbox{defblue}{\strut\hspace{3pt}Definition: #1\hspace{3pt}}},
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=defblue,
+        sharp corners,
+        boxrule=0pt,
+    },
+    top=8mm,
+    left=4mm,
+    right=4mm,
+    bottom=4mm,
+    boxrule=0.5pt,
+    arc=1mm,
+}
+
+% --- Info Box (blue) ---
+\newtcolorbox{infobox}[1]{
+    enhanced,
+    breakable,
+    colback=infobg,
+    colframe=infoborder,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    title={\colorbox{infoborder}{\strut\hspace{3pt}#1\hspace{3pt}}},
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=infoborder,
+        sharp corners,
+        boxrule=0pt,
+    },
+    top=8mm,
+    left=4mm,
+    right=4mm,
+    bottom=4mm,
+    boxrule=0.5pt,
+    arc=1mm,
+}
+
+% --- Warning Box (orange) ---
+\newtcolorbox{warningbox}[1]{
+    enhanced,
+    breakable,
+    colback=warningbg,
+    colframe=warningborder,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    title={\colorbox{warningheader}{\strut\hspace{3pt}#1\hspace{3pt}}},
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=warningheader,
+        sharp corners,
+        boxrule=0pt,
+    },
+    top=8mm,
+    left=4mm,
+    right=4mm,
+    bottom=4mm,
+    boxrule=0.5pt,
+    arc=1mm,
+}
+
+% --- Important Box (green) ---
+\newtcolorbox{importantbox}[1]{
+    enhanced,
+    breakable,
+    colback=importantbg,
+    colframe=importantborder,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    title={\colorbox{importantborder}{\strut\hspace{3pt}#1\hspace{3pt}}},
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=importantborder,
+        sharp corners,
+        boxrule=0pt,
+    },
+    top=8mm,
+    left=4mm,
+    right=4mm,
+    bottom=4mm,
+    boxrule=0.5pt,
+    arc=1mm,
+}
+
+% --- Concept Box (purple/lavender) ---
+\newtcolorbox{conceptbox}[1]{
+    enhanced,
+    breakable,
+    colback=conceptbg,
+    colframe=conceptborder,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    title={\colorbox{conceptborder}{\strut\hspace{3pt}#1\hspace{3pt}}},
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={
+        colback=conceptborder,
+        sharp corners,
+        boxrule=0pt,
+    },
+    top=8mm,
+    left=4mm,
+    right=4mm,
+    bottom=4mm,
+    boxrule=0.5pt,
+    arc=1mm,
+}
+
+% ============================================================
+%  C++ CODE LISTING STYLE
+% ============================================================
+\lstdefinestyle{cppstyle}{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{cppkeyword}\bfseries,
+    commentstyle=\color{cppcomment}\itshape,
+    stringstyle=\color{cppstring},
+    directivestyle=\color{cpppreproc},
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    frame=none,
+    numbers=none,
+    xleftmargin=4mm,
+    xrightmargin=2mm,
+    aboveskip=2mm,
+    belowskip=2mm,
+    morekeywords={cout, cin, endl, string, include, iostream, cmath, cstring, cstdlib, ctype, void, int, float, double, char, long, return, if, else, for, while, do, switch, case, break, default, struct, typedef, const, true, false, NULL, sizeof, bool, auto, class, namespace, using, std, new, delete, try, catch, throw, template, typename, virtual, override, public, private, protected},
+}
+
+\newtcblisting{cppcode}{
+    enhanced,
+    breakable,
+    colback=codebg,
+    colframe=codeborder,
+    boxrule=0pt,
+    leftrule=3pt,
+    arc=0mm,
+    left=2mm,
+    right=2mm,
+    top=2mm,
+    bottom=2mm,
+    listing only,
+    listing options={style=cppstyle},
+}
+
+% Inline code style
+\newcommand{\code}[1]{\texttt{\small\color{cppkeyword}#1}}
+
+% ============================================================
+%  WATERMARK (diagonal text like the original)
+% ============================================================
+% Uncomment below to add watermark
+% \usepackage{draftwatermark}
+% \SetWatermarkText{Dr.~Husam Salah Mahdi}
+% \SetWatermarkScale{0.4}
+% \SetWatermarkAngle{45}
+% \SetWatermarkColor[gray]{0.9}
+
+% ============================================================
+%  HYPERREF SETUP
+% ============================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=chapterblue,
+    urlcolor=chapterblue,
+    citecolor=chapterblue,
+    pdftitle={Structured Programming C++ - Enhanced Edition},
+    pdfauthor={Dr. Husam Salah Mahdi},
+}
+
+% ============================================================
+%  DOCUMENT START
+% ============================================================
+\begin{document}
+
+% ============================================================
+%  COVER PAGE
+% ============================================================
+\begin{titlepage}
+\begin{tikzpicture}[remember picture, overlay]
+    % --- Outer thick border ---
+    \draw[line width=3pt, borderblue]
+        ([xshift=10mm, yshift=-10mm]current page.north west)
+        rectangle
+        ([xshift=-10mm, yshift=10mm]current page.south east);
+    % --- Inner thin border ---
+    \draw[line width=0.5pt, borderblue]
+        ([xshift=13mm, yshift=-13mm]current page.north west)
+        rectangle
+        ([xshift=-13mm, yshift=13mm]current page.south east);
+
+    % ======== FOUR CORNER TRIANGULAR DECORATIONS ========
+
+    % --- Top-Left decorative triangle ---
+    \fill[borderblue]
+        ([xshift=10mm, yshift=-10mm]current page.north west)
+        -- ++(0, -28mm)
+        -- ++(14mm, 28mm)
+        -- cycle;
+
+    % --- Top-Right decorative triangle ---
+    \fill[borderblue]
+        ([xshift=-10mm, yshift=-10mm]current page.north east)
+        -- ++(0, -28mm)
+        -- ++(-14mm, 28mm)
+        -- cycle;
+
+    % --- Bottom-Left decorative triangle ---
+    \fill[borderblue]
+        ([xshift=10mm, yshift=10mm]current page.south west)
+        -- ++(0, 28mm)
+        -- ++(14mm, -28mm)
+        -- cycle;
+
+    % --- Bottom-Right decorative triangle ---
+    \fill[borderblue]
+        ([xshift=-10mm, yshift=10mm]current page.south east)
+        -- ++(0, 28mm)
+        -- ++(-14mm, -28mm)
+        -- cycle;
+\end{tikzpicture}
+
+\centering
+\vspace*{1.2cm}
+
+% University Logo
+\includegraphics[width=3.5cm]{logo.png}
+
+\vspace{0.6cm}
+
+{\Large\bfseries Al-Mustafa University}\\[4pt]
+{\normalsize Department of AI}
+
+\vspace{0.8cm}
+
+% Red decorative rule above title
+{\color{coverred}\rule{0.75\textwidth}{2pt}}
+
+\vspace{0.7cm}
+
+{\fontsize{34}{40}\selectfont\bfseries\color{chapterblue} Structured Programming}\\[10pt]
+{\fontsize{34}{40}\selectfont\bfseries\color{chapterblue} C++}
+
+\vspace{0.6cm}
+
+% Red decorative rule below title
+{\color{coverred}\rule{0.75\textwidth}{2pt}}
+
+\vspace{0.7cm}
+
+{\Large\bfseries\color{chapterblue} Part I: Theory Section}
+
+\vspace{0.5cm}
+
+{\normalsize ECTS Credits: 8}\\[3pt]
+{\normalsize Module Level: 1 $|$ Semester: 2}
+
+\vspace{1.2cm}
+
+% Instructor block with subtle blue accent
+\begin{tikzpicture}
+    \node[inner sep=8pt] (instructor) {%
+        \begin{minipage}{0.5\textwidth}
+            \centering
+            {\large\bfseries Instructor}\\[5pt]
+            {\large Dr.\ Husam Salah Mahdi}\\[3pt]
+            {\normalsize HOD AI Dep}
+        \end{minipage}
+    };
+    \draw[borderblue, line width=0.5pt] (instructor.north west) -- (instructor.north east);
+    \draw[borderblue, line width=0.5pt] (instructor.south west) -- (instructor.south east);
+\end{tikzpicture}
+
+\vspace{0.8cm}
+
+{\normalsize First Year -- Second Course}\\[3pt]
+{\normalsize Academic Year: 2025--2026}
+
+\vspace*{\fill}
+\end{titlepage}
+
+% ============================================================
+%  PART I PAGE
+% ============================================================
+\newpage
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture, overlay]
+    % Subtle blue gradient band at top
+    \fill[borderblue!15] (current page.north west) rectangle ([yshift=-3cm]current page.north east);
+    \draw[borderblue, line width=1.5pt] ([yshift=-3cm]current page.north west) -- ([yshift=-3cm]current page.north east);
+    % Subtle blue band at bottom
+    \fill[borderblue!15] (current page.south west) rectangle ([yshift=2cm]current page.south east);
+    \draw[borderblue, line width=1.5pt] ([yshift=2cm]current page.south west) -- ([yshift=2cm]current page.south east);
+\end{tikzpicture}
+
+\vspace*{\fill}
+\begin{center}
+    {\color{borderblue}\rule{0.4\textwidth}{1pt}}\\[15pt]
+    {\fontsize{42}{50}\selectfont\bfseries\color{chapterblue} Part I}\\[20pt]
+    {\LARGE\bfseries\color{chapterblue} Theory Section}\\[15pt]
+    {\color{borderblue}\rule{0.4\textwidth}{1pt}}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+% ============================================================
+%  TABLE OF CONTENTS
+% ============================================================
+\tableofcontents
+\newpage
+
+% ============================================================
+%  CHAPTERS
+% ============================================================
+
+\input{chapter1}    % Functions in C++
+\input{chapter2}    % Advanced Function Concepts
+\input{chapter3}    % One-Dimensional Arrays
+\input{chapter4}    % Two-Dimensional Arrays
+\input{chapter5}    % Strings in C++
+\input{chapter6}    % Structures
+
+% ============================================================
+%  WORKSHEETS (APPENDIX)
+% ============================================================
+\appendix
+\input{worksheets}
+
+\end{document}

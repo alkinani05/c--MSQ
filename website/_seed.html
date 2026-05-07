@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><body><script>
+// Dev-only quick login. Refuses to run unless explicitly invoked with ?dev=1
+// to avoid accidental auto-login when this file is exposed on a real deployment.
+(function () {
+    const params = new URLSearchParams(location.search);
+    if (params.get('dev') !== '1') {
+        document.body.innerHTML =
+            '<p style="font:14px system-ui;padding:24px">This is a development helper. Append <code>?dev=1</code> to the URL to use it.</p>';
+        return;
+    }
+    localStorage.setItem('cppmcq.auth', JSON.stringify({
+        id: 1,
+        name: "كاظم محمد جاسم منشد",
+        email: "ai25m1@almustafauniversity.edu.iq"
+    }));
+    window.location = 'index.html';
+})();
+</script></body></html>
