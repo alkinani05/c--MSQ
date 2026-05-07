@@ -545,14 +545,17 @@ function startTimer() {
     const q = state.quiz;
     const limit = q.durationSec || 0;
 
+    const valueEl = el.querySelector('.quiz-timer-value') || el;
     const tick = () => {
         if (!state.quiz || state.quiz.finished) return;
         const elapsed = Math.floor((Date.now() - state.quiz.started) / 1000);
         if (limit > 0) {
             const remaining = Math.max(0, limit - elapsed);
-            el.textContent = formatMMSS(remaining);
+            valueEl.textContent = formatMMSS(remaining);
             el.classList.toggle('warn',   remaining <= 300 && remaining > 60);
             el.classList.toggle('danger', remaining <= 60);
+            const shell = document.querySelector('.quiz-shell');
+            if (shell) shell.classList.toggle('danger', remaining <= 60);
             if (!warnedFiveMin && remaining <= 300 && remaining > 60) {
                 warnedFiveMin = true;
                 showToast('5 minutes remaining', 'warn');
@@ -568,7 +571,7 @@ function startTimer() {
                 finishQuiz({ reason: 'timeout' });
             }
         } else {
-            el.textContent = formatMMSS(elapsed);
+            valueEl.textContent = formatMMSS(elapsed);
         }
     };
     tick();
@@ -879,21 +882,30 @@ function renderResult() {
 
     const m = String(Math.floor(q.elapsed / 60)).padStart(2, '0');
     const s = String(q.elapsed % 60).padStart(2, '0');
-    $('.result-stats').innerHTML = `
-        <strong>${q.score.correct}</strong> correct ·
-        <strong>${q.score.wrong}</strong> wrong ·
-        <strong>${q.score.skipped}</strong> skipped<br>
-        Time: <strong>${m}:${s}</strong> · Quiz: <strong>${escapeHtml(q.title)}</strong>
-    `;
+    const chipsEl = $('.result-chips');
+    if (chipsEl) {
+        chipsEl.innerHTML = `
+            <div class="result-chip ok"      role="listitem"><span class="result-chip-num">${q.score.correct}</span><span class="result-chip-label">Correct</span></div>
+            <div class="result-chip err"     role="listitem"><span class="result-chip-num">${q.score.wrong}</span><span class="result-chip-label">Wrong</span></div>
+            <div class="result-chip skip"    role="listitem"><span class="result-chip-num">${q.score.skipped}</span><span class="result-chip-label">Skipped</span></div>
+            <div class="result-chip time"    role="listitem"><span class="result-chip-num">${m}:${s}</span><span class="result-chip-label">Time</span></div>
+        `;
+    }
+    const metaEl = $('.result-meta');
+    if (metaEl) metaEl.innerHTML = `<span>${escapeHtml(q.title)}</span>`;
 
+    // Score-band drives ring stroke color & subtle accent (set as data-band)
+    const band = q.score.pct >= 80 ? 'high'
+              : q.score.pct >= 60 ? 'mid'
+              : q.score.pct >= 40 ? 'low'
+              : 'fail';
+    const ringWrap = $('.result-ring');
+    if (ringWrap) ringWrap.dataset.band = band;
     $('.result-pct').textContent = `${q.score.pct}%`;
     const ring = $('.ring-fg');
-    ring.style.stroke = q.score.pct >= 80 ? 'var(--success)' :
-                        q.score.pct >= 60 ? 'var(--accent)' :
-                        q.score.pct >= 40 ? 'var(--warn)'    : 'var(--error)';
-    setTimeout(() => {
+    requestAnimationFrame(() => {
         ring.style.strokeDashoffset = String(100 - q.score.pct);
-    }, 80);
+    });
 
     $('[data-action="retry"]').addEventListener('click', () => {
         startQuiz({ scope: q.scope, chapter: q.chapter, count: q.questions.length, mode: q.mode });
@@ -906,8 +918,9 @@ function renderResult() {
     let filter = 'all';
     const filters = $$('.review-filters .chip');
     filters.forEach(c => c.addEventListener('click', () => {
-        filters.forEach(x => x.classList.remove('active'));
+        filters.forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
         c.classList.add('active');
+        c.setAttribute('aria-selected', 'true');
         filter = c.dataset.filter;
         paintReview(filter);
     }));
@@ -927,15 +940,30 @@ function paintReview(filter) {
 
         const item = document.createElement('div');
         item.className = `review-item ${status}`;
+        const statusLabel = status === 'correct' ? '✓ Correct'
+                          : status === 'incorrect' ? '✗ Wrong'
+                          : '— Skipped';
+        const yourAnsHtml = a
+            ? `<span class="ans-letter">${a}</span><span class="ans-text">${escapeHtml(letterToText(qq, a))}</span>`
+            : `<span class="ans-letter empty">—</span><span class="ans-text muted">No answer</span>`;
+        const correctAnsHtml = `<span class="ans-letter">${qq.answer}</span><span class="ans-text">${escapeHtml(letterToText(qq, qq.answer))}</span>`;
+        const showCorrectRow = status !== 'correct';
         item.innerHTML = `
             <div class="review-item-head">
-                <span>Q${i + 1} · Chapter ${qq.chapter}</span>
-                <span>${status === 'correct' ? '✓ Correct' : status === 'incorrect' ? '✗ Wrong' : '— Skipped'}</span>
+                <span class="review-q-id">Q${i + 1} <span class="dot" aria-hidden="true">·</span> Chapter ${qq.chapter}</span>
+                <span class="review-status">${statusLabel}</span>
             </div>
             <div class="review-stem">${renderMarkdown(qq.stem)}</div>
             <div class="review-answers">
-                Your answer: <strong>${a ? a + ') ' + escapeHtml(letterToText(qq, a)) : '—'}</strong><br>
-                Correct: <strong>${qq.answer}) ${escapeHtml(letterToText(qq, qq.answer))}</strong>
+                <div class="ans-row ans-yours ${status}">
+                    <span class="ans-tag">Your answer</span>
+                    ${yourAnsHtml}
+                </div>
+                ${showCorrectRow ? `
+                <div class="ans-row ans-correct">
+                    <span class="ans-tag">Correct answer</span>
+                    ${correctAnsHtml}
+                </div>` : ''}
             </div>
             <div class="review-explain">${renderInline(qq.explanation)}</div>
         `;

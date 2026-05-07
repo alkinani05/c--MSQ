@@ -24,7 +24,7 @@
                     <img src="logo.png" alt="Al-Mustafa University College — Baghdad" width="40" height="40" />
                 </a>
                 <div>
-                    <div class="brand-title">Structured Programming MCQ</div>
+                    <div class="brand-title">Structured Programming&nbsp;·&nbsp;C++</div>
                     <div class="brand-sub">Al-Mustafa University College · Department of AI</div>
                 </div>
             </div>
@@ -51,7 +51,15 @@
 
     <footer class="footer">
         <div>Built for students · Instructor: <strong>Dr. Husam Salah Mahdi</strong></div>
-        <div class="muted">Open-source MCQ practice tool · 180 questions · 6 chapters</div>
+        <div class="footer-meta">
+            <span>Al-Mustafa University College</span>
+            <span class="dot"></span>
+            <span>180 questions</span>
+            <span class="dot"></span>
+            <span>6 chapters</span>
+            <span class="dot"></span>
+            <span>v1.0</span>
+        </div>
     </footer>
 
     <!-- Templates -->
@@ -92,7 +100,8 @@
             <div class="hero-inner">
                 <div class="hero-eyebrow">First Year · Second Course</div>
                 <h1 class="hero-title">Master C++ with <span class="grad">smart practice</span>.</h1>
-                <p class="hero-lead">180 carefully crafted multiple-choice questions designed to test your <em>understanding</em> — not memorisation. Read code, predict output, find bugs, and complete one-line implementations.</p>
+                <span class="hero-kicker">Structured Programming &mdash; AI Department, 2025/2026</span>
+                <p class="hero-lead">180 carefully crafted multiple-choice questions designed to test your <em>understanding</em> &mdash; not memorisation. Read code, predict output, find bugs, and complete one-line implementations.</p>
                 <div class="hero-stats">
                     <div class="stat"><div class="stat-num" data-stat="total">180</div><div class="stat-label">Questions</div></div>
                     <div class="stat"><div class="stat-num">6</div><div class="stat-label">Chapters</div></div>
@@ -157,15 +166,20 @@
     <template id="tpl-quiz">
         <section class="quiz-shell">
             <header class="quiz-head">
-                <div>
-                    <div class="quiz-mode-badge"></div>
-                    <div class="quiz-chapter-title"></div>
+                <div class="quiz-head-main">
+                    <div class="quiz-head-line">
+                        <span class="quiz-mode-badge"></span>
+                        <span class="quiz-counter" aria-label="Question progress"></span>
+                    </div>
+                    <h1 class="quiz-chapter-title"></h1>
                     <div class="quiz-student muted"></div>
                 </div>
                 <div class="quiz-meta">
-                    <div class="quiz-counter" aria-label="Question progress"></div>
-                    <div class="quiz-timer" aria-label="Time" aria-live="polite">00:00</div>
-                    <button class="btn-ghost subtle" data-action="exit" aria-label="Exit quiz">Exit</button>
+                    <div class="quiz-timer" aria-label="Time remaining" aria-live="polite">
+                        <svg class="quiz-timer-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path></svg>
+                        <span class="quiz-timer-value">00:00</span>
+                    </div>
+                    <button class="btn-ghost subtle quiz-exit" data-action="exit" aria-label="Exit quiz">Exit</button>
                 </div>
             </header>
             <div class="progress-bar" role="progressbar" aria-label="Quiz progress"><div class="progress-fill"></div></div>
@@ -186,17 +200,25 @@
     <template id="tpl-result">
         <section class="result-shell">
             <div class="result-hero">
-                <div class="result-ring">
-                    <svg viewBox="0 0 120 120">
+                <div class="result-ring" data-band="">
+                    <svg viewBox="0 0 120 120" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%"   stop-color="var(--grad-1)"></stop>
+                                <stop offset="100%" stop-color="var(--grad-2)"></stop>
+                            </linearGradient>
+                        </defs>
                         <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
                         <circle class="ring-fg" cx="60" cy="60" r="52" pathLength="100"></circle>
                     </svg>
-                    <div class="result-pct">0%</div>
+                    <div class="result-pct" aria-live="polite">0%</div>
                 </div>
                 <div class="result-summary">
+                    <div class="result-eyebrow">Result</div>
+                    <h1 class="result-title"></h1>
                     <div class="result-student muted"></div>
-                    <div class="result-title"></div>
-                    <div class="result-stats"></div>
+                    <div class="result-chips" role="list"></div>
+                    <div class="result-meta muted"></div>
                     <div class="result-cta">
                         <button class="btn-primary" data-action="retry">↻ Retry</button>
                         <button class="btn-ghost" data-action="home">← Home</button>
@@ -206,10 +228,10 @@
             <div class="review">
                 <div class="review-head">
                     <h3>Review</h3>
-                    <div class="review-filters">
-                        <button class="chip active" data-filter="all">All</button>
-                        <button class="chip" data-filter="wrong">Wrong only</button>
-                        <button class="chip" data-filter="right">Right only</button>
+                    <div class="review-filters" role="tablist" aria-label="Filter review">
+                        <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
+                        <button class="chip" data-filter="wrong" role="tab" aria-selected="false">Wrong only</button>
+                        <button class="chip" data-filter="right" role="tab" aria-selected="false">Right only</button>
                     </div>
                 </div>
                 <div class="review-list"></div>
