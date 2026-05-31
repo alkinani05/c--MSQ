@@ -177,6 +177,18 @@ function renderUserBadge() {
 }
 
 /* ---------- Home ---------- */
+function updateModeHint(mode) {
+    const hint = document.querySelector('#chaptersGrid')?.closest('.section')?.querySelector('.mode-hint');
+    if (!hint) return;
+    const map = {
+        practice: { en: '⚡ Practice mode — instant feedback', ar: 'وضع التدريب — تغذية راجعة فورية' },
+        exam:     { en: '📝 Exam mode — timed, one attempt',  ar: 'وضع الامتحان — مؤقّت ومحاولة واحدة' },
+        quick:    { en: '🎯 Quick mode',                       ar: 'الوضع السريع' },
+    };
+    const m = map[mode] || map.practice;
+    hint.innerHTML = `<strong>${m.en}</strong> &nbsp;·&nbsp; <span dir="rtl" lang="ar">${m.ar}</span> &nbsp;·&nbsp; <em>Click a chapter below to start ↓</em>`;
+}
+
 function renderHome() {
     const tpl = $('#tpl-home').content.cloneNode(true);
     const main = $('#app');
@@ -228,8 +240,18 @@ function renderHome() {
                 return;
             }
             updateChapterLockState();
+            updateModeHint(mode);
+            const chaptersSec = $('#chaptersGrid')?.closest('.section');
+            if (chaptersSec) {
+                chaptersSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                chaptersSec.classList.remove('pulse-attn');
+                void chaptersSec.offsetWidth;
+                chaptersSec.classList.add('pulse-attn');
+            }
         });
     });
+
+    updateModeHint(mode);
 
     // Chapter cards
     const grid = $('#chaptersGrid');

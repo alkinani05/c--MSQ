@@ -5,10 +5,12 @@ tectonic
 *.xls
 *.csv
 
-# Answer-key source bank for the Cybersecurity Engineering site — kept on
-# the instructor's machine but never committed (the markdown lists answers
-# in a human-readable table).
+# Answer-key source banks for both courses — kept on the instructor's
+# machine but never committed (the markdown lists answers in a
+# human-readable table).
 website-CST/MCQ Bank*.md
+MCQ-Question-Bank.md
+MCQ-Sheet.md
 
 __pycache__/
 *.pyc
