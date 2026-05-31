@@ -1,0 +1,812 @@
+{
+  "course": "Digital Electronics",
+  "instructor": "Course Instructor",
+  "institution": "Al-Mustafa University College — Department of Cybersecurity Engineering",
+  "version": "1.0.0",
+  "builtAt": "2026-05-31",
+  "chapters": [
+    { "number": 1, "title": "Number System Conversions" },
+    { "number": 2, "title": "Binary Arithmetic & Complements" },
+    { "number": 3, "title": "Boolean Algebra & De Morgan's Laws" },
+    { "number": 4, "title": "K-Maps & Minterms" },
+    { "number": 5, "title": "Logic Gates & Digital Codes" }
+  ],
+  "questions": [
+    {
+      "id": 1, "chapter": 1,
+      "stem": "What is the decimal equivalent of binary `10110`?",
+      "options": [
+        { "letter": "A", "text": "11" },
+        { "letter": "B", "text": "22" },
+        { "letter": "C", "text": "15" }
+      ],
+      "answer": "B",
+      "explanation": "10110₂ = 1·16 + 0·8 + 1·4 + 1·2 + 0·1 = **22**."
+    },
+    {
+      "id": 2, "chapter": 1,
+      "stem": "Convert hexadecimal `3A` to decimal.",
+      "options": [
+        { "letter": "A", "text": "58" },
+        { "letter": "B", "text": "45" },
+        { "letter": "C", "text": "44" }
+      ],
+      "answer": "A",
+      "explanation": "3A₁₆ = 3·16 + 10 = 48 + 10 = **58**."
+    },
+    {
+      "id": 3, "chapter": 1,
+      "stem": "Convert binary `110101` to octal.",
+      "options": [
+        { "letter": "A", "text": "63" },
+        { "letter": "B", "text": "65" },
+        { "letter": "C", "text": "55" }
+      ],
+      "answer": "B",
+      "explanation": "Group bits in 3s from the right: `110 101` → `6 5` = **65₈**."
+    },
+    {
+      "id": 4, "chapter": 1,
+      "stem": "Convert decimal `190` to hexadecimal.",
+      "options": [
+        { "letter": "A", "text": "FE" },
+        { "letter": "B", "text": "BE" },
+        { "letter": "C", "text": "EF" }
+      ],
+      "answer": "B",
+      "explanation": "190 ÷ 16 = 11 remainder 14 → digits **B E** → **BE₁₆**."
+    },
+    {
+      "id": 5, "chapter": 1,
+      "stem": "Convert hexadecimal `4B2` to decimal.",
+      "options": [
+        { "letter": "A", "text": "1202" },
+        { "letter": "B", "text": "2004" },
+        { "letter": "C", "text": "5427" }
+      ],
+      "answer": "A",
+      "explanation": "4·256 + 11·16 + 2 = 1024 + 176 + 2 = **1202**."
+    },
+    {
+      "id": 6, "chapter": 1,
+      "stem": "Convert hexadecimal `F5F5` to binary and decimal.",
+      "options": [
+        { "letter": "A", "text": "Bin = 1111 0101 1111 0101, Dec = 62965" },
+        { "letter": "B", "text": "Bin = 1111 0111 1110 0101, Dec = 69294" },
+        { "letter": "C", "text": "Bin = 1111 0011 1110 0101, Dec = 62965" }
+      ],
+      "answer": "A",
+      "explanation": "F=1111, 5=0101 → `1111 0101 1111 0101`. Decimal = 15·4096 + 5·256 + 15·16 + 5 = **62965**."
+    },
+    {
+      "id": 7, "chapter": 1,
+      "stem": "Convert the octal number `37246₈` to decimal.",
+      "options": [
+        { "letter": "A", "text": "16038" },
+        { "letter": "B", "text": "16969" },
+        { "letter": "C", "text": "14324" }
+      ],
+      "answer": "A",
+      "explanation": "3·8⁴ + 7·8³ + 2·8² + 4·8 + 6 = 12288 + 3584 + 128 + 32 + 6 = **16038**."
+    },
+    {
+      "id": 8, "chapter": 1,
+      "stem": "What is the decimal equivalent of binary `11010`?",
+      "options": [
+        { "letter": "A", "text": "24" },
+        { "letter": "B", "text": "26" },
+        { "letter": "C", "text": "22" }
+      ],
+      "answer": "B",
+      "explanation": "11010₂ = 16 + 8 + 0 + 2 + 0 = **26**."
+    },
+    {
+      "id": 9, "chapter": 1,
+      "stem": "Convert hexadecimal `2F` to decimal.",
+      "options": [
+        { "letter": "A", "text": "47" },
+        { "letter": "B", "text": "31" },
+        { "letter": "C", "text": "45" }
+      ],
+      "answer": "A",
+      "explanation": "2F₁₆ = 2·16 + 15 = 32 + 15 = **47**."
+    },
+    {
+      "id": 10, "chapter": 1,
+      "stem": "Convert binary `101110` to octal.",
+      "options": [
+        { "letter": "A", "text": "56" },
+        { "letter": "B", "text": "46" },
+        { "letter": "C", "text": "65" }
+      ],
+      "answer": "A",
+      "explanation": "Group bits in 3s from the right: `101 110` → `5 6` = **56₈**."
+    },
+    {
+      "id": 11, "chapter": 1,
+      "stem": "Convert decimal `215` to hexadecimal.",
+      "options": [
+        { "letter": "A", "text": "D7" },
+        { "letter": "B", "text": "C7" },
+        { "letter": "C", "text": "DF" }
+      ],
+      "answer": "A",
+      "explanation": "215 ÷ 16 = 13 remainder 7 → digits **D 7** → **D7₁₆**."
+    },
+    {
+      "id": 12, "chapter": 1,
+      "stem": "Convert hexadecimal `5C3` to decimal.",
+      "options": [
+        { "letter": "A", "text": "1475" },
+        { "letter": "B", "text": "1347" },
+        { "letter": "C", "text": "1411" }
+      ],
+      "answer": "A",
+      "explanation": "5·256 + 12·16 + 3 = 1280 + 192 + 3 = **1475**."
+    },
+    {
+      "id": 13, "chapter": 1,
+      "stem": "Convert hexadecimal `A3C7` to binary and decimal.",
+      "options": [
+        { "letter": "A", "text": "Bin = 1010 0011 1100 0111, Dec = 41927" },
+        { "letter": "B", "text": "Bin = 1010 0011 1100 0111, Dec = 41943" },
+        { "letter": "C", "text": "Bin = 1010 0011 1000 0111, Dec = 41927" }
+      ],
+      "answer": "A",
+      "explanation": "A=1010, 3=0011, C=1100, 7=0111. Decimal = 10·4096 + 3·256 + 12·16 + 7 = **41927**."
+    },
+    {
+      "id": 14, "chapter": 1,
+      "stem": "Convert the octal number `52317₈` to decimal.",
+      "options": [
+        { "letter": "A", "text": "21567" },
+        { "letter": "B", "text": "21711" },
+        { "letter": "C", "text": "21823" }
+      ],
+      "answer": "B",
+      "explanation": "5·8⁴ + 2·8³ + 3·8² + 1·8 + 7 = 20480 + 1024 + 192 + 8 + 7 = **21711**."
+    },
+    {
+      "id": 15, "chapter": 1,
+      "stem": "What is the decimal equivalent of binary `10011`?",
+      "options": [
+        { "letter": "A", "text": "17" },
+        { "letter": "B", "text": "19" },
+        { "letter": "C", "text": "21" }
+      ],
+      "answer": "B",
+      "explanation": "10011₂ = 16 + 0 + 0 + 2 + 1 = **19**."
+    },
+    {
+      "id": 16, "chapter": 1,
+      "stem": "Convert hexadecimal `7E` to decimal.",
+      "options": [
+        { "letter": "A", "text": "124" },
+        { "letter": "B", "text": "126" },
+        { "letter": "C", "text": "128" }
+      ],
+      "answer": "B",
+      "explanation": "7E₁₆ = 7·16 + 14 = 112 + 14 = **126**."
+    },
+    {
+      "id": 17, "chapter": 1,
+      "stem": "Convert binary `111001` to octal.",
+      "options": [
+        { "letter": "A", "text": "71" },
+        { "letter": "B", "text": "69" },
+        { "letter": "C", "text": "67" }
+      ],
+      "answer": "A",
+      "explanation": "Group bits in 3s from the right: `111 001` → `7 1` = **71₈**."
+    },
+    {
+      "id": 18, "chapter": 1,
+      "stem": "Convert decimal `250` to hexadecimal.",
+      "options": [
+        { "letter": "A", "text": "FA" },
+        { "letter": "B", "text": "AF" },
+        { "letter": "C", "text": "EA" }
+      ],
+      "answer": "A",
+      "explanation": "250 ÷ 16 = 15 remainder 10 → digits **F A** → **FA₁₆**."
+    },
+    {
+      "id": 19, "chapter": 1,
+      "stem": "Convert hexadecimal `6A1` to decimal.",
+      "options": [
+        { "letter": "A", "text": "1697" },
+        { "letter": "B", "text": "1681" },
+        { "letter": "C", "text": "1761" }
+      ],
+      "answer": "A",
+      "explanation": "6·256 + 10·16 + 1 = 1536 + 160 + 1 = **1697**."
+    },
+    {
+      "id": 20, "chapter": 1,
+      "stem": "Convert hexadecimal `B2D4` to binary and decimal.",
+      "options": [
+        { "letter": "A", "text": "Bin = 1011 0010 1101 0100, Dec = 45780" },
+        { "letter": "B", "text": "Bin = 1011 0010 1101 0100, Dec = 45796" },
+        { "letter": "C", "text": "Bin = 1011 0010 1101 0100, Dec = 45812" }
+      ],
+      "answer": "A",
+      "explanation": "B=1011, 2=0010, D=1101, 4=0100. Decimal = 11·4096 + 2·256 + 13·16 + 4 = **45780**."
+    },
+    {
+      "id": 21, "chapter": 1,
+      "stem": "Convert the octal number `24165₈` to decimal.",
+      "options": [
+        { "letter": "A", "text": "10357" },
+        { "letter": "B", "text": "10485" },
+        { "letter": "C", "text": "10421" }
+      ],
+      "answer": "A",
+      "explanation": "2·8⁴ + 4·8³ + 1·8² + 6·8 + 5 = 8192 + 2048 + 64 + 48 + 5 = **10357**."
+    },
+
+    {
+      "id": 22, "chapter": 2,
+      "stem": "What is the result of binary addition `10010 + 01101`?",
+      "options": [
+        { "letter": "A", "text": "11111" },
+        { "letter": "B", "text": "10111" },
+        { "letter": "C", "text": "11001" }
+      ],
+      "answer": "A",
+      "explanation": "Aligning the operands: 10010 + 01101 = **11111** (no carry generated)."
+    },
+    {
+      "id": 23, "chapter": 2,
+      "stem": "What is the result of binary addition `1010 + 0101`?",
+      "options": [
+        { "letter": "A", "text": "0110" },
+        { "letter": "B", "text": "1111" },
+        { "letter": "C", "text": "1001" }
+      ],
+      "answer": "B",
+      "explanation": "1010 + 0101 = **1111**."
+    },
+    {
+      "id": 24, "chapter": 2,
+      "stem": "What is the result of binary subtraction `1100 − 0101`?",
+      "options": [
+        { "letter": "A", "text": "0010" },
+        { "letter": "B", "text": "0111" },
+        { "letter": "C", "text": "0100" }
+      ],
+      "answer": "B",
+      "explanation": "12 − 5 = 7 → **0111**."
+    },
+    {
+      "id": 25, "chapter": 2,
+      "stem": "The **2's complement** of `0110` (4-bit) is:",
+      "options": [
+        { "letter": "A", "text": "1001" },
+        { "letter": "B", "text": "1010" },
+        { "letter": "C", "text": "1011" }
+      ],
+      "answer": "B",
+      "explanation": "Invert 0110 → 1001, then add 1 → **1010**."
+    },
+    {
+      "id": 26, "chapter": 2,
+      "stem": "What is the result of binary addition `10101 + 01011`?",
+      "options": [
+        { "letter": "A", "text": "100000" },
+        { "letter": "B", "text": "11110" },
+        { "letter": "C", "text": "11111" }
+      ],
+      "answer": "A",
+      "explanation": "10101 (21) + 01011 (11) = 32 = **100000₂**."
+    },
+    {
+      "id": 27, "chapter": 2,
+      "stem": "What is the result of binary addition `1110 + 0011`?",
+      "options": [
+        { "letter": "A", "text": "10001" },
+        { "letter": "B", "text": "1111" },
+        { "letter": "C", "text": "10010" }
+      ],
+      "answer": "A",
+      "explanation": "1110 (14) + 0011 (3) = 17 = **10001₂**."
+    },
+    {
+      "id": 28, "chapter": 2,
+      "stem": "What is the result of binary subtraction `1101 − 0110`?",
+      "options": [
+        { "letter": "A", "text": "0110" },
+        { "letter": "B", "text": "0111" },
+        { "letter": "C", "text": "1011" }
+      ],
+      "answer": "B",
+      "explanation": "1101 (13) − 0110 (6) = 7 = **0111₂**."
+    },
+    {
+      "id": 29, "chapter": 2,
+      "stem": "The **2's complement** of `1010` (4-bit) is:",
+      "options": [
+        { "letter": "A", "text": "0101" },
+        { "letter": "B", "text": "0110" },
+        { "letter": "C", "text": "1001" }
+      ],
+      "answer": "B",
+      "explanation": "Invert 1010 → 0101, then add 1 → **0110**."
+    },
+    {
+      "id": 30, "chapter": 2,
+      "stem": "What is the result of binary addition `11011 + 00101`?",
+      "options": [
+        { "letter": "A", "text": "100000" },
+        { "letter": "B", "text": "11111" },
+        { "letter": "C", "text": "100001" }
+      ],
+      "answer": "A",
+      "explanation": "11011 (27) + 00101 (5) = 32 = **100000₂**."
+    },
+    {
+      "id": 31, "chapter": 2,
+      "stem": "What is the result of binary addition `1001 + 0111`?",
+      "options": [
+        { "letter": "A", "text": "10000" },
+        { "letter": "B", "text": "1110" },
+        { "letter": "C", "text": "1111" }
+      ],
+      "answer": "A",
+      "explanation": "1001 (9) + 0111 (7) = 16 = **10000₂**."
+    },
+    {
+      "id": 32, "chapter": 2,
+      "stem": "What is the result of binary subtraction `10000 − 0011`?",
+      "options": [
+        { "letter": "A", "text": "1100" },
+        { "letter": "B", "text": "1101" },
+        { "letter": "C", "text": "1110" }
+      ],
+      "answer": "B",
+      "explanation": "10000 (16) − 0011 (3) = 13 = **1101₂**."
+    },
+    {
+      "id": 33, "chapter": 2,
+      "stem": "The **2's complement** of `1100` (4-bit) is:",
+      "options": [
+        { "letter": "A", "text": "0100" },
+        { "letter": "B", "text": "0011" },
+        { "letter": "C", "text": "0101" }
+      ],
+      "answer": "A",
+      "explanation": "1's complement of 1100 = 0011; add 1 → **0100**."
+    },
+
+    {
+      "id": 34, "chapter": 3,
+      "stem": "Which Boolean law states that `A + A'B = A + B`?",
+      "options": [
+        { "letter": "A", "text": "Consensus Theorem" },
+        { "letter": "B", "text": "Absorption Law" },
+        { "letter": "C", "text": "De Morgan's Theorem" }
+      ],
+      "answer": "B",
+      "explanation": "A + A'B = (A + A')(A + B) = 1·(A + B) = A + B — part of the **Absorption** family of identities."
+    },
+    {
+      "id": 35, "chapter": 3,
+      "stem": "Simplify: `A·B + A·B'`",
+      "options": [
+        { "letter": "A", "text": "B" },
+        { "letter": "B", "text": "A" },
+        { "letter": "C", "text": "A + B" }
+      ],
+      "answer": "B",
+      "explanation": "Factor A: A·(B + B') = A·1 = **A**."
+    },
+    {
+      "id": 36, "chapter": 3,
+      "stem": "Simplify: `(A + B)(A + B')`",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "B" },
+        { "letter": "C", "text": "A + B" }
+      ],
+      "answer": "A",
+      "explanation": "Expand: A + A·B' + A·B + B·B' = A + A·(B + B') + 0 = **A**."
+    },
+    {
+      "id": 37, "chapter": 3,
+      "stem": "By De Morgan's theorem, `(A·B)'` equals:",
+      "options": [
+        { "letter": "A", "text": "A' + B'" },
+        { "letter": "B", "text": "A'·B'" },
+        { "letter": "C", "text": "A + B" }
+      ],
+      "answer": "A",
+      "explanation": "De Morgan: (A·B)' = **A' + B'**."
+    },
+    {
+      "id": 38, "chapter": 3,
+      "stem": "Simplify using De Morgan's: `(A + B + C)'`",
+      "options": [
+        { "letter": "A", "text": "A'·B'·C'" },
+        { "letter": "B", "text": "A' + B' + C'" },
+        { "letter": "C", "text": "ABC" }
+      ],
+      "answer": "A",
+      "explanation": "De Morgan extends to N terms: (A + B + C)' = **A'·B'·C'**."
+    },
+    {
+      "id": 39, "chapter": 3,
+      "stem": "Which Boolean law states that `A·(A + B) = A`?",
+      "options": [
+        { "letter": "A", "text": "Consensus Theorem" },
+        { "letter": "B", "text": "Absorption Law" },
+        { "letter": "C", "text": "De Morgan's Theorem" }
+      ],
+      "answer": "B",
+      "explanation": "A·(A + B) = A is the classic **Absorption** identity."
+    },
+    {
+      "id": 40, "chapter": 3,
+      "stem": "Simplify: `(A + B)·(A + B)`",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "B" },
+        { "letter": "C", "text": "A + B" }
+      ],
+      "answer": "C",
+      "explanation": "X·X = X (idempotent), so (A + B)·(A + B) = **A + B**."
+    },
+    {
+      "id": 41, "chapter": 3,
+      "stem": "Simplify: `A·B + A·B + A'·B`",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "B" },
+        { "letter": "C", "text": "A + B" }
+      ],
+      "answer": "B",
+      "explanation": "A·B + A·B = A·B; then A·B + A'·B = B·(A + A') = **B**."
+    },
+    {
+      "id": 42, "chapter": 3,
+      "stem": "By De Morgan's theorem, `(A + B)'` equals:",
+      "options": [
+        { "letter": "A", "text": "A' + B'" },
+        { "letter": "B", "text": "A'·B'" },
+        { "letter": "C", "text": "AB" }
+      ],
+      "answer": "B",
+      "explanation": "De Morgan: (A + B)' = **A'·B'**."
+    },
+    {
+      "id": 43, "chapter": 3,
+      "stem": "Simplify using De Morgan's: `(A·B·C)'`",
+      "options": [
+        { "letter": "A", "text": "A'·B'·C'" },
+        { "letter": "B", "text": "A' + B' + C'" },
+        { "letter": "C", "text": "A + B + C" }
+      ],
+      "answer": "B",
+      "explanation": "De Morgan: (A·B·C)' = **A' + B' + C'**."
+    },
+    {
+      "id": 44, "chapter": 3,
+      "stem": "Which Boolean law states that `A + A = A`?",
+      "options": [
+        { "letter": "A", "text": "Idempotent Law" },
+        { "letter": "B", "text": "Absorption Law" },
+        { "letter": "C", "text": "De Morgan's Theorem" }
+      ],
+      "answer": "A",
+      "explanation": "A + A = A (and A·A = A) is the **Idempotent Law**."
+    },
+    {
+      "id": 45, "chapter": 3,
+      "stem": "Simplify: `A + A·B`",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "B" },
+        { "letter": "C", "text": "A + B" }
+      ],
+      "answer": "A",
+      "explanation": "A + A·B = A·(1 + B) = A·1 = **A** (Absorption)."
+    },
+    {
+      "id": 46, "chapter": 3,
+      "stem": "Simplify: `A·(A + B)`",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "B" },
+        { "letter": "C", "text": "A + B" }
+      ],
+      "answer": "A",
+      "explanation": "A·(A + B) = A·A + A·B = A + A·B = **A** (Absorption)."
+    },
+    {
+      "id": 47, "chapter": 3,
+      "stem": "By De Morgan's theorem, `(A + B)'` equals:",
+      "options": [
+        { "letter": "A", "text": "A'·B'" },
+        { "letter": "B", "text": "A' + B'" },
+        { "letter": "C", "text": "A·B" }
+      ],
+      "answer": "A",
+      "explanation": "De Morgan: (A + B)' = **A'·B'**."
+    },
+    {
+      "id": 48, "chapter": 3,
+      "stem": "Simplify using De Morgan's: `(A·B + C)'`",
+      "options": [
+        { "letter": "A", "text": "(A' + B')·C'" },
+        { "letter": "B", "text": "A'·B'·C'" },
+        { "letter": "C", "text": "A' + B' + C'" }
+      ],
+      "answer": "A",
+      "explanation": "(A·B + C)' = (A·B)'·C' = **(A' + B')·C'**."
+    },
+
+    {
+      "id": 49, "chapter": 4,
+      "stem": "A 3-variable K-map has how many cells?",
+      "options": [
+        { "letter": "A", "text": "6" },
+        { "letter": "B", "text": "8" },
+        { "letter": "C", "text": "9" }
+      ],
+      "answer": "B",
+      "explanation": "An n-variable K-map has 2ⁿ cells. For n = 3: 2³ = **8** cells."
+    },
+    {
+      "id": 50, "chapter": 4,
+      "stem": "Which grouping size is **NOT** valid in a K-map?",
+      "options": [
+        { "letter": "A", "text": "1" },
+        { "letter": "B", "text": "2" },
+        { "letter": "C", "text": "3" }
+      ],
+      "answer": "C",
+      "explanation": "K-map groups must be powers of 2 (1, 2, 4, 8, 16, …). **3 is not** a power of 2."
+    },
+    {
+      "id": 51, "chapter": 4,
+      "stem": "`F(A,B,C) = Σ(1,3,5,7)` simplifies to:",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "B" },
+        { "letter": "C", "text": "C" }
+      ],
+      "answer": "C",
+      "explanation": "Minterms 1, 3, 5, 7 are exactly the rows where C = 1, so F = **C**."
+    },
+    {
+      "id": 52, "chapter": 4,
+      "stem": "How many minterms exist for a **4-variable** Boolean function?",
+      "options": [
+        { "letter": "A", "text": "8" },
+        { "letter": "B", "text": "12" },
+        { "letter": "C", "text": "16" }
+      ],
+      "answer": "C",
+      "explanation": "2ⁿ minterms; 2⁴ = **16**."
+    },
+    {
+      "id": 53, "chapter": 4,
+      "stem": "A 4-variable K-map has how many cells?",
+      "options": [
+        { "letter": "A", "text": "8" },
+        { "letter": "B", "text": "12" },
+        { "letter": "C", "text": "16" }
+      ],
+      "answer": "C",
+      "explanation": "2ⁿ cells; 2⁴ = **16** cells."
+    },
+    {
+      "id": 54, "chapter": 4,
+      "stem": "Which grouping size **IS** valid in a K-map?",
+      "options": [
+        { "letter": "A", "text": "3" },
+        { "letter": "B", "text": "5" },
+        { "letter": "C", "text": "4" }
+      ],
+      "answer": "C",
+      "explanation": "Valid group sizes are powers of 2 (1, 2, **4**, 8, 16, …)."
+    },
+    {
+      "id": 55, "chapter": 4,
+      "stem": "`F(A,B,C) = Σ(0,2,4,6)` simplifies to:",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "B" },
+        { "letter": "C", "text": "C'" }
+      ],
+      "answer": "C",
+      "explanation": "Minterms 0, 2, 4, 6 all have C = 0, so F = **C'**."
+    },
+    {
+      "id": 56, "chapter": 4,
+      "stem": "How many minterms exist for a **3-variable** Boolean function?",
+      "options": [
+        { "letter": "A", "text": "6" },
+        { "letter": "B", "text": "8" },
+        { "letter": "C", "text": "9" }
+      ],
+      "answer": "B",
+      "explanation": "2ⁿ minterms; 2³ = **8**."
+    },
+    {
+      "id": 57, "chapter": 4,
+      "stem": "A 2-variable K-map has how many cells?",
+      "options": [
+        { "letter": "A", "text": "2" },
+        { "letter": "B", "text": "4" },
+        { "letter": "C", "text": "6" }
+      ],
+      "answer": "B",
+      "explanation": "2ⁿ cells; 2² = **4** cells."
+    },
+    {
+      "id": 58, "chapter": 4,
+      "stem": "Which grouping size is **NOT** valid in a K-map?",
+      "options": [
+        { "letter": "A", "text": "2" },
+        { "letter": "B", "text": "4" },
+        { "letter": "C", "text": "6" }
+      ],
+      "answer": "C",
+      "explanation": "Groupings must be powers of 2 (1, 2, 4, 8, 16…). **6 is not** a power of 2."
+    },
+    {
+      "id": 59, "chapter": 4,
+      "stem": "`F(A,B,C) = Σ(0,1,2,3)` simplifies to:",
+      "options": [
+        { "letter": "A", "text": "A" },
+        { "letter": "B", "text": "A'" },
+        { "letter": "C", "text": "B" }
+      ],
+      "answer": "B",
+      "explanation": "Minterms 0, 1, 2, 3 correspond to A = 0 for all B, C → F = **A'**."
+    },
+    {
+      "id": 60, "chapter": 4,
+      "stem": "How many minterms exist for a **5-variable** Boolean function?",
+      "options": [
+        { "letter": "A", "text": "16" },
+        { "letter": "B", "text": "25" },
+        { "letter": "C", "text": "32" }
+      ],
+      "answer": "C",
+      "explanation": "2ⁿ minterms; 2⁵ = **32**."
+    },
+
+    {
+      "id": 61, "chapter": 5,
+      "stem": "Convert the decimal number `(8102)₁₀` to Excess-3 code.",
+      "options": [
+        { "letter": "A", "text": "1011 0100 0011 0101" },
+        { "letter": "B", "text": "1011 0001 0000 0010" },
+        { "letter": "C", "text": "1000 0001 0000 0010" }
+      ],
+      "answer": "A",
+      "explanation": "Add 3 to each digit then encode in 4 bits: 8→11(1011), 1→4(0100), 0→3(0011), 2→5(0101) → **1011 0100 0011 0101**."
+    },
+    {
+      "id": 62, "chapter": 5,
+      "stem": "Convert the binary number `(11101)₂` to Gray code.",
+      "options": [
+        { "letter": "A", "text": "10011" },
+        { "letter": "B", "text": "11011" },
+        { "letter": "C", "text": "10101" }
+      ],
+      "answer": "A",
+      "explanation": "MSB unchanged = 1; XOR adjacent bits: 1⊕1=0, 1⊕1=0, 1⊕0=1, 0⊕1=1 → **10011**."
+    },
+    {
+      "id": 63, "chapter": 5,
+      "stem": "For a NAND gate with inputs A and B, the output is **0** when:",
+      "options": [
+        { "letter": "A", "text": "A=1, B=1" },
+        { "letter": "B", "text": "A=0, B=1" },
+        { "letter": "C", "text": "A=1, B=0" }
+      ],
+      "answer": "A",
+      "explanation": "A NAND gate outputs 0 only when **all inputs are 1**."
+    },
+    {
+      "id": 64, "chapter": 5,
+      "stem": "The result of the XOR operation `1011 ⊕ 1101` is:",
+      "options": [
+        { "letter": "A", "text": "0110" },
+        { "letter": "B", "text": "1110" },
+        { "letter": "C", "text": "1001" }
+      ],
+      "answer": "A",
+      "explanation": "Bitwise XOR: 1⊕1=0, 0⊕1=1, 1⊕0=1, 1⊕1=0 → **0110**."
+    },
+    {
+      "id": 65, "chapter": 5,
+      "stem": "Convert the decimal number `(4905)₁₀` to Excess-3 code.",
+      "options": [
+        { "letter": "A", "text": "0111 1100 0011 1000" },
+        { "letter": "B", "text": "0100 1001 0000 0101" },
+        { "letter": "C", "text": "0111 1100 0010 1000" }
+      ],
+      "answer": "A",
+      "explanation": "Add 3 to each digit: 4→7(0111), 9→12(1100), 0→3(0011), 5→8(1000) → **0111 1100 0011 1000**."
+    },
+    {
+      "id": 66, "chapter": 5,
+      "stem": "Convert the binary number `(10110)₂` to Gray code.",
+      "options": [
+        { "letter": "A", "text": "11101" },
+        { "letter": "B", "text": "11011" },
+        { "letter": "C", "text": "10010" }
+      ],
+      "answer": "A",
+      "explanation": "MSB = 1; XOR adjacent bits: 1⊕0=1, 0⊕1=1, 1⊕1=0, 1⊕0=1 → **11101**."
+    },
+    {
+      "id": 67, "chapter": 5,
+      "stem": "For an AND gate with inputs A and B, the output is **1** when:",
+      "options": [
+        { "letter": "A", "text": "A=1, B=1" },
+        { "letter": "B", "text": "A=0, B=0" },
+        { "letter": "C", "text": "A=0, B=1" }
+      ],
+      "answer": "A",
+      "explanation": "An AND gate outputs 1 only when **all inputs are 1**."
+    },
+    {
+      "id": 68, "chapter": 5,
+      "stem": "The result of the XOR operation `1100 ⊕ 1010` is:",
+      "options": [
+        { "letter": "A", "text": "0110" },
+        { "letter": "B", "text": "1110" },
+        { "letter": "C", "text": "1001" }
+      ],
+      "answer": "A",
+      "explanation": "Bitwise XOR: 1⊕1=0, 1⊕0=1, 0⊕1=1, 0⊕0=0 → **0110**."
+    },
+    {
+      "id": 69, "chapter": 5,
+      "stem": "Convert the decimal number `(6739)₁₀` to Excess-3 code.",
+      "options": [
+        { "letter": "A", "text": "1001 1010 0110 1100" },
+        { "letter": "B", "text": "1001 1010 0110 1110" },
+        { "letter": "C", "text": "1010 1001 0101 1100" }
+      ],
+      "answer": "A",
+      "explanation": "Add 3 to each digit: 6→9(1001), 7→10(1010), 3→6(0110), 9→12(1100) → **1001 1010 0110 1100**."
+    },
+    {
+      "id": 70, "chapter": 5,
+      "stem": "Convert the binary number `(11011)₂` to Gray code.",
+      "options": [
+        { "letter": "A", "text": "10110" },
+        { "letter": "B", "text": "11011" },
+        { "letter": "C", "text": "10010" }
+      ],
+      "answer": "A",
+      "explanation": "MSB = 1; XOR adjacent bits: 1⊕1=0, 1⊕0=1, 0⊕1=1, 1⊕1=0 → **10110**."
+    },
+    {
+      "id": 71, "chapter": 5,
+      "stem": "For an OR gate with inputs A and B, the output is **0** when:",
+      "options": [
+        { "letter": "A", "text": "A=0, B=0" },
+        { "letter": "B", "text": "A=0, B=1" },
+        { "letter": "C", "text": "A=1, B=0" }
+      ],
+      "answer": "A",
+      "explanation": "An OR gate output = 0 only when **all inputs are 0**."
+    },
+    {
+      "id": 72, "chapter": 5,
+      "stem": "The result of the XOR operation `1111 ⊕ 0101` is:",
+      "options": [
+        { "letter": "A", "text": "1010" },
+        { "letter": "B", "text": "1110" },
+        { "letter": "C", "text": "0101" }
+      ],
+      "answer": "A",
+      "explanation": "Bitwise XOR: 1⊕0=1, 1⊕1=0, 1⊕0=1, 1⊕1=0 → **1010**."
+    }
+  ]
+}

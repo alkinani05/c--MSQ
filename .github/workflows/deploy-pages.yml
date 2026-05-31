@@ -1,10 +1,11 @@
-name: Deploy website to GitHub Pages
+name: Deploy websites to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - 'website/**'
+      - 'website-CST/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -20,14 +21,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Publish website/ to gh-pages branch
+      - name: Build combined publish tree
         run: |
           set -euo pipefail
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin gh-pages || true
-          git subtree split --prefix=website -b _publish
-          git push --force origin _publish:gh-pages
+          rm -rf _publish
+          mkdir -p _publish
+
+          # Main site (C++ / AI department) at site root
+          cp -r website/. _publish/
+
+          # Cybersecurity Engineering exam at /cst/
+          mkdir -p _publish/cst
+          cp -r website-CST/. _publish/cst/
+          # Strip any source markdown (e.g. MCQ Bank) so answer keys aren't shipped raw
+          rm -f _publish/cst/*.md
+
+          # Skip Jekyll processing
+          touch _publish/.nojekyll
+
+          echo "--- root ---"
+          ls -la _publish
+          echo "--- /cst/ ---"
+          ls -la _publish/cst
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_publish
+          publish_branch: gh-pages
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy websites (root + /cst/) from ${{ github.sha }}'
