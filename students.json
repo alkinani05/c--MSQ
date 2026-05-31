@@ -1,0 +1,118 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "كاظم محمد جاسم منشد",
+      "email": "ai25m1@almustafauniversity.edu.iq",
+      "password": "ai111111"
+    },
+    {
+      "id": 2,
+      "name": "ريتاج هيثم خلف يوسف",
+      "email": "ai25m2@almustafauniversity.edu.iq",
+      "password": "ai111112"
+    },
+    {
+      "id": 3,
+      "name": "يوسف ميثاق طالب عجيل",
+      "email": "ai25m3@almustafauniversity.edu.iq",
+      "password": "ai111113"
+    },
+    {
+      "id": 4,
+      "name": "حسين علي دوشان كاظم",
+      "email": "ai25m4@almustafauniversity.edu.iq",
+      "password": "ai111114"
+    },
+    {
+      "id": 5,
+      "name": "نورالحسن باسم عبدالرزاق حسين",
+      "email": "ai25m5@almustafauniversity.edu.iq",
+      "password": "ai111115"
+    },
+    {
+      "id": 6,
+      "name": "مصطفى فؤاد فاضل عبد الامير",
+      "email": "ai25m6@almustafauniversity.edu.iq",
+      "password": "ai111116"
+    },
+    {
+      "id": 7,
+      "name": "علي جمال خلف فعيل",
+      "email": "ai25m7@almustafauniversity.edu.iq",
+      "password": "ai111117"
+    },
+    {
+      "id": 8,
+      "name": "مصطفى محمد مردان حسن",
+      "email": "ai25m8@almustafauniversity.edu.iq",
+      "password": "ai111118"
+    },
+    {
+      "id": 9,
+      "name": "ضحى حيدر كمال جوده",
+      "email": "ai25m9@almustafauniversity.edu.iq",
+      "password": "ai111119"
+    },
+    {
+      "id": 10,
+      "name": "علي محمد جبار حسين",
+      "email": "ai25m10@almustafauniversity.edu.iq",
+      "password": "ai111120"
+    },
+    {
+      "id": 11,
+      "name": "بنين ديار رحيم صفر",
+      "email": "ai25m11@almustafauniversity.edu.iq",
+      "password": "ai111121"
+    },
+    {
+      "id": 12,
+      "name": "زهراء محمد سريح عبد الحسن",
+      "email": "ai25m12@almustafauniversity.edu.iq",
+      "password": "ai111122"
+    },
+    {
+      "id": 13,
+      "name": "زهراء ابراهيم مهدي خضير",
+      "email": "ai25m13@almustafauniversity.edu.iq",
+      "password": "ai111123"
+    },
+    {
+      "id": 14,
+      "name": "منتظر حميد عذاب ضاحي",
+      "email": "ai25m14@almustafauniversity.edu.iq",
+      "password": "ai111124"
+    },
+    {
+      "id": 15,
+      "name": "نبأ جاسم رحمه شايع",
+      "email": "ai25m15@almustafauniversity.edu.iq",
+      "password": "ai111125"
+    },
+    {
+      "id": 16,
+      "name": "معصومة عبد الحسين جبار عبدالله",
+      "email": "ai25m16@almustafauniversity.edu.iq",
+      "password": "ai111126"
+    },
+    {
+      "id": 17,
+      "name": "داليا كريم ليلو منصور",
+      "email": "ai25m17@almustafauniversity.edu.iq",
+      "password": "ai111127"
+    },
+    {
+      "id": 18,
+      "name": "سبأ محمد صبري سلطان",
+      "email": "ai25m18@almustafauniversity.edu.iq",
+      "password": "ai111128"
+    },
+    {
+      "id": 19,
+      "name": "رقيه اثير احمد مطلق",
+      "email": "ai25m19@almustafauniversity.edu.iq",
+      "password": "ai111129"
+    }
+  ]
+}

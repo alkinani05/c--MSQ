@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Intelligent MCQ practice for Digital Electronics — Al-Mustafa University, Department of Cybersecurity Engineering." />
+    <title>Digital Electronics MCQ — Cybersecurity Engineering</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Code highlighting (Prism.js) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <a href="#" class="brand-logo" aria-label="Al-Mustafa University home">
+                    <img src="logo.png" alt="Al-Mustafa University College — Baghdad" width="40" height="40" />
+                </a>
+                <div>
+                    <div class="brand-title">Digital Electronics</div>
+                    <div class="brand-sub">Al-Mustafa University College · Department of Cybersecurity Engineering</div>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <div id="userBadge" class="user-badge" hidden>
+                    <div class="user-avatar"></div>
+                    <div class="user-info">
+                        <div class="user-name"></div>
+                        <div class="user-email"></div>
+                    </div>
+                    <button id="logoutBtn" class="icon-btn small" title="Sign out" aria-label="Sign out">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    </button>
+                </div>
+                <button id="themeToggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">
+                    <svg id="iconSun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+                    <svg id="iconMoon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="app"></main>
+
+    <footer class="footer">
+        <div>Built for students · <strong>Cybersecurity Engineering · Final Exam 2026</strong></div>
+        <div class="footer-meta">
+            <span>Al-Mustafa University College</span>
+            <span class="dot"></span>
+            <span>72 questions</span>
+            <span class="dot"></span>
+            <span>5 chapters</span>
+            <span class="dot"></span>
+            <span>v1.0</span>
+        </div>
+    </footer>
+
+    <!-- Templates -->
+    <template id="tpl-login">
+        <section class="login-shell">
+            <div class="login-card">
+                <div class="login-logo"><img src="logo.png" alt="Al-Mustafa University College — Baghdad" width="80" height="80" /></div>
+                <div class="login-uni">Al-Mustafa University College · Baghdad</div>
+                <h1 class="login-title">Sign in to start practising</h1>
+                <p class="login-sub">Use your <strong>university email</strong> and the password provided by your instructor.</p>
+                <form id="loginForm" class="login-form" autocomplete="on">
+                    <label class="field">
+                        <span>Email</span>
+                        <input type="email" name="email" required autocomplete="username" placeholder="cs25mXX@almustafauniversity.edu.iq" />
+                    </label>
+                    <label class="field">
+                        <span>Password</span>
+                        <input type="password" name="password" required autocomplete="current-password" placeholder="••••••••" />
+                    </label>
+                    <div class="form-row">
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" checked />
+                            <span>Remember me on this device</span>
+                        </label>
+                    </div>
+                    <div class="login-error" hidden></div>
+                    <button type="submit" class="btn-primary block">Sign in →</button>
+                </form>
+                <div class="login-foot muted">
+                    Trouble signing in? Contact your <strong>course instructor</strong>.
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-home">
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-eyebrow">First Year, Second Course · Final Exam</div>
+                <h1 class="hero-title">Master Digital Electronics with <span class="grad">smart practice</span>.</h1>
+                <span class="hero-kicker">Cybersecurity Engineering &mdash; Al-Mustafa University, 2025/2026</span>
+                <p class="hero-lead">72 carefully crafted multiple-choice questions across number systems, binary arithmetic, Boolean algebra, K-maps, and logic gates. Designed to test your <em>understanding</em> &mdash; not memorisation.</p>
+                <div class="hero-stats">
+                    <div class="stat"><div class="stat-num" data-stat="total">72</div><div class="stat-label">Questions</div></div>
+                    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Chapters</div></div>
+                    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Modes</div></div>
+                </div>
+            </div>
+            <img class="hero-watermark" src="logo.png" alt="" aria-hidden="true" />
+        </section>
+
+        <section class="ar-guide" dir="rtl" lang="ar">
+            <div class="ar-guide-card">
+                <div class="ar-guide-header">
+                    <span class="ar-guide-eyebrow">دليل البدء</span>
+                    <h2>كيف تبدأ الاختبار؟</h2>
+                </div>
+                <p class="ar-guide-intro">
+                    أهلًا بكم طلاب <strong>هندسة الأمن السيبراني</strong> في كلية المصطفى الجامعة.
+                    هذه المنصّة لمراجعة مادة <strong>«الإلكترونيات الرقمية»</strong> قبل الامتحان النهائي.
+                    تحتوي على <strong>٧٢ سؤالًا</strong> اختيار من متعدد موزّعة على <strong>٥ فصول</strong>.
+                </p>
+                <ol class="ar-guide-steps">
+                    <li>
+                        <strong>اختر نمط الاختبار</strong> من البطاقات الثلاث الموجودة في الأسفل:
+                        <ul>
+                            <li><strong><em>Practice</em> — التدريب:</strong> تظهر لك الإجابة الصحيحة فورًا بعد كل سؤال. الأنسب للفهم والتعلّم.</li>
+                            <li><strong><em>Exam</em> — الامتحان:</strong> مؤقّت بزمن محدّد، بدون ملاحظات أثناء الحلّ، ومحاولة واحدة فقط.</li>
+                            <li><strong><em>Quick</em> — السريع:</strong> ١٠ أسئلة عشوائية من جميع الفصول للإحماء والمراجعة الخاطفة.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>اختر الفصل</strong> الذي تريد التدرّب عليه من قسم <em>Choose your chapter</em>،
+                        أو اضغط <em>▶ Start mixed (all 72)</em> لخوض جميع الأسئلة معًا بترتيب عشوائي.
+                    </li>
+                    <li>
+                        اقرأ السؤال بتمعّن، اختر إجابةً واحدة
+                        (<code>A</code> أو <code>B</code> أو <code>C</code>)،
+                        ثم اضغط <em>Next →</em> للانتقال إلى السؤال التالي.
+                        يمكنك العودة بضغط <em>← Previous</em>.
+                    </li>
+                    <li>
+                        في نهاية الاختبار ستظهر <strong>درجتك</strong> مع
+                        <strong>مراجعة كاملة</strong> لكل سؤال وتفسير الإجابة الصحيحة.
+                    </li>
+                </ol>
+                <div class="ar-guide-tip">
+                    💡 <strong>نصيحة:</strong> ابدأ بوضع <em>Practice</em> لفهم المادة جيدًا،
+                    ثم انتقل إلى <em>Exam</em> لاختبار نفسك تحت ضغط الوقت. بالتوفيق! 🌟
+                </div>
+            </div>
+        </section>
+
+        <section class="modes">
+            <button type="button" class="mode-card" data-mode="practice">
+                <div class="mode-icon practice" aria-hidden="true">⚡</div>
+                <div class="mode-name">Practice</div>
+                <div class="mode-desc">Instant feedback after each answer. Best for learning.</div>
+            </button>
+            <button type="button" class="mode-card" data-mode="exam">
+                <div class="mode-icon exam" aria-hidden="true">📝</div>
+                <div class="mode-name">Exam</div>
+                <div class="mode-desc">Timed, no feedback until the end, single attempt.</div>
+            </button>
+            <button type="button" class="mode-card" data-mode="quick">
+                <div class="mode-icon quick" aria-hidden="true">🎯</div>
+                <div class="mode-name">Quick (10)</div>
+                <div class="mode-desc">10 random questions across chapters. Warm-up drill.</div>
+            </button>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <h2>Choose your chapter</h2>
+                <button id="startMixed" class="btn-ghost">▶ Start mixed (all 72)</button>
+            </div>
+            <div class="mode-hint" aria-live="polite"></div>
+            <div id="chaptersGrid" class="chapters-grid"></div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <h2>Your progress</h2>
+                <button id="resetStats" class="btn-ghost subtle">Reset stats</button>
+            </div>
+            <div id="statsPanel" class="stats-panel"></div>
+        </section>
+    </template>
+
+    <template id="tpl-quiz">
+        <section class="quiz-shell">
+            <header class="quiz-head">
+                <div class="quiz-head-main">
+                    <div class="quiz-head-line">
+                        <span class="quiz-mode-badge"></span>
+                        <span class="quiz-counter" aria-label="Question progress"></span>
+                    </div>
+                    <h1 class="quiz-chapter-title"></h1>
+                    <div class="quiz-student muted"></div>
+                </div>
+                <div class="quiz-meta">
+                    <div class="quiz-timer" aria-label="Time remaining" aria-live="polite">
+                        <svg class="quiz-timer-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M9 2h6"></path></svg>
+                        <span class="quiz-timer-value">00:00</span>
+                    </div>
+                    <button class="btn-ghost subtle quiz-exit" data-action="exit" aria-label="Exit quiz">Exit</button>
+                </div>
+            </header>
+            <div class="progress-bar" role="progressbar" aria-label="Quiz progress"><div class="progress-fill"></div></div>
+
+            <article class="question-card">
+                <div class="q-stem" aria-live="polite"></div>
+                <div class="q-options" role="radiogroup" aria-label="Answer options"></div>
+                <div class="q-feedback" hidden aria-live="polite"></div>
+            </article>
+
+            <div class="quiz-actions">
+                <button class="btn-ghost subtle" data-action="prev" aria-label="Previous question">← Previous</button>
+                <button class="btn-primary" data-action="next" aria-label="Next question">Next →</button>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-result">
+        <section class="result-shell">
+            <div class="result-hero">
+                <div class="result-ring" data-band="">
+                    <svg viewBox="0 0 120 120" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%"   stop-color="var(--grad-1)"></stop>
+                                <stop offset="100%" stop-color="var(--grad-2)"></stop>
+                            </linearGradient>
+                        </defs>
+                        <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                        <circle class="ring-fg" cx="60" cy="60" r="52" pathLength="100"></circle>
+                    </svg>
+                    <div class="result-pct" aria-live="polite">0%</div>
+                </div>
+                <div class="result-summary">
+                    <div class="result-eyebrow">Result</div>
+                    <h1 class="result-title"></h1>
+                    <div class="result-student muted"></div>
+                    <div class="result-chips" role="list"></div>
+                    <div class="result-meta muted"></div>
+                    <div class="result-cta">
+                        <button class="btn-primary" data-action="retry">↻ Retry</button>
+                        <button class="btn-ghost" data-action="home">← Home</button>
+                    </div>
+                </div>
+            </div>
+            <div class="review">
+                <div class="review-head">
+                    <h3>Review</h3>
+                    <div class="review-filters" role="tablist" aria-label="Filter review">
+                        <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
+                        <button class="chip" data-filter="wrong" role="tab" aria-selected="false">Wrong only</button>
+                        <button class="chip" data-filter="right" role="tab" aria-selected="false">Right only</button>
+                    </div>
+                </div>
+                <div class="review-list"></div>
+            </div>
+        </section>
+    </template>
+
+    <!-- Prism.js for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>

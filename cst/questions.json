@@ -1,0 +1,1615 @@
+{
+  "course": "Digital Electronics",
+  "instructor": "Course Instructor",
+  "institution": "Al-Mustafa University College — Department of Cybersecurity Engineering",
+  "version": "1.0.0",
+  "builtAt": "2026-05-31",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "Number System Conversions"
+    },
+    {
+      "number": 2,
+      "title": "Binary Arithmetic & Complements"
+    },
+    {
+      "number": 3,
+      "title": "Boolean Algebra & De Morgan's Laws"
+    },
+    {
+      "number": 4,
+      "title": "K-Maps & Minterms"
+    },
+    {
+      "number": 5,
+      "title": "Logic Gates & Digital Codes"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "chapter": 1,
+      "stem": "What is the decimal equivalent of binary `10110`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "11"
+        },
+        {
+          "letter": "B",
+          "text": "22"
+        },
+        {
+          "letter": "C",
+          "text": "15"
+        }
+      ],
+      "answer": "B",
+      "explanation": "10110₂ = 1·16 + 0·8 + 1·4 + 1·2 + 0·1 = **22**.",
+      "explanationAr": "**المفهوم:** لتحويل العدد الثنائي إلى عشري نضرب كل بت في قيمته المكانية (قوى الـ٢ من اليمين إلى اليسار: 1، 2، 4، 8، 16…) ثم نجمع.\n\n**الخطوات:**\n10110₂ = 1·16 + 0·8 + 1·4 + 1·2 + 0·1 = 16 + 0 + 4 + 2 + 0 = **22**.\n\n**تذكّر:** أهمّ بت هو الأقصى يسار (MSB) وله أكبر وزن."
+    },
+    {
+      "id": 2,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `3A` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "58"
+        },
+        {
+          "letter": "B",
+          "text": "45"
+        },
+        {
+          "letter": "C",
+          "text": "44"
+        }
+      ],
+      "answer": "A",
+      "explanation": "3A₁₆ = 3·16 + 10 = 48 + 10 = **58**.",
+      "explanationAr": "**المفهوم:** الأرقام السداسية A–F تمثّل القيم 10–15. لتحويل سداسي إلى عشري نضرب كل خانة في قوّتها من الـ١٦.\n\n**الخطوات:**\nالرقم 3A: حرف A = 10. إذن 3A₁₆ = 3·16 + 10 = 48 + 10 = **58**.\n\n**تذكّر:** A=10, B=11, C=12, D=13, E=14, F=15."
+    },
+    {
+      "id": 3,
+      "chapter": 1,
+      "stem": "Convert binary `110101` to octal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "63"
+        },
+        {
+          "letter": "B",
+          "text": "65"
+        },
+        {
+          "letter": "C",
+          "text": "55"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Group bits in 3s from the right: `110 101` → `6 5` = **65₈**.",
+      "explanationAr": "**المفهوم:** كل ٣ بتات ثنائية تساوي رقمًا واحدًا في النظام الثماني (لأن 2³ = 8).\n\n**الخطوات:**\nنُجمّع البتات في مجموعات من ٣ ابتداءً من اليمين: `110 101`.\n`110` = 6،   `101` = 5.\nالنتيجة: **65₈**.\n\n**تذكّر:** عند وجود بتات ناقصة في اليسار، نُكمل بأصفار."
+    },
+    {
+      "id": 4,
+      "chapter": 1,
+      "stem": "Convert decimal `190` to hexadecimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "FE"
+        },
+        {
+          "letter": "B",
+          "text": "BE"
+        },
+        {
+          "letter": "C",
+          "text": "EF"
+        }
+      ],
+      "answer": "B",
+      "explanation": "190 ÷ 16 = 11 remainder 14 → digits **B E** → **BE₁₆**.",
+      "explanationAr": "**المفهوم:** للتحويل من عشري إلى سداسي نقسم على ١٦ مرارًا ونأخذ البواقي من الأسفل إلى الأعلى.\n\n**الخطوات:**\n190 ÷ 16 = 11 والباقي 14.\n11 = B، و 14 = E.\nنقرأ من الأسفل: **BE₁₆**.\n\n**تذكّر:** إذا كان الباقي بين 10 و15 نستبدله بحرف A–F."
+    },
+    {
+      "id": 5,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `4B2` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1202"
+        },
+        {
+          "letter": "B",
+          "text": "2004"
+        },
+        {
+          "letter": "C",
+          "text": "5427"
+        }
+      ],
+      "answer": "A",
+      "explanation": "4·256 + 11·16 + 2 = 1024 + 176 + 2 = **1202**.",
+      "explanationAr": "**المفهوم:** نفس قاعدة التحويل السداسي → العشري، لكن مع ٣ خانات تعني قوى الـ١٦: 16⁰، 16¹، 16².\n\n**الخطوات:**\n4B2: حرف B = 11. إذن:\n4·256 + 11·16 + 2 = 1024 + 176 + 2 = **1202**.\n\n**تذكّر:** 16² = 256، و 16³ = 4096."
+    },
+    {
+      "id": 6,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `F5F5` to binary and decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Bin = 1111 0101 1111 0101, Dec = 62965"
+        },
+        {
+          "letter": "B",
+          "text": "Bin = 1111 0111 1110 0101, Dec = 69294"
+        },
+        {
+          "letter": "C",
+          "text": "Bin = 1111 0011 1110 0101, Dec = 62965"
+        }
+      ],
+      "answer": "A",
+      "explanation": "F=1111, 5=0101 → `1111 0101 1111 0101`. Decimal = 15·4096 + 5·256 + 15·16 + 5 = **62965**.",
+      "explanationAr": "**المفهوم:** كل رقم سداسي يقابل ٤ بتات ثنائية بدقة (لأن 2⁴ = 16). فحلّ سؤال F5F5 يعني فك كل رمز إلى ٤ بتات.\n\n**الخطوات:**\nF = 1111، 5 = 0101.\nالناتج الثنائي: `1111 0101 1111 0101`.\nالقيمة العشرية = 15·4096 + 5·256 + 15·16 + 5 = 61440 + 1280 + 240 + 5 = **62965**.\n\n**تذكّر:** الجدول F=1111، 7=0111، 5=0101 يجب حفظه."
+    },
+    {
+      "id": 7,
+      "chapter": 1,
+      "stem": "Convert the octal number `37246₈` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "16038"
+        },
+        {
+          "letter": "B",
+          "text": "16969"
+        },
+        {
+          "letter": "C",
+          "text": "14324"
+        }
+      ],
+      "answer": "A",
+      "explanation": "3·8⁴ + 7·8³ + 2·8² + 4·8 + 6 = 12288 + 3584 + 128 + 32 + 6 = **16038**.",
+      "explanationAr": "**المفهوم:** للتحويل من ثماني إلى عشري نضرب كل خانة في قوّتها من الـ٨ ثم نجمع.\n\n**الخطوات:**\n37246₈ = 3·8⁴ + 7·8³ + 2·8² + 4·8 + 6\n      = 12288 + 3584 + 128 + 32 + 6 = **16038**.\n\n**تذكّر:** 8⁰=1، 8¹=8، 8²=64، 8³=512، 8⁴=4096."
+    },
+    {
+      "id": 8,
+      "chapter": 1,
+      "stem": "What is the decimal equivalent of binary `11010`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "24"
+        },
+        {
+          "letter": "B",
+          "text": "26"
+        },
+        {
+          "letter": "C",
+          "text": "22"
+        }
+      ],
+      "answer": "B",
+      "explanation": "11010₂ = 16 + 8 + 0 + 2 + 0 = **26**.",
+      "explanationAr": "**المفهوم:** نفس قاعدة التحويل الثنائي → العشري (قوى الـ٢).\n\n**الخطوات:**\n11010₂ = 1·16 + 1·8 + 0·4 + 1·2 + 0·1 = 16 + 8 + 0 + 2 + 0 = **26**.\n\n**تذكّر:** البتات الصفر لا تضيف شيئًا للناتج."
+    },
+    {
+      "id": 9,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `2F` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "47"
+        },
+        {
+          "letter": "B",
+          "text": "31"
+        },
+        {
+          "letter": "C",
+          "text": "45"
+        }
+      ],
+      "answer": "A",
+      "explanation": "2F₁₆ = 2·16 + 15 = 32 + 15 = **47**.",
+      "explanationAr": "**المفهوم:** قاعدة التحويل من السداسي إلى العشري (قوى الـ١٦).\n\n**الخطوات:**\n2F: حرف F = 15. إذن 2F₁₆ = 2·16 + 15 = 32 + 15 = **47**.\n\n**تذكّر:** F هو أكبر رقم سداسي ويساوي 15."
+    },
+    {
+      "id": 10,
+      "chapter": 1,
+      "stem": "Convert binary `101110` to octal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "56"
+        },
+        {
+          "letter": "B",
+          "text": "46"
+        },
+        {
+          "letter": "C",
+          "text": "65"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Group bits in 3s from the right: `101 110` → `5 6` = **56₈**.",
+      "explanationAr": "**المفهوم:** نفس قاعدة الثنائي → الثماني (تجميع البتات في مجموعات من ٣).\n\n**الخطوات:**\n101110: نُجمّع من اليمين → `101 110`.\n`101` = 5، `110` = 6.\nالنتيجة: **56₈**.\n\n**تذكّر:** لا تنسَ القراءة من اليمين."
+    },
+    {
+      "id": 11,
+      "chapter": 1,
+      "stem": "Convert decimal `215` to hexadecimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "D7"
+        },
+        {
+          "letter": "B",
+          "text": "C7"
+        },
+        {
+          "letter": "C",
+          "text": "DF"
+        }
+      ],
+      "answer": "A",
+      "explanation": "215 ÷ 16 = 13 remainder 7 → digits **D 7** → **D7₁₆**.",
+      "explanationAr": "**المفهوم:** نفس قاعدة التحويل العشري → السداسي (القسمة المتكررة على ١٦).\n\n**الخطوات:**\n215 ÷ 16 = 13 والباقي 7. والرقم 13 = D.\nإذن **D7₁₆**.\n\n**تذكّر:** الباقي ينتمي دائمًا إلى المجال 0–15."
+    },
+    {
+      "id": 12,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `5C3` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1475"
+        },
+        {
+          "letter": "B",
+          "text": "1347"
+        },
+        {
+          "letter": "C",
+          "text": "1411"
+        }
+      ],
+      "answer": "A",
+      "explanation": "5·256 + 12·16 + 3 = 1280 + 192 + 3 = **1475**.",
+      "explanationAr": "**المفهوم:** سداسي ثلاثي الخانات → عشري عبر قوى الـ١٦ (1، 16، 256).\n\n**الخطوات:**\n5C3: حرف C = 12.\n5·256 + 12·16 + 3 = 1280 + 192 + 3 = **1475**.\n\n**تذكّر:** الترتيب من اليمين: 16⁰، 16¹، 16²."
+    },
+    {
+      "id": 13,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `A3C7` to binary and decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Bin = 1010 0011 1100 0111, Dec = 41927"
+        },
+        {
+          "letter": "B",
+          "text": "Bin = 1010 0011 1100 0111, Dec = 41943"
+        },
+        {
+          "letter": "C",
+          "text": "Bin = 1010 0011 1000 0111, Dec = 41927"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A=1010, 3=0011, C=1100, 7=0111. Decimal = 10·4096 + 3·256 + 12·16 + 7 = **41927**.",
+      "explanationAr": "**المفهوم:** كل رقم سداسي = ٤ بتات. نُحوّل كل رمز ثم نضرب بالقوى للحصول على القيمة العشرية.\n\n**الخطوات:**\nA=1010, 3=0011, C=1100, 7=0111 → `1010 0011 1100 0111`.\nالعشري = 10·4096 + 3·256 + 12·16 + 7 = 40960 + 768 + 192 + 7 = **41927**.\n\n**تذكّر:** أربعة بتات تكفي لتغطية القيم 0–15 = رقم سداسي واحد."
+    },
+    {
+      "id": 14,
+      "chapter": 1,
+      "stem": "Convert the octal number `52317₈` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "21567"
+        },
+        {
+          "letter": "B",
+          "text": "21711"
+        },
+        {
+          "letter": "C",
+          "text": "21823"
+        }
+      ],
+      "answer": "B",
+      "explanation": "5·8⁴ + 2·8³ + 3·8² + 1·8 + 7 = 20480 + 1024 + 192 + 8 + 7 = **21711**.",
+      "explanationAr": "**المفهوم:** ثماني → عشري عبر قوى الـ٨.\n\n**الخطوات:**\n52317₈ = 5·8⁴ + 2·8³ + 3·8² + 1·8 + 7\n      = 20480 + 1024 + 192 + 8 + 7 = **21711**.\n\n**تذكّر:** الأرقام في النظام الثماني هي 0–7 فقط؛ لو رأيت 8 أو 9 فالعدد ليس ثمانيًا."
+    },
+    {
+      "id": 15,
+      "chapter": 1,
+      "stem": "What is the decimal equivalent of binary `10011`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "17"
+        },
+        {
+          "letter": "B",
+          "text": "19"
+        },
+        {
+          "letter": "C",
+          "text": "21"
+        }
+      ],
+      "answer": "B",
+      "explanation": "10011₂ = 16 + 0 + 0 + 2 + 1 = **19**.",
+      "explanationAr": "**المفهوم:** ثنائي → عشري (قوى الـ٢).\n\n**الخطوات:**\n10011₂ = 1·16 + 0·8 + 0·4 + 1·2 + 1·1 = 16 + 0 + 0 + 2 + 1 = **19**.\n\n**تذكّر:** البت الأخير على اليمين يقابل 2⁰ = 1."
+    },
+    {
+      "id": 16,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `7E` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "124"
+        },
+        {
+          "letter": "B",
+          "text": "126"
+        },
+        {
+          "letter": "C",
+          "text": "128"
+        }
+      ],
+      "answer": "B",
+      "explanation": "7E₁₆ = 7·16 + 14 = 112 + 14 = **126**.",
+      "explanationAr": "**المفهوم:** سداسي → عشري (قوى الـ١٦).\n\n**الخطوات:**\n7E: حرف E = 14. إذن 7E₁₆ = 7·16 + 14 = 112 + 14 = **126**.\n\n**تذكّر:** تذكّر تتابع A=10، B=11، C=12، D=13، E=14، F=15."
+    },
+    {
+      "id": 17,
+      "chapter": 1,
+      "stem": "Convert binary `111001` to octal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "71"
+        },
+        {
+          "letter": "B",
+          "text": "69"
+        },
+        {
+          "letter": "C",
+          "text": "67"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Group bits in 3s from the right: `111 001` → `7 1` = **71₈**.",
+      "explanationAr": "**المفهوم:** ثنائي → ثماني عبر تجميع البتات في مجموعات من ٣.\n\n**الخطوات:**\n111001: من اليمين → `111 001`.\n`111` = 7، `001` = 1.\nالنتيجة: **71₈**.\n\n**تذكّر:** أكبر رقم ثماني = 7 (لأن 111₂ = 7)."
+    },
+    {
+      "id": 18,
+      "chapter": 1,
+      "stem": "Convert decimal `250` to hexadecimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "FA"
+        },
+        {
+          "letter": "B",
+          "text": "AF"
+        },
+        {
+          "letter": "C",
+          "text": "EA"
+        }
+      ],
+      "answer": "A",
+      "explanation": "250 ÷ 16 = 15 remainder 10 → digits **F A** → **FA₁₆**.",
+      "explanationAr": "**المفهوم:** عشري → سداسي بالقسمة المتكررة على ١٦.\n\n**الخطوات:**\n250 ÷ 16 = 15 والباقي 10. والرقم 15 = F، و 10 = A.\nإذن **FA₁₆**.\n\n**تذكّر:** الباقي 10 يصبح A، و15 يصبح F."
+    },
+    {
+      "id": 19,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `6A1` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1697"
+        },
+        {
+          "letter": "B",
+          "text": "1681"
+        },
+        {
+          "letter": "C",
+          "text": "1761"
+        }
+      ],
+      "answer": "A",
+      "explanation": "6·256 + 10·16 + 1 = 1536 + 160 + 1 = **1697**.",
+      "explanationAr": "**المفهوم:** سداسي ثلاثي الخانات → عشري.\n\n**الخطوات:**\n6A1: حرف A = 10.\n6·256 + 10·16 + 1 = 1536 + 160 + 1 = **1697**.\n\n**تذكّر:** 16² = 256."
+    },
+    {
+      "id": 20,
+      "chapter": 1,
+      "stem": "Convert hexadecimal `B2D4` to binary and decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Bin = 1011 0010 1101 0100, Dec = 45780"
+        },
+        {
+          "letter": "B",
+          "text": "Bin = 1011 0010 1101 0100, Dec = 45796"
+        },
+        {
+          "letter": "C",
+          "text": "Bin = 1011 0010 1101 0100, Dec = 45812"
+        }
+      ],
+      "answer": "A",
+      "explanation": "B=1011, 2=0010, D=1101, 4=0100. Decimal = 11·4096 + 2·256 + 13·16 + 4 = **45780**.",
+      "explanationAr": "**المفهوم:** سداسي رباعي الخانات → ثنائي وعشري.\n\n**الخطوات:**\nB=1011, 2=0010, D=1101, 4=0100 → `1011 0010 1101 0100`.\nالعشري = 11·4096 + 2·256 + 13·16 + 4 = 45056 + 512 + 208 + 4 = **45780**.\n\n**تذكّر:** كل رقم سداسي = ٤ بتات بالضبط."
+    },
+    {
+      "id": 21,
+      "chapter": 1,
+      "stem": "Convert the octal number `24165₈` to decimal.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "10357"
+        },
+        {
+          "letter": "B",
+          "text": "10485"
+        },
+        {
+          "letter": "C",
+          "text": "10421"
+        }
+      ],
+      "answer": "A",
+      "explanation": "2·8⁴ + 4·8³ + 1·8² + 6·8 + 5 = 8192 + 2048 + 64 + 48 + 5 = **10357**.",
+      "explanationAr": "**المفهوم:** ثماني → عشري (قوى الـ٨).\n\n**الخطوات:**\n24165₈ = 2·8⁴ + 4·8³ + 1·8² + 6·8 + 5\n      = 8192 + 2048 + 64 + 48 + 5 = **10357**.\n\n**تذكّر:** القيم 8⁰=1، 8¹=8، 8²=64، 8³=512، 8⁴=4096."
+    },
+    {
+      "id": 22,
+      "chapter": 2,
+      "stem": "What is the result of binary addition `10010 + 01101`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "11111"
+        },
+        {
+          "letter": "B",
+          "text": "10111"
+        },
+        {
+          "letter": "C",
+          "text": "11001"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Aligning the operands: 10010 + 01101 = **11111** (no carry generated).",
+      "explanationAr": "**المفهوم:** الجمع الثنائي يتبع نفس قواعد الجمع العشري لكن مع حملٍ عند 1+1=10₂.\n\n**الخطوات:**\n  10010\n+ 01101\n──────\n  11111 ← لا حمل في أي عمود.\nالنتيجة: **11111**.\n\n**تذكّر:** 1+1=0 مع حمل ١."
+    },
+    {
+      "id": 23,
+      "chapter": 2,
+      "stem": "What is the result of binary addition `1010 + 0101`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0110"
+        },
+        {
+          "letter": "B",
+          "text": "1111"
+        },
+        {
+          "letter": "C",
+          "text": "1001"
+        }
+      ],
+      "answer": "B",
+      "explanation": "1010 + 0101 = **1111**.",
+      "explanationAr": "**المفهوم:** جمع ثنائي عمود-عمود مع تتبّع الحمل.\n\n**الخطوات:**\n  1010\n+ 0101\n──────\n  1111 ← لا حمل.\nالنتيجة: **1111**.\n\n**تذكّر:** أبسط مثال للجمع بدون حمل."
+    },
+    {
+      "id": 24,
+      "chapter": 2,
+      "stem": "What is the result of binary subtraction `1100 − 0101`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0010"
+        },
+        {
+          "letter": "B",
+          "text": "0111"
+        },
+        {
+          "letter": "C",
+          "text": "0100"
+        }
+      ],
+      "answer": "B",
+      "explanation": "12 − 5 = 7 → **0111**.",
+      "explanationAr": "**المفهوم:** الطرح الثنائي يتبع نفس قواعد الطرح العشري مع الاستلاف عند الحاجة.\n\n**الخطوات:**\n1100 = 12، 0101 = 5. والفرق = 12 − 5 = 7 = **0111₂**.\n\n**تذكّر:** يمكن دائمًا التحقق بالتحويل إلى العشري."
+    },
+    {
+      "id": 25,
+      "chapter": 2,
+      "stem": "The **2's complement** of `0110` (4-bit) is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1001"
+        },
+        {
+          "letter": "B",
+          "text": "1010"
+        },
+        {
+          "letter": "C",
+          "text": "1011"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Invert 0110 → 1001, then add 1 → **1010**.",
+      "explanationAr": "**المفهوم:** متمم الـ٢ يُستخدم لتمثيل الأعداد السالبة. يُحسب بقلب البتات (متمم الـ١) ثم إضافة 1.\n\n**الخطوات:**\n0110 → نقلب → 1001 → نضيف 1 → **1010**.\n\n**تذكّر:** متمم الـ٢ لعدد X يعطي قيمة تجمع مع X لتساوي صفرًا (تجاهلًا للحمل)."
+    },
+    {
+      "id": 26,
+      "chapter": 2,
+      "stem": "What is the result of binary addition `10101 + 01011`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "100000"
+        },
+        {
+          "letter": "B",
+          "text": "11110"
+        },
+        {
+          "letter": "C",
+          "text": "11111"
+        }
+      ],
+      "answer": "A",
+      "explanation": "10101 (21) + 01011 (11) = 32 = **100000₂**.",
+      "explanationAr": "**المفهوم:** جمع ثنائي مع تتبّع الحمل.\n\n**الخطوات:**\n10101 = 21، 01011 = 11. المجموع = 32 = **100000₂** (ست خانات لأن الحمل خرج للخارج).\n\n**تذكّر:** أي مجموع يبلغ قوة الـ٢ يُنتج بتًا واحدًا وأصفارًا."
+    },
+    {
+      "id": 27,
+      "chapter": 2,
+      "stem": "What is the result of binary addition `1110 + 0011`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "10001"
+        },
+        {
+          "letter": "B",
+          "text": "1111"
+        },
+        {
+          "letter": "C",
+          "text": "10010"
+        }
+      ],
+      "answer": "A",
+      "explanation": "1110 (14) + 0011 (3) = 17 = **10001₂**.",
+      "explanationAr": "**المفهوم:** جمع ثنائي مع حمل.\n\n**الخطوات:**\n1110 = 14، 0011 = 3. المجموع = 17 = **10001₂**.\n\n**تذكّر:** الحمل يُضاف للعمود التالي."
+    },
+    {
+      "id": 28,
+      "chapter": 2,
+      "stem": "What is the result of binary subtraction `1101 − 0110`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0110"
+        },
+        {
+          "letter": "B",
+          "text": "0111"
+        },
+        {
+          "letter": "C",
+          "text": "1011"
+        }
+      ],
+      "answer": "B",
+      "explanation": "1101 (13) − 0110 (6) = 7 = **0111₂**.",
+      "explanationAr": "**المفهوم:** طرح ثنائي.\n\n**الخطوات:**\n1101 = 13، 0110 = 6. الفرق = 7 = **0111₂**.\n\n**تذكّر:** يمكن الطرح أيضًا بإضافة متمم الـ٢ للمطروح."
+    },
+    {
+      "id": 29,
+      "chapter": 2,
+      "stem": "The **2's complement** of `1010` (4-bit) is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0101"
+        },
+        {
+          "letter": "B",
+          "text": "0110"
+        },
+        {
+          "letter": "C",
+          "text": "1001"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Invert 1010 → 0101, then add 1 → **0110**.",
+      "explanationAr": "**المفهوم:** متمم الـ٢: اقلب البتات ثم أضف 1.\n\n**الخطوات:**\n1010 → نقلب → 0101 → نضيف 1 → **0110**.\n\n**تذكّر:** متمم الـ٢ لـ 1010 (سالب 6 في ٤ بتات) هو 0110 = +6."
+    },
+    {
+      "id": 30,
+      "chapter": 2,
+      "stem": "What is the result of binary addition `11011 + 00101`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "100000"
+        },
+        {
+          "letter": "B",
+          "text": "11111"
+        },
+        {
+          "letter": "C",
+          "text": "100001"
+        }
+      ],
+      "answer": "A",
+      "explanation": "11011 (27) + 00101 (5) = 32 = **100000₂**.",
+      "explanationAr": "**المفهوم:** جمع ثنائي مع تجاوز للنطاق.\n\n**الخطوات:**\n11011 = 27، 00101 = 5. المجموع = 32 = **100000₂**.\n\n**تذكّر:** بمجرد بلوغ قوة الـ٢ التالية يظهر بت جديد على اليسار."
+    },
+    {
+      "id": 31,
+      "chapter": 2,
+      "stem": "What is the result of binary addition `1001 + 0111`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "10000"
+        },
+        {
+          "letter": "B",
+          "text": "1110"
+        },
+        {
+          "letter": "C",
+          "text": "1111"
+        }
+      ],
+      "answer": "A",
+      "explanation": "1001 (9) + 0111 (7) = 16 = **10000₂**.",
+      "explanationAr": "**المفهوم:** جمع ثنائي مع حملٍ متتالٍ.\n\n**الخطوات:**\n1001 = 9، 0111 = 7. المجموع = 16 = **10000₂**.\n\n**تذكّر:** 9+7 = 16 = 2⁴، فظهور 1 يتبعه ٤ أصفار."
+    },
+    {
+      "id": 32,
+      "chapter": 2,
+      "stem": "What is the result of binary subtraction `10000 − 0011`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1100"
+        },
+        {
+          "letter": "B",
+          "text": "1101"
+        },
+        {
+          "letter": "C",
+          "text": "1110"
+        }
+      ],
+      "answer": "B",
+      "explanation": "10000 (16) − 0011 (3) = 13 = **1101₂**.",
+      "explanationAr": "**المفهوم:** طرح ثنائي مع استلاف من البتات اليسرى.\n\n**الخطوات:**\n10000 = 16، 0011 = 3. الفرق = 13 = **1101₂**.\n\n**تذكّر:** الاستلاف من 1 يجعل البتات الوسطى أصفارًا تصبح آحادًا."
+    },
+    {
+      "id": 33,
+      "chapter": 2,
+      "stem": "The **2's complement** of `1100` (4-bit) is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0100"
+        },
+        {
+          "letter": "B",
+          "text": "0011"
+        },
+        {
+          "letter": "C",
+          "text": "0101"
+        }
+      ],
+      "answer": "A",
+      "explanation": "1's complement of 1100 = 0011; add 1 → **0100**.",
+      "explanationAr": "**المفهوم:** متمم الـ٢ = متمم الـ١ + 1.\n\n**الخطوات:**\n1100 → متمم الـ١ → 0011 → نضيف 1 → **0100**.\n\n**تذكّر:** بهذه الطريقة 1100 (سالب 4) + 0100 (+4) = 0 (مع تجاهل الحمل)."
+    },
+    {
+      "id": 34,
+      "chapter": 3,
+      "stem": "Which Boolean law states that `A + A'B = A + B`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Consensus Theorem"
+        },
+        {
+          "letter": "B",
+          "text": "Absorption Law"
+        },
+        {
+          "letter": "C",
+          "text": "De Morgan's Theorem"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A + A'B = (A + A')(A + B) = 1·(A + B) = A + B — part of the **Absorption** family of identities.",
+      "explanationAr": "**المفهوم:** هذه إحدى متطابقات **الاستيعاب (Absorption)** ذات الشكل: A + A'B = A + B.\n\n**البرهان:**\nA + A'B = (A + A')(A + B) = 1·(A + B) = A + B.\n\n**الجواب:** **Absorption Law**."
+    },
+    {
+      "id": 35,
+      "chapter": 3,
+      "stem": "Simplify: `A·B + A·B'`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "B"
+        },
+        {
+          "letter": "B",
+          "text": "A"
+        },
+        {
+          "letter": "C",
+          "text": "A + B"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Factor A: A·(B + B') = A·1 = **A**.",
+      "explanationAr": "**المفهوم:** التوزيع العكسي + تطابق المتمم (B + B' = 1).\n\n**الخطوات:**\nA·B + A·B' = A·(B + B') = A·1 = **A**.\n\n**تذكّر:** كلما رأيت X متبوعًا بـ X' في نفس السياق فهو يعطي 1."
+    },
+    {
+      "id": 36,
+      "chapter": 3,
+      "stem": "Simplify: `(A + B)(A + B')`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "B"
+        },
+        {
+          "letter": "C",
+          "text": "A + B"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Expand: A + A·B' + A·B + B·B' = A + A·(B + B') + 0 = **A**.",
+      "explanationAr": "**المفهوم:** الضرب وتطبيق B·B' = 0 و B + B' = 1.\n\n**الخطوات:**\n(A + B)(A + B') = A + A·B' + A·B + B·B' = A + A(B + B') + 0 = A + A·1 = **A**.\n\n**تذكّر:** هذه صورة أخرى لقانون الاستيعاب."
+    },
+    {
+      "id": 37,
+      "chapter": 3,
+      "stem": "By De Morgan's theorem, `(A·B)'` equals:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A' + B'"
+        },
+        {
+          "letter": "B",
+          "text": "A'·B'"
+        },
+        {
+          "letter": "C",
+          "text": "A + B"
+        }
+      ],
+      "answer": "A",
+      "explanation": "De Morgan: (A·B)' = **A' + B'**.",
+      "explanationAr": "**المفهوم:** قانون **دي مورجان** يقلب AND إلى OR (ويُكمل المتغيرات).\n\n**الصيغة:** (A·B)' = **A' + B'**.\n\n**تذكّر:** «اقلب العملية، وضع شرطة فوق كل متغير»."
+    },
+    {
+      "id": 38,
+      "chapter": 3,
+      "stem": "Simplify using De Morgan's: `(A + B + C)'`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A'·B'·C'"
+        },
+        {
+          "letter": "B",
+          "text": "A' + B' + C'"
+        },
+        {
+          "letter": "C",
+          "text": "ABC"
+        }
+      ],
+      "answer": "A",
+      "explanation": "De Morgan extends to N terms: (A + B + C)' = **A'·B'·C'**.",
+      "explanationAr": "**المفهوم:** قانون دي مورجان يعمّ على أي عدد من المتغيرات.\n\n**الصيغة:** (A + B + C)' = **A'·B'·C'**.\n\n**تذكّر:** متمم المجموع = حاصل ضرب المتممات."
+    },
+    {
+      "id": 39,
+      "chapter": 3,
+      "stem": "Which Boolean law states that `A·(A + B) = A`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Consensus Theorem"
+        },
+        {
+          "letter": "B",
+          "text": "Absorption Law"
+        },
+        {
+          "letter": "C",
+          "text": "De Morgan's Theorem"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A·(A + B) = A is the classic **Absorption** identity.",
+      "explanationAr": "**المفهوم:** A·(A + B) = A هي إحدى متطابقات **الاستيعاب (Absorption)**.\n\n**البرهان:**\nA·(A + B) = A·A + A·B = A + A·B = A·(1 + B) = A·1 = **A**.\n\n**الجواب:** **Absorption Law**."
+    },
+    {
+      "id": 40,
+      "chapter": 3,
+      "stem": "Simplify: `(A + B)·(A + B)`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "B"
+        },
+        {
+          "letter": "C",
+          "text": "A + B"
+        }
+      ],
+      "answer": "C",
+      "explanation": "X·X = X (idempotent), so (A + B)·(A + B) = **A + B**.",
+      "explanationAr": "**المفهوم:** قانون الإحلال (Idempotent): X·X = X و X + X = X. هنا X = (A + B).\n\n**الخطوات:**\n(A + B)·(A + B) = **A + B**.\n\n**تذكّر:** أي تعبير مع نفسه (بـ AND أو OR) يساوي التعبير ذاته."
+    },
+    {
+      "id": 41,
+      "chapter": 3,
+      "stem": "Simplify: `A·B + A·B + A'·B`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "B"
+        },
+        {
+          "letter": "C",
+          "text": "A + B"
+        }
+      ],
+      "answer": "B",
+      "explanation": "A·B + A·B = A·B; then A·B + A'·B = B·(A + A') = **B**.",
+      "explanationAr": "**المفهوم:** تكرار الحدّ يُختصر، ثم نطبّق التوزيع العكسي.\n\n**الخطوات:**\nA·B + A·B = A·B (تكرار).\nثم A·B + A'·B = B·(A + A') = B·1 = **B**.\n\n**تذكّر:** الحدّان المتكرران يندمجان في واحد."
+    },
+    {
+      "id": 42,
+      "chapter": 3,
+      "stem": "By De Morgan's theorem, `(A + B)'` equals:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A' + B'"
+        },
+        {
+          "letter": "B",
+          "text": "A'·B'"
+        },
+        {
+          "letter": "C",
+          "text": "AB"
+        }
+      ],
+      "answer": "B",
+      "explanation": "De Morgan: (A + B)' = **A'·B'**.",
+      "explanationAr": "**المفهوم:** دي مورجان: متمم المجموع = حاصل ضرب المتممات.\n\n**الصيغة:** (A + B)' = **A'·B'**.\n\n**تذكّر:** هذا أحد أهمّ قوانين الجبر المنطقي."
+    },
+    {
+      "id": 43,
+      "chapter": 3,
+      "stem": "Simplify using De Morgan's: `(A·B·C)'`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A'·B'·C'"
+        },
+        {
+          "letter": "B",
+          "text": "A' + B' + C'"
+        },
+        {
+          "letter": "C",
+          "text": "A + B + C"
+        }
+      ],
+      "answer": "B",
+      "explanation": "De Morgan: (A·B·C)' = **A' + B' + C'**.",
+      "explanationAr": "**المفهوم:** دي مورجان: متمم حاصل الضرب = مجموع المتممات.\n\n**الصيغة:** (A·B·C)' = **A' + B' + C'**.\n\n**تذكّر:** يعكس العملية ويضع شرطة فوق كل متغير."
+    },
+    {
+      "id": 44,
+      "chapter": 3,
+      "stem": "Which Boolean law states that `A + A = A`?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "Idempotent Law"
+        },
+        {
+          "letter": "B",
+          "text": "Absorption Law"
+        },
+        {
+          "letter": "C",
+          "text": "De Morgan's Theorem"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A + A = A (and A·A = A) is the **Idempotent Law**.",
+      "explanationAr": "**المفهوم:** قانون **الإحلال (Idempotent Law)** يقول: X + X = X و X·X = X.\n\n**الجواب:** **Idempotent Law**.\n\n**تذكّر:** لا يخلط مع قانون الاستيعاب (الذي يحتوي عاملًا إضافيًا)."
+    },
+    {
+      "id": 45,
+      "chapter": 3,
+      "stem": "Simplify: `A + A·B`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "B"
+        },
+        {
+          "letter": "C",
+          "text": "A + B"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A + A·B = A·(1 + B) = A·1 = **A** (Absorption).",
+      "explanationAr": "**المفهوم:** قانون الاستيعاب: A + A·B = A.\n\n**البرهان:**\nA + A·B = A·(1 + B) = A·1 = **A**.\n\n**تذكّر:** أي شيء يبدأ بـ A ثم يضاف إليه A·… يُبتلع."
+    },
+    {
+      "id": 46,
+      "chapter": 3,
+      "stem": "Simplify: `A·(A + B)`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "B"
+        },
+        {
+          "letter": "C",
+          "text": "A + B"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A·(A + B) = A·A + A·B = A + A·B = **A** (Absorption).",
+      "explanationAr": "**المفهوم:** الصيغة الثانية للاستيعاب: A·(A + B) = A.\n\n**البرهان:**\nA·(A + B) = A·A + A·B = A + A·B = **A**.\n\n**تذكّر:** الاستيعاب يأتي في صيغتين متناظرتين."
+    },
+    {
+      "id": 47,
+      "chapter": 3,
+      "stem": "By De Morgan's theorem, `(A + B)'` equals:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A'·B'"
+        },
+        {
+          "letter": "B",
+          "text": "A' + B'"
+        },
+        {
+          "letter": "C",
+          "text": "A·B"
+        }
+      ],
+      "answer": "A",
+      "explanation": "De Morgan: (A + B)' = **A'·B'**.",
+      "explanationAr": "**المفهوم:** دي مورجان مرة أخرى.\n\n**الصيغة:** (A + B)' = **A'·B'**.\n\n**تذكّر:** OR يصبح AND عند المتمم."
+    },
+    {
+      "id": 48,
+      "chapter": 3,
+      "stem": "Simplify using De Morgan's: `(A·B + C)'`",
+      "options": [
+        {
+          "letter": "A",
+          "text": "(A' + B')·C'"
+        },
+        {
+          "letter": "B",
+          "text": "A'·B'·C'"
+        },
+        {
+          "letter": "C",
+          "text": "A' + B' + C'"
+        }
+      ],
+      "answer": "A",
+      "explanation": "(A·B + C)' = (A·B)'·C' = **(A' + B')·C'**.",
+      "explanationAr": "**المفهوم:** نطبق دي مورجان على المستوى الخارجي ثم على الداخلي.\n\n**الخطوات:**\n(A·B + C)' = (A·B)' · C' = (A' + B') · C' = **(A' + B')·C'**.\n\n**تذكّر:** متمم المجموع يصبح حاصل ضرب المتممات الفردية."
+    },
+    {
+      "id": 49,
+      "chapter": 4,
+      "stem": "A 3-variable K-map has how many cells?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "6"
+        },
+        {
+          "letter": "B",
+          "text": "8"
+        },
+        {
+          "letter": "C",
+          "text": "9"
+        }
+      ],
+      "answer": "B",
+      "explanation": "An n-variable K-map has 2ⁿ cells. For n = 3: 2³ = **8** cells.",
+      "explanationAr": "**المفهوم:** خريطة كارنوه (K-map) لـ n متغيرات تحتوي 2ⁿ خلية (لأن كل خلية تمثّل ميترمًا واحدًا).\n\n**الحساب:** n = 3 → 2³ = **8** خلايا.\n\n**تذكّر:** عدد الخلايا = عدد الميترمات الممكنة."
+    },
+    {
+      "id": 50,
+      "chapter": 4,
+      "stem": "Which grouping size is **NOT** valid in a K-map?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1"
+        },
+        {
+          "letter": "B",
+          "text": "2"
+        },
+        {
+          "letter": "C",
+          "text": "3"
+        }
+      ],
+      "answer": "C",
+      "explanation": "K-map groups must be powers of 2 (1, 2, 4, 8, 16, …). **3 is not** a power of 2.",
+      "explanationAr": "**المفهوم:** التجميع في خريطة كارنوه يجب أن يكون من قوى الـ٢ (١، ٢، ٤، ٨، ١٦…) ليصحّ تطبيق دمج المتغيرات.\n\n**الإجابة:** الرقم **3** ليس من قوى الـ٢ → غير صحيح.\n\n**تذكّر:** القوى المسموحة: 1, 2, 4, 8, 16…"
+    },
+    {
+      "id": 51,
+      "chapter": 4,
+      "stem": "`F(A,B,C) = Σ(1,3,5,7)` simplifies to:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "B"
+        },
+        {
+          "letter": "C",
+          "text": "C"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Minterms 1, 3, 5, 7 are exactly the rows where C = 1, so F = **C**.",
+      "explanationAr": "**المفهوم:** نفحص قيم C في الميترمات المعطاة: m1=001, m3=011, m5=101, m7=111.\n\n**الملاحظة:** في كلّها C = 1، بينما A وB يتغيران بحرّية.\n\n**النتيجة:** F = **C**.\n\n**تذكّر:** إذا تكرّر متغير بقيمة ثابتة في كل الميترمات فالناتج يساويه فقط."
+    },
+    {
+      "id": 52,
+      "chapter": 4,
+      "stem": "How many minterms exist for a **4-variable** Boolean function?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "8"
+        },
+        {
+          "letter": "B",
+          "text": "12"
+        },
+        {
+          "letter": "C",
+          "text": "16"
+        }
+      ],
+      "answer": "C",
+      "explanation": "2ⁿ minterms; 2⁴ = **16**.",
+      "explanationAr": "**المفهوم:** عدد الميترمات الكلّي = 2ⁿ (تمثّل كل التوافيق الممكنة لقيم المتغيرات).\n\n**الحساب:** n = 4 → 2⁴ = **16**.\n\n**تذكّر:** ميترم = صف واحد في جدول الحقيقة قيمته 1."
+    },
+    {
+      "id": 53,
+      "chapter": 4,
+      "stem": "A 4-variable K-map has how many cells?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "8"
+        },
+        {
+          "letter": "B",
+          "text": "12"
+        },
+        {
+          "letter": "C",
+          "text": "16"
+        }
+      ],
+      "answer": "C",
+      "explanation": "2ⁿ cells; 2⁴ = **16** cells.",
+      "explanationAr": "**المفهوم:** عدد خلايا خريطة كارنوه = 2ⁿ.\n\n**الحساب:** n = 4 → 2⁴ = **16** خلية (شبكة 4×4).\n\n**تذكّر:** كل خلية تقابل ميترمًا واحدًا."
+    },
+    {
+      "id": 54,
+      "chapter": 4,
+      "stem": "Which grouping size **IS** valid in a K-map?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "3"
+        },
+        {
+          "letter": "B",
+          "text": "5"
+        },
+        {
+          "letter": "C",
+          "text": "4"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Valid group sizes are powers of 2 (1, 2, **4**, 8, 16, …).",
+      "explanationAr": "**المفهوم:** مجموعات K-map الصحيحة من قوى الـ٢ فقط.\n\n**الإجابة:** الرقم **4** = 2² → صحيح.\n\n**تذكّر:** المجموعة الأكبر تعني تبسيطًا أكبر."
+    },
+    {
+      "id": 55,
+      "chapter": 4,
+      "stem": "`F(A,B,C) = Σ(0,2,4,6)` simplifies to:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "B"
+        },
+        {
+          "letter": "C",
+          "text": "C'"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Minterms 0, 2, 4, 6 all have C = 0, so F = **C'**.",
+      "explanationAr": "**المفهوم:** نفحص قيم C في m0=000, m2=010, m4=100, m6=110.\n\n**الملاحظة:** في كلّها C = 0 → C يجب أن يكون متممًا.\n\n**النتيجة:** F = **C'**.\n\n**تذكّر:** ميترم C=0 يعني أن المتغير يظهر مع شرطة."
+    },
+    {
+      "id": 56,
+      "chapter": 4,
+      "stem": "How many minterms exist for a **3-variable** Boolean function?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "6"
+        },
+        {
+          "letter": "B",
+          "text": "8"
+        },
+        {
+          "letter": "C",
+          "text": "9"
+        }
+      ],
+      "answer": "B",
+      "explanation": "2ⁿ minterms; 2³ = **8**.",
+      "explanationAr": "**المفهوم:** عدد الميترمات = 2ⁿ.\n\n**الحساب:** n = 3 → 2³ = **8**.\n\n**تذكّر:** كل توافيق ABC الثلاثة تعطي ٨ احتمالات."
+    },
+    {
+      "id": 57,
+      "chapter": 4,
+      "stem": "A 2-variable K-map has how many cells?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "2"
+        },
+        {
+          "letter": "B",
+          "text": "4"
+        },
+        {
+          "letter": "C",
+          "text": "6"
+        }
+      ],
+      "answer": "B",
+      "explanation": "2ⁿ cells; 2² = **4** cells.",
+      "explanationAr": "**المفهوم:** خلايا K-map = 2ⁿ.\n\n**الحساب:** n = 2 → 2² = **4** خلايا (شبكة 2×2).\n\n**تذكّر:** هذا أبسط شكل لخريطة كارنوه."
+    },
+    {
+      "id": 58,
+      "chapter": 4,
+      "stem": "Which grouping size is **NOT** valid in a K-map?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "2"
+        },
+        {
+          "letter": "B",
+          "text": "4"
+        },
+        {
+          "letter": "C",
+          "text": "6"
+        }
+      ],
+      "answer": "C",
+      "explanation": "Groupings must be powers of 2 (1, 2, 4, 8, 16…). **6 is not** a power of 2.",
+      "explanationAr": "**المفهوم:** كل تجميع في K-map يجب أن يكون من قوى الـ٢.\n\n**الإجابة:** الرقم **6** ليس من قوى الـ٢ → غير صحيح.\n\n**تذكّر:** القوى المقبولة: 1, 2, 4, 8…"
+    },
+    {
+      "id": 59,
+      "chapter": 4,
+      "stem": "`F(A,B,C) = Σ(0,1,2,3)` simplifies to:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A"
+        },
+        {
+          "letter": "B",
+          "text": "A'"
+        },
+        {
+          "letter": "C",
+          "text": "B"
+        }
+      ],
+      "answer": "B",
+      "explanation": "Minterms 0, 1, 2, 3 correspond to A = 0 for all B, C → F = **A'**.",
+      "explanationAr": "**المفهوم:** الميترمات 0–3 تعني (A=0, B=0..1, C=0..1).\n\n**الملاحظة:** A ثابتة على 0 في كل ميترم → A يجب أن يكون متممًا.\n\n**النتيجة:** F = **A'**.\n\n**تذكّر:** إذا كانت أربع ميترمات متتالية في نصف الخريطة → تختصر إلى متغير واحد."
+    },
+    {
+      "id": 60,
+      "chapter": 4,
+      "stem": "How many minterms exist for a **5-variable** Boolean function?",
+      "options": [
+        {
+          "letter": "A",
+          "text": "16"
+        },
+        {
+          "letter": "B",
+          "text": "25"
+        },
+        {
+          "letter": "C",
+          "text": "32"
+        }
+      ],
+      "answer": "C",
+      "explanation": "2ⁿ minterms; 2⁵ = **32**.",
+      "explanationAr": "**المفهوم:** عدد الميترمات = 2ⁿ.\n\n**الحساب:** n = 5 → 2⁵ = **32**.\n\n**تذكّر:** كلما زاد n واحدًا تضاعف عدد الميترمات."
+    },
+    {
+      "id": 61,
+      "chapter": 5,
+      "stem": "Convert the decimal number `(8102)₁₀` to Excess-3 code.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1011 0100 0011 0101"
+        },
+        {
+          "letter": "B",
+          "text": "1011 0001 0000 0010"
+        },
+        {
+          "letter": "C",
+          "text": "1000 0001 0000 0010"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Add 3 to each digit then encode in 4 bits: 8→11(1011), 1→4(0100), 0→3(0011), 2→5(0101) → **1011 0100 0011 0101**.",
+      "explanationAr": "**المفهوم:** Excess-3 = القيمة + 3، مُمثَّلة بـ ٤ بتات لكل رقم عشري.\n\n**الخطوات:**\n8 → 11 → 1011\n1 → 4 → 0100\n0 → 3 → 0011\n2 → 5 → 0101\nالنتيجة: **1011 0100 0011 0101**.\n\n**تذكّر:** Excess-3 ذاتي التكامل (self-complementary)، مفيد في الحساب الـ BCD."
+    },
+    {
+      "id": 62,
+      "chapter": 5,
+      "stem": "Convert the binary number `(11101)₂` to Gray code.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "10011"
+        },
+        {
+          "letter": "B",
+          "text": "11011"
+        },
+        {
+          "letter": "C",
+          "text": "10101"
+        }
+      ],
+      "answer": "A",
+      "explanation": "MSB unchanged = 1; XOR adjacent bits: 1⊕1=0, 1⊕1=0, 1⊕0=1, 0⊕1=1 → **10011**.",
+      "explanationAr": "**المفهوم:** كود غراي يضمن تغيير بت واحد فقط بين الأعداد المتعاقبة.\n\n**الخطوات:**\nالبت الأعلى يبقى = 1.\nثم XOR بين كل بتّين متجاورين من الأصل:\n  1⊕1=0,  1⊕1=0,  1⊕0=1,  0⊕1=1.\nالنتيجة: **10011**.\n\n**تذكّر:** قاعدة عامة: gᵢ = bᵢ ⊕ bᵢ₊₁ (مع g_MSB = b_MSB)."
+    },
+    {
+      "id": 63,
+      "chapter": 5,
+      "stem": "For a NAND gate with inputs A and B, the output is **0** when:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A=1, B=1"
+        },
+        {
+          "letter": "B",
+          "text": "A=0, B=1"
+        },
+        {
+          "letter": "C",
+          "text": "A=1, B=0"
+        }
+      ],
+      "answer": "A",
+      "explanation": "A NAND gate outputs 0 only when **all inputs are 1**.",
+      "explanationAr": "**المفهوم:** بوّابة NAND هي عكس AND؛ تُعطي **0** فقط حين تكون جميع المدخلات **1**، وفي بقية الحالات تُعطي 1.\n\n**الجواب:** A=1, B=1.\n\n**تذكّر:** NAND هي بوّابة عالمية يمكن بناء أي دارة منها."
+    },
+    {
+      "id": 64,
+      "chapter": 5,
+      "stem": "The result of the XOR operation `1011 ⊕ 1101` is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0110"
+        },
+        {
+          "letter": "B",
+          "text": "1110"
+        },
+        {
+          "letter": "C",
+          "text": "1001"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Bitwise XOR: 1⊕1=0, 0⊕1=1, 1⊕0=1, 1⊕1=0 → **0110**.",
+      "explanationAr": "**المفهوم:** XOR يُعطي 1 فقط عند اختلاف البتّين، و0 عند تطابقهما.\n\n**الخطوات:**\n  1011\n⊕ 1101\n──────\n  0110\n(1⊕1=0, 0⊕1=1, 1⊕0=1, 1⊕1=0)\nالنتيجة: **0110**.\n\n**تذكّر:** XOR ≡ «إما هذا أو ذاك، لكن ليس كلاهما»."
+    },
+    {
+      "id": 65,
+      "chapter": 5,
+      "stem": "Convert the decimal number `(4905)₁₀` to Excess-3 code.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0111 1100 0011 1000"
+        },
+        {
+          "letter": "B",
+          "text": "0100 1001 0000 0101"
+        },
+        {
+          "letter": "C",
+          "text": "0111 1100 0010 1000"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Add 3 to each digit: 4→7(0111), 9→12(1100), 0→3(0011), 5→8(1000) → **0111 1100 0011 1000**.",
+      "explanationAr": "**المفهوم:** Excess-3 = القيمة + 3 ممثَّلة بأربعة بتات.\n\n**الخطوات:**\n4 → 7 → 0111\n9 → 12 → 1100\n0 → 3 → 0011\n5 → 8 → 1000\nالنتيجة: **0111 1100 0011 1000**.\n\n**تذكّر:** أكبر قيمة ممكنة في Excess-3 هي 9+3=12 = 1100."
+    },
+    {
+      "id": 66,
+      "chapter": 5,
+      "stem": "Convert the binary number `(10110)₂` to Gray code.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "11101"
+        },
+        {
+          "letter": "B",
+          "text": "11011"
+        },
+        {
+          "letter": "C",
+          "text": "10010"
+        }
+      ],
+      "answer": "A",
+      "explanation": "MSB = 1; XOR adjacent bits: 1⊕0=1, 0⊕1=1, 1⊕1=0, 1⊕0=1 → **11101**.",
+      "explanationAr": "**المفهوم:** كود غراي (تغيير بت واحد بين القيم المتعاقبة).\n\n**الخطوات:**\nالبت الأعلى = 1.\nثم XOR للأزواج المتجاورة من 10110:\n  1⊕0=1,  0⊕1=1,  1⊕1=0,  1⊕0=1.\nالنتيجة: **11101**.\n\n**تذكّر:** كود غراي يُستخدم في عدّادات Karnaugh وأجهزة الترميز الميكانيكية."
+    },
+    {
+      "id": 67,
+      "chapter": 5,
+      "stem": "For an AND gate with inputs A and B, the output is **1** when:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A=1, B=1"
+        },
+        {
+          "letter": "B",
+          "text": "A=0, B=0"
+        },
+        {
+          "letter": "C",
+          "text": "A=0, B=1"
+        }
+      ],
+      "answer": "A",
+      "explanation": "An AND gate outputs 1 only when **all inputs are 1**.",
+      "explanationAr": "**المفهوم:** بوّابة AND تُعطي **1** فقط عندما تكون جميع المدخلات **1**.\n\n**الجواب:** A=1, B=1.\n\n**تذكّر:** AND ≡ الضرب المنطقي."
+    },
+    {
+      "id": 68,
+      "chapter": 5,
+      "stem": "The result of the XOR operation `1100 ⊕ 1010` is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "0110"
+        },
+        {
+          "letter": "B",
+          "text": "1110"
+        },
+        {
+          "letter": "C",
+          "text": "1001"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Bitwise XOR: 1⊕1=0, 1⊕0=1, 0⊕1=1, 0⊕0=0 → **0110**.",
+      "explanationAr": "**المفهوم:** XOR = «الاختلاف يعطي 1، والتطابق يعطي 0».\n\n**الخطوات:**\n  1100\n⊕ 1010\n──────\n  0110\n(1⊕1=0, 1⊕0=1, 0⊕1=1, 0⊕0=0)\nالنتيجة: **0110**.\n\n**تذكّر:** XOR يُستخدم كثيرًا في التشفير وكشف الأخطاء."
+    },
+    {
+      "id": 69,
+      "chapter": 5,
+      "stem": "Convert the decimal number `(6739)₁₀` to Excess-3 code.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1001 1010 0110 1100"
+        },
+        {
+          "letter": "B",
+          "text": "1001 1010 0110 1110"
+        },
+        {
+          "letter": "C",
+          "text": "1010 1001 0101 1100"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Add 3 to each digit: 6→9(1001), 7→10(1010), 3→6(0110), 9→12(1100) → **1001 1010 0110 1100**.",
+      "explanationAr": "**المفهوم:** Excess-3 لكل رقم عشري.\n\n**الخطوات:**\n6 → 9 → 1001\n7 → 10 → 1010\n3 → 6 → 0110\n9 → 12 → 1100\nالنتيجة: **1001 1010 0110 1100**.\n\n**تذكّر:** Excess-3 يُسمى أيضًا XS-3."
+    },
+    {
+      "id": 70,
+      "chapter": 5,
+      "stem": "Convert the binary number `(11011)₂` to Gray code.",
+      "options": [
+        {
+          "letter": "A",
+          "text": "10110"
+        },
+        {
+          "letter": "B",
+          "text": "11011"
+        },
+        {
+          "letter": "C",
+          "text": "10010"
+        }
+      ],
+      "answer": "A",
+      "explanation": "MSB = 1; XOR adjacent bits: 1⊕1=0, 1⊕0=1, 0⊕1=1, 1⊕1=0 → **10110**.",
+      "explanationAr": "**المفهوم:** ثنائي → غراي.\n\n**الخطوات:**\nالبت الأعلى = 1.\nXOR للأزواج المتجاورة من 11011:\n  1⊕1=0,  1⊕0=1,  0⊕1=1,  1⊕1=0.\nالنتيجة: **10110**.\n\n**تذكّر:** الترتيب من اليسار، والـ MSB دائمًا يُنقل كما هو."
+    },
+    {
+      "id": 71,
+      "chapter": 5,
+      "stem": "For an OR gate with inputs A and B, the output is **0** when:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "A=0, B=0"
+        },
+        {
+          "letter": "B",
+          "text": "A=0, B=1"
+        },
+        {
+          "letter": "C",
+          "text": "A=1, B=0"
+        }
+      ],
+      "answer": "A",
+      "explanation": "An OR gate output = 0 only when **all inputs are 0**.",
+      "explanationAr": "**المفهوم:** بوّابة OR تُعطي **0** فقط حين تكون جميع المدخلات **0**.\n\n**الجواب:** A=0, B=0.\n\n**تذكّر:** OR ≡ الجمع المنطقي. تكفي مدخل واحد بقيمة 1 لتعطي 1."
+    },
+    {
+      "id": 72,
+      "chapter": 5,
+      "stem": "The result of the XOR operation `1111 ⊕ 0101` is:",
+      "options": [
+        {
+          "letter": "A",
+          "text": "1010"
+        },
+        {
+          "letter": "B",
+          "text": "1110"
+        },
+        {
+          "letter": "C",
+          "text": "0101"
+        }
+      ],
+      "answer": "A",
+      "explanation": "Bitwise XOR: 1⊕0=1, 1⊕1=0, 1⊕0=1, 1⊕1=0 → **1010**.",
+      "explanationAr": "**المفهوم:** XOR بتّيًا بين العددين.\n\n**الخطوات:**\n  1111\n⊕ 0101\n──────\n  1010\n(1⊕0=1, 1⊕1=0, 1⊕0=1, 1⊕1=0)\nالنتيجة: **1010**.\n\n**تذكّر:** XOR مع 1 يقلب البت، ومع 0 يبقيه كما هو."
+    }
+  ]
+}

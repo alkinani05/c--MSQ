@@ -1,0 +1,31 @@
+{
+  "_note": "Replace these placeholder rows with the real Cybersecurity Engineering roster. Each student needs: id, name, email, password.",
+  "students": [
+    { "id": 1,  "name": "Student 01",  "email": "cs25m1@almustafauniversity.edu.iq",  "password": "cs111111" },
+    { "id": 2,  "name": "Student 02",  "email": "cs25m2@almustafauniversity.edu.iq",  "password": "cs111112" },
+    { "id": 3,  "name": "Student 03",  "email": "cs25m3@almustafauniversity.edu.iq",  "password": "cs111113" },
+    { "id": 4,  "name": "Student 04",  "email": "cs25m4@almustafauniversity.edu.iq",  "password": "cs111114" },
+    { "id": 5,  "name": "Student 05",  "email": "cs25m5@almustafauniversity.edu.iq",  "password": "cs111115" },
+    { "id": 6,  "name": "Student 06",  "email": "cs25m6@almustafauniversity.edu.iq",  "password": "cs111116" },
+    { "id": 7,  "name": "Student 07",  "email": "cs25m7@almustafauniversity.edu.iq",  "password": "cs111117" },
+    { "id": 8,  "name": "Student 08",  "email": "cs25m8@almustafauniversity.edu.iq",  "password": "cs111118" },
+    { "id": 9,  "name": "Student 09",  "email": "cs25m9@almustafauniversity.edu.iq",  "password": "cs111119" },
+    { "id": 10, "name": "Student 10",  "email": "cs25m10@almustafauniversity.edu.iq", "password": "cs111120" },
+    { "id": 11, "name": "Student 11",  "email": "cs25m11@almustafauniversity.edu.iq", "password": "cs111121" },
+    { "id": 12, "name": "Student 12",  "email": "cs25m12@almustafauniversity.edu.iq", "password": "cs111122" },
+    { "id": 13, "name": "Student 13",  "email": "cs25m13@almustafauniversity.edu.iq", "password": "cs111123" },
+    { "id": 14, "name": "Student 14",  "email": "cs25m14@almustafauniversity.edu.iq", "password": "cs111124" },
+    { "id": 15, "name": "Student 15",  "email": "cs25m15@almustafauniversity.edu.iq", "password": "cs111125" },
+    { "id": 16, "name": "Student 16",  "email": "cs25m16@almustafauniversity.edu.iq", "password": "cs111126" },
+    { "id": 17, "name": "Student 17",  "email": "cs25m17@almustafauniversity.edu.iq", "password": "cs111127" },
+    { "id": 18, "name": "Student 18",  "email": "cs25m18@almustafauniversity.edu.iq", "password": "cs111128" },
+    { "id": 19, "name": "Student 19",  "email": "cs25m19@almustafauniversity.edu.iq", "password": "cs111129" },
+    { "id": 20, "name": "Student 20",  "email": "cs25m20@almustafauniversity.edu.iq", "password": "cs111130" },
+    { "id": 21, "name": "Student 21",  "email": "cs25m21@almustafauniversity.edu.iq", "password": "cs111131" },
+    { "id": 22, "name": "Student 22",  "email": "cs25m22@almustafauniversity.edu.iq", "password": "cs111132" },
+    { "id": 23, "name": "Student 23",  "email": "cs25m23@almustafauniversity.edu.iq", "password": "cs111133" },
+    { "id": 24, "name": "Student 24",  "email": "cs25m24@almustafauniversity.edu.iq", "password": "cs111134" },
+    { "id": 25, "name": "Student 25",  "email": "cs25m25@almustafauniversity.edu.iq", "password": "cs111135" },
+    { "id": 99, "name": "Demo Student", "email": "demo@almustafauniversity.edu.iq",    "password": "demo1234" }
+  ]
+}
