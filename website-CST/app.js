@@ -66,13 +66,9 @@ async function boot() {
         return;
     }
 
-    // Restore session
-    const savedAuth = localStorage.getItem(STORE.AUTH);
-    if (savedAuth) {
-        try {
-            state.user = JSON.parse(savedAuth);
-        } catch { /* ignore */ }
-    }
+    // Open-access mode: no login. Each browser gets a stable anonymous
+    // identity so per-user stats and exam-attempt lockouts still work.
+    ensureGuestUser();
 
     document.getElementById('logoutBtn').addEventListener('click', logout);
 
@@ -80,13 +76,18 @@ async function boot() {
     initKeyboard();
 }
 
-function routeFromState() {
-    if (!state.user) {
-        renderLogin();
-    } else {
-        renderUserBadge();
-        renderHome();
+function ensureGuestUser() {
+    const saved = localStorage.getItem(STORE.AUTH) || sessionStorage.getItem(STORE.AUTH);
+    if (saved) {
+        try { state.user = JSON.parse(saved); return; } catch { /* fall through */ }
     }
+    const gid = 'g_' + Math.random().toString(36).slice(2, 10);
+    state.user = { id: gid, name: 'Guest', email: `${gid}@local` };
+    localStorage.setItem(STORE.AUTH, JSON.stringify(state.user));
+}
+
+function routeFromState() {
+    renderHome();
 }
 
 /* ---------- Theme ---------- */
@@ -425,7 +426,7 @@ function renderQuiz() {
     if (shell) shell.classList.toggle('exam-mode', q.mode === 'exam');
     $('.quiz-mode-badge').textContent = q.mode === 'practice' ? 'PRACTICE' : (q.mode === 'quick' ? 'QUICK DRILL' : 'EXAM');
     $('.quiz-chapter-title').textContent = q.title;
-    $('.quiz-student').textContent = `Student: ${state.user.name}`;
+    $('.quiz-student').textContent = state.user.name === 'Guest' ? '' : `Student: ${state.user.name}`;
 
     $('[data-action="exit"]').addEventListener('click', () => {
         const msg = q.mode === 'exam'
@@ -873,7 +874,7 @@ function renderResult() {
 
     const q = state.quiz;
 
-    $('.result-student').textContent = `${state.user.name} · ${state.user.email}`;
+    $('.result-student').textContent = state.user.name === 'Guest' ? '' : `${state.user.name} · ${state.user.email}`;
     $('.result-title').textContent = q.score.pct >= 80
         ? '🎉 Excellent work!'
         : q.score.pct >= 60
