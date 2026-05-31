@@ -693,6 +693,7 @@ function revealCorrect() {
     fb.innerHTML = `
         <strong>${chosen === correct ? '✓ Correct.' : `✗ Correct answer: ${correct}.`}</strong>
         <div style="margin-top:6px">${renderInline(cur.explanation)}</div>
+        ${cur.explanationAr ? `<div class="explain-ar" dir="rtl" lang="ar"><span class="explain-ar-tag">شرح بالعربية</span>${renderInline(cur.explanationAr)}</div>` : ''}
     `;
 }
 
@@ -967,6 +968,7 @@ function paintReview(filter) {
                 </div>` : ''}
             </div>
             <div class="review-explain">${renderInline(qq.explanation)}</div>
+            ${qq.explanationAr ? `<div class="review-explain explain-ar" dir="rtl" lang="ar"><span class="explain-ar-tag">شرح بالعربية</span>${renderInline(qq.explanationAr)}</div>` : ''}
         `;
         list.appendChild(item);
     });
