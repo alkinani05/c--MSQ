@@ -1208,13 +1208,15 @@ function validateQuestions(qs) {
         if (typeof q.id !== 'number' && typeof q.id !== 'string') reasons.push('missing id');
         if (typeof q.chapter !== 'number') reasons.push('chapter not number');
         if (typeof q.stem !== 'string' || !q.stem.trim()) reasons.push('empty stem');
-        if (!Array.isArray(q.options) || q.options.length !== 4) reasons.push('options !=4');
+        if (!Array.isArray(q.options) || q.options.length < 2 || q.options.length > 6) reasons.push('options out of range (2-6)');
         else {
             const letters = q.options.map(o => o && o.letter).join('');
-            if (letters !== 'ABCD') reasons.push(`option letters=${letters}`);
+            const expected = 'ABCDEF'.slice(0, q.options.length);
+            if (letters !== expected) reasons.push(`option letters=${letters}`);
             if (q.options.some(o => !o || typeof o.text !== 'string')) reasons.push('option text missing');
         }
-        if (!['A', 'B', 'C', 'D'].includes(q.answer)) reasons.push('answer not A-D');
+        const validAnswers = q.options ? q.options.map(o => o && o.letter) : [];
+        if (!validAnswers.includes(q.answer)) reasons.push('answer not in options');
         if (typeof q.explanation !== 'string') reasons.push('explanation missing');
         if (reasons.length) dropped.push({ id: q.id, chapter: q.chapter, reasons });
         else ok.push(q);
